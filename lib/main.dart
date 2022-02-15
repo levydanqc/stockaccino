@@ -75,6 +75,56 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            // Container(
+            //   margin: const EdgeInsets.only(bottom: 20),
+            //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            //   decoration: const BoxDecoration(
+            //     color: Colors.blue,
+            //   ),
+            //   child: const Text('Username'),
+            //   alignment: Alignment.center,
+            // ),
+            AppBar(
+              title: const Text('Username'),
+              automaticallyImplyLeading: false,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+            ListTile(
+              title: const Text('Trending'),
+              leading: const Icon(Icons.trending_up_rounded),
+              iconColor: Colors.black,
+              textColor: Colors.black,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('My Shares'),
+              leading: const Icon(Icons.monetization_on_outlined),
+              iconColor: Colors.black,
+              textColor: Colors.black,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
