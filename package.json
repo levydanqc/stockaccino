@@ -1,0 +1,26 @@
+{
+  "name": "stockaccino",
+  "version": "1.0.0",
+  "description": "<details>   <summary>Installer le projet</summary>",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levydanqc/stockApp.git"
+  },
+  "author": "Olivier Poitras, Simon Leger, Dan Levy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/levydanqc/stockApp/issues"
+  },
+  "homepage": "https://github.com/levydanqc/stockApp#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1"
+  }
+}

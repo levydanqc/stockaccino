@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'states/home.dart';
 
-class StockApp extends StatelessWidget {
-  const StockApp({Key? key}) : super(key: key);
+class Stockaccino extends StatelessWidget {
+  const Stockaccino({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -22,7 +22,7 @@ class StockApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

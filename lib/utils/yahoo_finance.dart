@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'api_routes.dart' as api;
+import 'const.dart' as api;
 import 'package:http/http.dart' as http;
 
 class Yahoo {
@@ -23,7 +23,7 @@ class Yahoo {
   }
 
   static dynamic getTrending({required String apiKey}) {
-    return getData(url: api.routes['trending'], apiKey: apiKey);
+    return getData(url: api.ROUTES['trending'], apiKey: apiKey);
   }
 
   static dynamic getDetails(
@@ -34,7 +34,7 @@ class Yahoo {
       "lang": "en",
     };
     return getData(
-        url: api.routes['details'] +
+        url: api.ROUTES['details'] +
             '?' +
             Uri.parse(queryParameters.entries
                 .map((e) => e.key + '=' + e.value.toString())
@@ -45,7 +45,7 @@ class Yahoo {
   static dynamic getRecommendations(
       {required String apiKey, required String symbol}) async {
     return getData(
-        url: api.routes['recommendations'] + '/' + symbol, apiKey: apiKey);
+        url: api.ROUTES['recommendations'] + '/' + symbol, apiKey: apiKey);
   }
 
   static dynamic getAutocomplete(
@@ -56,7 +56,7 @@ class Yahoo {
       "lang": "en",
     };
     return getData(
-        url: api.routes['autocomplete'] +
+        url: api.ROUTES['autocomplete'] +
             '?' +
             Uri.parse(queryParameters.entries
                 .map((e) => e.key + '=' + e.value.toString())

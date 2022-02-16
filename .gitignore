@@ -1,9 +1,9 @@
+node_modules/
 .private*
 ios/
 android/
 macos/
 windows/
-web/
 test/
 
 # Miscellaneous

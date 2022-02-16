@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stock_app/stock_app.dart';
+import 'package:stockaccino/stockaccino.dart';
 
-void main() {
-  runApp(const StockApp());
+import 'class/database.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  MongoDatabase.connect();
+  runApp(const Stockaccino());
 }

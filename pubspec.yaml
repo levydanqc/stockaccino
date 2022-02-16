@@ -1,4 +1,4 @@
-name: stock_app
+name: stockaccino
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -30,6 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
   http:
+  crypto:
+  js:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

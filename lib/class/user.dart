@@ -1,17 +1,21 @@
 class User {
-  late String nom;
-  late String prenom;
-  late String email;
-  late String pwd;
+  final String nom;
+  final String prenom;
+  final String email;
+  final String pwd;
 
-  User(String pNom, String pPrenom, String pEmail, String pPwd) {
-    nom = pNom;
-    prenom = pPrenom;
-    email = pEmail;
-    pwd = pPwd;
+  User(
+      {required this.nom,
+      required this.prenom,
+      required this.email,
+      required this.pwd});
 
-    saveToDB();
+  Map<String, dynamic> toJson() {
+    return {
+      'nom': nom,
+      'prenom': prenom,
+      'email': email,
+      'pwd': pwd,
+    };
   }
-
-  void saveToDB() {}
 }
