@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:stock_app/utils/yahoo_finance.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -20,6 +22,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String? apiKey;
+
+  @override
+  void initState() {
+    rootBundle.loadString('.env').then((value) {
+      setState(() {
+        apiKey = value.split('=')[1];
+        print("API KEY: $apiKey");
+      });
+    });
+    super.initState();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -115,14 +129,28 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            TextButton.icon(
+                onPressed: () {
+                  Yahoo.getTrending(apiKey).then((value) {
+                    print(value);
+                  });
+                },
+                style: ButtonStyle(
+                  textStyle: MaterialStateProperty.all<TextStyle>(
+                    const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.red.shade900),
+                ),
+                icon: const Icon(Icons.local_fire_department_outlined),
+                label: const Text("Get Trending")),
           ],
         ),
       ),
