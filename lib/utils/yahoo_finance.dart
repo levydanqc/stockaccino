@@ -3,10 +3,12 @@ import 'api_routes.dart' as api;
 import 'package:http/http.dart' as http;
 
 class Yahoo {
-
-  static dynamic getTrending(apiKey) async {
+  static dynamic getData(
+      {required String url,
+      required String apiKey,
+      List<String>? params}) async {
     final response = await http.get(
-      Uri.parse(api.routes['trending']),
+      Uri.parse(url),
       headers: {
         "x-api-key": apiKey,
         "Content-type": "application/json",
@@ -14,6 +16,51 @@ class Yahoo {
     );
     String parsedata = response.body;
     var data = jsonDecode(parsedata);
+    if (data['message'] == 'Forbidden') {
+      throw Exception('Forbidden');
+    }
     return data;
+  }
+
+  static dynamic getTrending({required String apiKey}) {
+    return getData(url: api.routes['trending'], apiKey: apiKey);
+  }
+
+  static dynamic getDetails(
+      {required List<dynamic> stocks, required String apiKey}) async {
+    Map queryParameters = {
+      "symbols": stocks.join(','),
+      "region": "CA",
+      "lang": "en",
+    };
+    return getData(
+        url: api.routes['details'] +
+            '?' +
+            Uri.parse(queryParameters.entries
+                .map((e) => e.key + '=' + e.value.toString())
+                .join('&')),
+        apiKey: apiKey);
+  }
+
+  static dynamic getRecommendations(
+      {required String apiKey, required String symbol}) async {
+    return getData(
+        url: api.routes['recommendations'] + '/' + symbol, apiKey: apiKey);
+  }
+
+  static dynamic getAutocomplete(
+      {required String apiKey, required String query}) async {
+    Map queryParameters = {
+      "query": query,
+      "region": "CA",
+      "lang": "en",
+    };
+    return getData(
+        url: api.routes['autocomplete'] +
+            '?' +
+            Uri.parse(queryParameters.entries
+                .map((e) => e.key + '=' + e.value.toString())
+                .join('&')),
+        apiKey: apiKey);
   }
 }

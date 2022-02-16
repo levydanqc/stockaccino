@@ -22,14 +22,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  String? apiKey;
+  String apiKey= "";
 
   @override
   void initState() {
     rootBundle.loadString('.env').then((value) {
       setState(() {
         apiKey = value.split('=')[1];
-        print("API KEY: $apiKey");
       });
     });
     super.initState();
@@ -135,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextButton.icon(
                 onPressed: () {
-                  Yahoo.getTrending(apiKey).then((value) {
+                  Yahoo.getTrending(apiKey: apiKey).then((value) {
                     print(value);
                   });
                 },
