@@ -5,6 +5,7 @@ android/
 macos/
 windows/
 test/
+web/
 
 # Miscellaneous
 *.class

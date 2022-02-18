@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:stockaccino/class/database.dart';
 import 'package:stockaccino/utils/yahoo_finance.dart';
 
+import '../class/user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.title}) : super(key: key);
@@ -23,7 +25,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
-  String apiKey= "";
+  String apiKey = "";
+  User user = User(
+      nom: "Beaulieu",
+      prenom: "Yann",
+      email: "ybeaulieu@mongo.ca",
+      password: "123456");
 
   @override
   void initState() {
@@ -32,6 +39,7 @@ class _HomePageState extends State<HomePage> {
         apiKey = value.split('=')[1];
       });
     });
+
     super.initState();
   }
 
@@ -135,9 +143,6 @@ class _HomePageState extends State<HomePage> {
             ),
             TextButton.icon(
                 onPressed: () {
-                  Yahoo.getTrending(apiKey: apiKey).then((value) {
-                    print(value);
-                  });
                 },
                 style: ButtonStyle(
                   textStyle: MaterialStateProperty.all<TextStyle>(
@@ -155,7 +160,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Yahoo.getTrending(apiKey: apiKey).then((value) {
+            print(value);
+          });
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
