@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
-  String apiKey = "";
+  String yahooKey = "";
   User user = User(
       nom: "Beaulieu",
       prenom: "Yann",
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     rootBundle.loadString('.env').then((value) {
       setState(() {
-        apiKey = value.split('=')[1];
+        yahooKey = value.split('=')[1];
       });
     });
 
@@ -142,8 +142,7 @@ class _HomePageState extends State<HomePage> {
               'You have pushed the button this many times:',
             ),
             TextButton.icon(
-                onPressed: () {
-                },
+                onPressed: () {},
                 style: ButtonStyle(
                   textStyle: MaterialStateProperty.all<TextStyle>(
                     const TextStyle(
@@ -161,7 +160,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Yahoo.getTrending(apiKey: apiKey).then((value) {
+          Yahoo.getTrending(apiKey: yahooKey).then((value) {
             print(value);
           });
         },
