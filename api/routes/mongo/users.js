@@ -1,8 +1,8 @@
-const users = require('./mongo')
+const dbUsers = require('./mongo')
 
 function users(req, res) {
     res.send('{"user":"Dan","test":"true"}');
-    users.find().toArray().then(result => {
+    dbUsers.find().toArray().then(result => {
         res.json(result);
     })
         .catch(error => {
