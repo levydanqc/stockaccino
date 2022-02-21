@@ -51,7 +51,8 @@ class _HomePageState extends State<HomePage> {
 
   void _incrementCounter() {
     setState(() {
-      _db.test();
+      _yahoo.getTrending().then((value) => print(value));
+      // _db.test().then((value) => print(value));
       // _yahoo.getTrending();
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below

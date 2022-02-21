@@ -6,8 +6,8 @@ class YahooFinance {
 
   YahooFinance({required this.apiKey});
 
-  dynamic getTrending() {
-    return fetchData(
+  Future<Map> getTrending() async {
+    return await fetchData(
         url: yahooBaseUrl + yahooEndpoint['trending'], apiKey: apiKey);
   }
 

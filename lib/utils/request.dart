@@ -17,12 +17,19 @@ Future<Map> fetchData(
       url += '$key=$value&';
     });
   }
+  print(url);
+  print(apiKey);
   var response = await http.get(
     Uri.parse(url),
     headers: {
       "x-api-key": apiKey,
+      'User-Agent': 'Stockaccino App',
       "Content-type": "application/json",
+      "Accept": "*/*",
+      "Connection": "keep-alive",
     },
   );
+  print(response.statusCode);
+  print(response.body);
   return json.decode(response.body);
 }
