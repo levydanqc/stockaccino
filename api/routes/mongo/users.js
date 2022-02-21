@@ -1,7 +1,7 @@
-const { connectDb, getDb } = require('./mongo');
+const { connectDb, getColl } = require('./mongo');
 
 var dB;
-connectDb(() => ( db = getDb("Users") ));
+connectDb(() => ( db = getColl("Users") ));
 
 
 function getUsers(req, res) {
@@ -13,3 +13,6 @@ function getUsers(req, res) {
             res.status(400).send("Error fetching!");
         });
 }
+
+
+module.exports = getUsers;

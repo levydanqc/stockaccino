@@ -1,5 +1,5 @@
 const tx2 = require('tx2');
-const token = require('./const');
+const env = require('./const');
 
 var validRequests = tx2.counter({
     name: 'Valid Requests',
@@ -10,7 +10,7 @@ var invalidRequests = tx2.counter({
 
 module.exports = function (app) {
     app.use(function (req, res, next) {
-        if (req.header('x-api-key') == token) {
+        if (req.header('x-api-key') == env.token) {
             validRequests.inc();
             next();
         }
