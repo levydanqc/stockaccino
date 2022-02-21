@@ -1,8 +1,11 @@
-const dbUsers = require('./mongo')
+const { connectDb, getDb } = require('./mongo');
 
-function users(req, res) {
-    res.send('{"user":"Dan","test":"true"}');
-    dbUsers.find().toArray().then(result => {
+var dB;
+connectDb(() => ( db = getDb("Users") ));
+
+
+function getUsers(req, res) {
+    db.find().toArray().then(result => {
         res.json(result);
     })
         .catch(error => {
@@ -10,5 +13,3 @@ function users(req, res) {
             res.status(400).send("Error fetching!");
         });
 }
-
-module.exports = users;

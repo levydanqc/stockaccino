@@ -1,16 +1,24 @@
 const { MongoClient } = require("mongodb");
 const env = require('../const')
 
-const client = new MongoClient(env.mongoUrl, {
-    useUnifiedTopology: true,
-});
+var db;
 
-async function connectDB() {
-    await client.connect();
-    const db = client.db('stockaccino');
-    return db.collection('Users');
+const connectDb = (callback) => {
+    if (db) return callback();
+    MongoClient.connect(env.mongoUrl, { useUnifiedTopology: true },
+        (err, database) => {
+            if (err) return console.log(err);
+            db = database.db("stockaccino");
+            callback();
+        }
+    )
 }
 
-const users = connectDB();
+const getColl = (collectionToGet) => {
+    return db.collection(collectionToGet);
+}
 
-module.exports = users;
+module.exports = {
+    connectDb,
+    getColl,
+}
