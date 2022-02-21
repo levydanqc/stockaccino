@@ -37,9 +37,7 @@ class _HomePageState extends State<HomePage> {
     rootBundle.loadString('.env').then((value) {
       setState(() {
         for (String line in value.split('\n')) {
-          if (line.startsWith('YAHOO_KEY')) {
-            _yahoo = YahooFinance(apiKey: line.split('=')[1]);
-          } else if (line.startsWith('MONGO_KEY')) {
+          if (line.startsWith('MONGO_KEY')) {
             _db = MongoDatabase(apiKey: line.split('=')[1]);
           }
         }
