@@ -1,11 +1,16 @@
-// import { mongoUrl } from "../const";
-const mongoUrl = require('../const')
-const client = new MongoClient(mongoUrl, {
+const { MongoClient } = require("mongodb");
+const env = require('../const')
+
+const client = new MongoClient(env.mongoUrl, {
     useUnifiedTopology: true,
 });
 
-await client.connect();
-const db = client.db('stockaccino');
-const users = db.collection('Users');
+async function connectDB() {
+    await client.connect();
+    const db = client.db('stockaccino');
+    return db.collection('Users');
+}
 
-module.exports = { users };
+const users = connectDB();
+
+module.exports = users;

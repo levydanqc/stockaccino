@@ -1,4 +1,4 @@
-const yahooKey = require('../const')
+const env = require('../const')
 
 function trending(req, res) {
     res.send('{"user":"Dan","test":"true"}');
