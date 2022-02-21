@@ -1,10 +1,21 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
 import 'user.dart';
+import '../utils/request.dart';
+import '../utils/const.dart';
 
 class MongoDatabase {
-  void getUser() async {
-    var response = await http.get(Uri.parse('http://192.168.50.100:3000/'));
+  final String apiKey;
+
+  MongoDatabase({required this.apiKey});
+
+  Future<Map> test() async {
+    var response = await fetchData(
+        url: mongoBaseUrl + mongoEndpoint["test"], apiKey: apiKey);
+    return response;
+  }
+
+  Future<User> getUser() async {
+    var response = await fetchData(
+        url: mongoBaseUrl + mongoEndpoint["users"], apiKey: apiKey);
+    return User.fromJson(response);
   }
 }

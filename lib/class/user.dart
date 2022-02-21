@@ -18,4 +18,13 @@ class User {
       'password': password,
     };
   }
+
+  static User fromJson(Map response) {
+    return User(
+      nom: response['nom'],
+      prenom: response['prenom'],
+      email: response['email'],
+      password: response['password'],
+    );
+  }
 }

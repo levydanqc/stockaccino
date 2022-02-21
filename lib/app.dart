@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'states/home.dart';
+import 'package:stockaccino/states/home.dart';
 
 class Stockaccino extends StatelessWidget {
   const Stockaccino({Key? key}) : super(key: key);
@@ -9,7 +8,6 @@ class Stockaccino extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,7 +20,10 @@ class Stockaccino extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.red,
       ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: HomePage.id,
+      routes: {
+        HomePage.id: (_) => const HomePage(),
+      },
     );
   }
 }

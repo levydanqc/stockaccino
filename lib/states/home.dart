@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:stockaccino/class/database.dart';
-import 'package:stockaccino/utils/yahoo_finance.dart';
+import 'package:stockaccino/class/yahoo_finance.dart';
 
 import '../class/user.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.title}) : super(key: key);
+  static const id = '/';
+
+  const HomePage({Key? key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -17,15 +19,13 @@ class HomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-  String yahooKey = "";
+  late MongoDatabase _db;
+  late YahooFinance _yahoo;
   User user = User(
       nom: "Beaulieu",
       prenom: "Yann",
@@ -36,7 +36,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     rootBundle.loadString('.env').then((value) {
       setState(() {
-        yahooKey = value.split('=')[1];
+        for (String line in value.split('\n')) {
+          if (line.startsWith('YAHOO_KEY')) {
+            _yahoo = YahooFinance(apiKey: line.split('=')[1]);
+          } else if (line.startsWith('MONGO_KEY')) {
+            _db = MongoDatabase(apiKey: line.split('=')[1]);
+          }
+        }
       });
     });
 
@@ -45,12 +51,13 @@ class _HomePageState extends State<HomePage> {
 
   void _incrementCounter() {
     setState(() {
+      _db.test();
+      // _yahoo.getTrending();
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
     });
   }
 
@@ -66,7 +73,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text("Stockaccino"),
       ),
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
@@ -159,11 +166,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Yahoo.getTrending(apiKey: yahooKey).then((value) {
-            print(value);
-          });
-        },
+        onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
