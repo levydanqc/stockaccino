@@ -1,0 +1,15 @@
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/DotNet.Docker
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/DotNet.Docker.deps.json
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/DotNet.Docker.runtimeconfig.json
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/DotNet.Docker.dll
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/ref/DotNet.Docker.dll
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/DotNet.Docker.pdb
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/obj/Release/net6.0/DotNet.Docker.csproj.AssemblyReference.cache
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/obj/Release/net6.0/DotNet.Docker.GeneratedMSBuildEditorConfig.editorconfig
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/obj/Release/net6.0/DotNet.Docker.AssemblyInfoInputs.cache
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/obj/Release/net6.0/DotNet.Docker.AssemblyInfo.cs
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/obj/Release/net6.0/DotNet.Docker.csproj.CoreCompileInputs.cache
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/obj/Release/net6.0/DotNet.Docker.dll
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/obj/Release/net6.0/ref/DotNet.Docker.dll
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/obj/Release/net6.0/DotNet.Docker.pdb
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/obj/Release/net6.0/DotNet.Docker.genruntimeconfig.cache

@@ -1,0 +1,5 @@
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/publish/DotNet.Docker
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/publish/DotNet.Docker.dll
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/publish/DotNet.Docker.deps.json
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/publish/DotNet.Docker.runtimeconfig.json
+/Users/danlevy/Library/Mobile Documents/com~apple~CloudDocs/Technique_informatique/4_Session/stockaccino/back-end/bin/Release/net6.0/publish/DotNet.Docker.pdb
