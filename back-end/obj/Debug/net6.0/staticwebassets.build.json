@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "aerEVyLCCNS4Hj6f0D87gG8QQBzHZNHz9Weibb9wR/M=",
+  "Source": "DotNet.Docker",
+  "BasePath": "_content/DotNet.Docker",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
