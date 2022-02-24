@@ -1,17 +1,28 @@
+using Microsoft.Extensions.DependencyInjection;
 using Stockaccino.Models;
 using Stockaccino.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration["MongoConnectionString"];
+
+builder.Configuration.AddEnvironmentVariables();
+
 // Add services to the container.
 builder.Services.Configure<UserDatabaseSettings>(
     builder.Configuration.GetSection("StockaccinoDatabase"));
-    builder.Services.AddSingleton<UsersService>();
+
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
+builder.Services.AddSingleton<UsersService>();
+//YahooService yahooService = new YahooService();
+//builder.Services.AddSingleton<YahooService>(yahooService);
+
+
 builder.Services.AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -22,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

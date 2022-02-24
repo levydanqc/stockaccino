@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Stockaccino.Controllers;
 
 [ApiController]
-[Route("mongo/[controller]")]
+[Route("[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly UsersService _usersService;
@@ -14,8 +14,10 @@ public class UsersController : ControllerBase
         _usersService = usersService;
 
     [HttpGet]
-    public async Task<List<User>> Get() =>
-        await _usersService.GetAsync();
+    public async Task<List<User>> Get()
+    {
+        return await _usersService.GetAsync();
+    }
 
     [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<User>> Get(string id)
