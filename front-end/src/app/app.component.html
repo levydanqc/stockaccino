@@ -1,1 +1,10 @@
-<h1>{{title}}</h1>
+<h1>{{ title}}</h1>
+<nav>
+  <ul>
+    <li><a routerLink="home" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="login" routerLinkActive="active">Login</a></li>
+    <li><a routerLink="sign" routerLinkActive="active">Sign</a></li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>
