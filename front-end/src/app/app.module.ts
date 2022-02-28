@@ -19,6 +19,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { SigninComponent } from './components/signin/signin.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SigninComponent } from './components/signin/signin.component';
     LoginComponent,
     SidenavComponent,
     SigninComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,6 @@ import { SigninComponent } from './components/signin/signin.component';
     MatListModule,
   ],
   providers: [],
-  bootstrap: [AppComponent, SidenavComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
