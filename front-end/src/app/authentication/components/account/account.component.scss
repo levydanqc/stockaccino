@@ -1,0 +1,28 @@
+@import "../../../../theme.scss";
+
+$primary: map-get($theme, primary);
+$black: #232323;
+
+.authentication {
+  height: 100%;
+}
+
+mat-card-title a {
+  text-decoration: none;
+  color: $black;
+  padding: 0.5rem 1.5rem;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+}
+
+mat-form-field {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.active {
+  border-bottom: 0.5rem solid mat-color($primary);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
