@@ -4,21 +4,25 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'account',
-    loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
+    loadChildren: () =>
+      import('./authentication/authentication.module').then(
+        (m) => m.AuthenticationModule
+      ),
   },
   {
     path: '',
-    loadChildren: () => import('./home/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.DashboardModule),
   },
-  // {
-  //   path: '**',
-  //   redirectTo: '',
-  //   pathMatch: 'full'
-  // }
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

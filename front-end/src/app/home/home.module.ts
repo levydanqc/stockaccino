@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardRoutingModule } from './home-routing.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
