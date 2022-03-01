@@ -1,1 +1,15 @@
-<p>history works!</p>
+<div class="DashBoardContainer">
+
+    <h1>Historique des transactions</h1>
+    <div class="DashBoardContent">
+
+        <ul>
+            <div *ngFor="let transaction of transactions" class="transaction">
+
+                <li>{{transaction.name}}</li>
+
+            </div>
+        </ul>
+
+    </div>
+</div>
