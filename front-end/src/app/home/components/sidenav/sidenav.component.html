@@ -22,6 +22,11 @@
         <span *ngIf="isExpanded">Portefeuille</span>
       </mat-list-item>
 
+      <mat-list-item [routerLink]="'settings'">
+        <mat-icon mat-list-icon>manage_accounts</mat-icon>
+        <span *ngIf="isExpanded">Compte</span>
+      </mat-list-item>
+
     </mat-nav-list>
   </mat-sidenav>
 
