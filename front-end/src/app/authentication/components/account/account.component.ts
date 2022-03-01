@@ -11,7 +11,8 @@ export class AccountComponent implements OnInit {
   hide: boolean = true;
   email = new FormControl('', [Validators.required, Validators.email]);
   pwd = new FormControl('', [Validators.required, Validators.minLength(6)]);
-
+  nom = new FormControl('', [Validators.required]);
+  prenom = new FormControl('', [Validators.required]);
   constructor() {}
 
   getEmailError() {
@@ -30,10 +31,17 @@ export class AccountComponent implements OnInit {
       ? 'Le mot de passe doit contenir au moins 6 caractères'
       : '';
   }
-
-  tabChange(tab: number) {
-    console.log(this.isLoggingIn);
-    this.isLoggingIn = tab === 1;
+  getNomError() {
+    if (this.nom.hasError('required')) {
+      return 'Vous devez entrer un nom';
+    }
+    return '';
+  }
+  getPrenomError() {
+    if (this.prenom.hasError('required')) {
+      return 'Vous devez entrer un prénom';
+    }
+    return '';
   }
 
   ngOnInit(): void {}

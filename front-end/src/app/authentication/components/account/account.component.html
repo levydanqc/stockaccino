@@ -1,8 +1,8 @@
 <div class="authentication" fxLayout="row" fxLayoutAlign="center center">
     <mat-card [class.mat-elevation-z24]="true" class="px-0">
         <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
-            <a (click)="tabChange(1)" [ngClass]="{'active': isLoggingIn}">Connexion</a>
-            <a (click)="tabChange(2)" [ngClass]="{'active': !isLoggingIn}">S'inscrire</a>
+            <a (click)="isLoggingIn = true" [ngClass]="{'active': isLoggingIn}">Connexion</a>
+            <a (click)="isLoggingIn = false;" [ngClass]="{'active': !isLoggingIn}">S'inscrire</a>
         </mat-card-title>
         <form class="example-form" class="px-3">
             <mat-card-content fxLayout="column">
@@ -12,6 +12,18 @@
                     <mat-icon matSuffix>alternate_email</mat-icon>
                     <mat-hint>Entrez votre adresse email.</mat-hint>
                     <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="!isLoggingIn">
+                    <mat-label>Nom</mat-label>
+                    <input matInput placeholder="Nom" [formControl]="nom" required>
+                    <mat-hint>Entrez votre nom.</mat-hint>
+                    <mat-error *ngIf="nom.invalid">{{getNomError()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="!isLoggingIn">
+                    <mat-label>Prenom</mat-label>
+                    <input matInput placeholder="prenom" [formControl]="prenom" required>
+                    <mat-hint>Entrez votre prenom.</mat-hint>
+                    <mat-error *ngIf="prenom.invalid">{{getPrenomError()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Enter your password</mat-label>
@@ -25,7 +37,8 @@
                 </mat-form-field>
             </mat-card-content>
             <mat-card-actions>
-                <button fxFill mat-raised-button color="primary" class="">Se connecter</button>
+                <button *ngIf="isLoggingIn" fxFill mat-raised-button color="primary">Se connecter</button>
+                <button *ngIf="!isLoggingIn" fxFill mat-raised-button color="primary">S'inscrire</button>
             </mat-card-actions>
         </form>
     </mat-card>
