@@ -9,7 +9,7 @@ Entrer dans le dossier du projet: `cd stockaccino`
 
 Compiler pour les différentes plateforme: `npm install`
 
-Lancer l'application: `cd front-end` puis `npm run start'
+Lancer l'application: `cd front-end` puis `npm run start`
 
 </details>
 <details>
