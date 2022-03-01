@@ -1,0 +1,35 @@
+<mat-sidenav-container autosize class="h-100">
+  <mat-sidenav #sidenav mode="side" opened="true">
+    <mat-nav-list>
+
+      <mat-list-item (click)="isExpanded = !isExpanded">
+        <mat-icon mat-list-icon class="chevron-button sidenav-button" [ngClass]="{'rotated': isExpanded}">chevron_right
+        </mat-icon>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="''">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <span *ngIf="isExpanded">Dashboard</span>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="'history'">
+        <mat-icon mat-list-icon>history</mat-icon>
+        <span *ngIf="isExpanded">Historique</span>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="'wallet'">
+        <mat-icon mat-list-icon>account_balance_wallet</mat-icon>
+        <span *ngIf="isExpanded">Portefeuille</span>
+      </mat-list-item>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <div class="content">
+    <mat-toolbar>
+      <h4>Hello everyone</h4>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-sidenav-container>

@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./home/dashboard.module').then(m => m.DashboardModule)
   },
   // {
   //   path: '**',

@@ -4,15 +4,13 @@ $material-design-icons-font-directory-path: "~material-design-icons-iconfont/dis
 @import "~material-design-icons-iconfont/src/material-design-icons";
 @import "./theme.scss";
 
-html,
-body,
 main {
-  height: 100%;
+  height: 100vh;
 }
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  min-height: 100vh;
+  min-height: 100%;
   background: #ebeeff;
 }
 
