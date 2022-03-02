@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Stockaccino.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly UsersService _usersService;
@@ -19,17 +19,17 @@ public class UsersController : ControllerBase
         return await _usersService.GetAsync();
     }
 
-    [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<User>> Get(string id)
+    [HttpGet("{email}")]
+    public async Task<ActionResult<User>> Get(string email)
     {
-        var book = await _usersService.GetAsync(id);
+        User? user = await _usersService.GetAsync(email);
 
-        if (book is null)
+        if (user is null)
         {
             return NotFound();
         }
 
-        return book;
+        return user;
     }
 
     [HttpPost]
@@ -43,14 +43,14 @@ public class UsersController : ControllerBase
     [HttpPut("{id:length(24)}")]
     public async Task<IActionResult> Update(string id, User updatedUser)
     {
-        var book = await _usersService.GetAsync(id);
+        User? user = await _usersService.GetAsync(id);
 
-        if (book is null)
+        if (user is null)
         {
             return NotFound();
         }
 
-        updatedUser.Id = book.Id;
+        updatedUser.Id = user.Id;
 
         await _usersService.UpdateAsync(id, updatedUser);
 
@@ -60,9 +60,9 @@ public class UsersController : ControllerBase
     [HttpDelete("{id:length(24)}")]
     public async Task<IActionResult> Delete(string id)
     {
-        var book = await _usersService.GetAsync(id);
+        User? user = await _usersService.GetAsync(id);
 
-        if (book is null)
+        if (user is null)
         {
             return NotFound();
         }

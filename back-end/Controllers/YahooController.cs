@@ -4,7 +4,7 @@ using Stockaccino.Services;
 namespace Stockaccino.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class YahooController : ControllerBase
 {
     private readonly YahooService _yahooService;
