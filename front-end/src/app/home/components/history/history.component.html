@@ -3,8 +3,13 @@
     <h1>Historique des transactions</h1>
     <div class="DashBoardContent">
 
-        <ul>
-            <div *ngFor="let transaction of transactions" class="transaction">
+        <div class="floatRight">
+            <div class="legAchat"></div> <p>Achat</p>
+            <div class="legVente"></div> <p>Vente</p>
+        </div>
+
+        <ul class="breakFloat">
+            <div *ngFor="let transaction of transactions" class="transaction {{transaction.style}}">
 
                 <li>{{transaction.name}}</li>
 
