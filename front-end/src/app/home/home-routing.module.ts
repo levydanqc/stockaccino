@@ -4,6 +4,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HistoryComponent } from './components/history/history.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   {
@@ -12,27 +13,31 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: DashboardComponent
+        component: DashboardComponent,
       },
       {
         path: 'history',
-        component: HistoryComponent
+        component: HistoryComponent,
       },
       {
         path: 'settings',
-        component: SettingsComponent
-      }
-    ]
+        component: SettingsComponent,
+      },
+      {
+        path: 'search',
+        component: SearchComponent,
+      },
+    ],
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}

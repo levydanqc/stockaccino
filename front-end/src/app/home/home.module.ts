@@ -9,9 +9,10 @@ import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { HistoryComponent } from './components/history/history.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
-  declarations: [SidenavComponent, DashboardComponent, HistoryComponent, SettingsComponent],
+  declarations: [SidenavComponent, DashboardComponent, HistoryComponent, SettingsComponent, SearchComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

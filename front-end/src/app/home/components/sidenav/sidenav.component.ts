@@ -21,6 +21,8 @@ export class SidenavComponent implements OnInit {
         this.title = 'Transactions';
       } else if (url.url === '/settings') {
         this.title = 'Paramètres';
+      } else if (url.url === '/search') {
+        this.title = 'Recherche';
       }
     });
   }
