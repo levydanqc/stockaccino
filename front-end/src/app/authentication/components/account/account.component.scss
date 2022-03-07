@@ -7,6 +7,14 @@ $black: #232323;
   padding-top: 10%;
 }
 
+.btnPersoTempo {
+  margin: 20px;
+}
+
+.btnPersoTempo:hover {
+  box-shadow: 0px 0px 30px 1px rgba(0,0,0,0.8);
+}
+
 .btnPerso:hover {
   cursor: pointer;
   font-weight: bold;
