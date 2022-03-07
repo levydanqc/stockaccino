@@ -7,10 +7,10 @@
         <form class="example-form" class="px-3">
             <mat-card-content fxLayout="column">
                 <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput placeholder="Email" [formControl]="email" required>
+                    <mat-label>Courriel</mat-label>
+                    <input matInput placeholder="Courriel" [formControl]="email" required>
                     <mat-icon matSuffix>alternate_email</mat-icon>
-                    <mat-hint>Entrez votre adresse email.</mat-hint>
+                    <mat-hint>Entrez votre adresse courriel.</mat-hint>
                     <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" *ngIf="!isLoggingIn">
@@ -20,19 +20,19 @@
                     <mat-error *ngIf="nom.invalid">{{getNomError()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" *ngIf="!isLoggingIn">
-                    <mat-label>Prenom</mat-label>
-                    <input matInput placeholder="prenom" [formControl]="prenom" required>
-                    <mat-hint>Entrez votre prenom.</mat-hint>
+                    <mat-label>Prénom</mat-label>
+                    <input matInput placeholder="Prénom" [formControl]="prenom" required>
+                    <mat-hint>Entrez votre prénom.</mat-hint>
                     <mat-error *ngIf="prenom.invalid">{{getPrenomError()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
-                    <mat-label>Enter your password</mat-label>
+                    <mat-label>Mot de passe</mat-label>
                     <input matInput [type]="hide ? 'password' : 'text'" [formControl]="pwd" required>
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-hint>Entrez un mot de passe.</mat-hint>
+                    <mat-hint>Entrez votre mot de passe.</mat-hint>
                     <mat-error *ngIf="pwd.invalid">{{getPwdError()}}</mat-error>
                 </mat-form-field>
             </mat-card-content>
