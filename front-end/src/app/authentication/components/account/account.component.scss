@@ -7,6 +7,11 @@ $black: #232323;
   padding-top: 10%;
 }
 
+.btnPerso:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
 mat-card-title a {
   text-decoration: none;
   color: $black;

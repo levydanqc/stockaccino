@@ -1,8 +1,8 @@
 <div class="authentication" fxLayout="row" fxLayoutAlign="center start">
     <mat-card [class.mat-elevation-z24]="true" class="px-0">
         <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
-            <a (click)="isLoggingIn = true" [ngClass]="{'active': isLoggingIn}">Connexion</a>
-            <a (click)="isLoggingIn = false;" [ngClass]="{'active': !isLoggingIn}">S'inscrire</a>
+            <a class="btnPerso" (click)="isLoggingIn = true" [ngClass]="{'active': isLoggingIn}">Connexion</a>
+            <a class="btnPerso" (click)="isLoggingIn = false;" [ngClass]="{'active': !isLoggingIn}">S'inscrire</a>
         </mat-card-title>
         <form class="example-form" class="px-3">
             <mat-card-content fxLayout="column">
