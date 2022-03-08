@@ -1,0 +1,38 @@
+<mat-form-field appearance="outline">
+    <mat-label>Courriel</mat-label>
+    <input matInput placeholder="Courriel" [formControl]="email" required>
+    <mat-icon matSuffix>alternate_email</mat-icon>
+    <mat-hint>Entrez votre adresse courriel.</mat-hint>
+    <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
+</mat-form-field>
+<mat-form-field appearance="outline">
+    <mat-label>Nom</mat-label>
+    <input matInput placeholder="Nom" [formControl]="nom" required>
+    <mat-hint>Entrez votre nom.</mat-hint>
+    <mat-error *ngIf="nom.invalid">{{getNomError()}}</mat-error>
+</mat-form-field>
+<mat-form-field appearance="outline">
+    <mat-label>Prénom</mat-label>
+    <input matInput placeholder="Prénom" [formControl]="prenom" required>
+    <mat-hint>Entrez votre prénom.</mat-hint>
+    <mat-error *ngIf="prenom.invalid">{{getPrenomError()}}</mat-error>
+</mat-form-field>
+<mat-form-field appearance="outline">
+    <mat-label>Mot de passe</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="pwd" required>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-hint>Entrez votre mot de passe.</mat-hint>
+    <mat-error *ngIf="pwd.invalid">{{getPwdError()}}</mat-error>
+</mat-form-field>
+<mat-form-field appearance="outline">
+    <mat-label>Confirmer le mot de passe</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="confirmPwd" (keyup)="matchPwd()" required>
+    <mat-hint>Entrez votre mot de passe.</mat-hint>
+    <mat-error *ngIf="confirmPwd.invalid">{{getConfirmPwdError()}}</mat-error>
+</mat-form-field>
+<mat-card-actions>
+    <button fxFill mat-raised-button color="primary">S'inscrire</button>
+</mat-card-actions>

@@ -1,0 +1,10 @@
+<mat-form-field appearance="outline">
+    <mat-label>Courriel</mat-label>
+    <input matInput placeholder="Courriel" [formControl]="email" required>
+    <mat-icon matSuffix>alternate_email</mat-icon>
+    <mat-hint>Entrez votre adresse courriel.</mat-hint>
+    <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
+</mat-form-field>
+<mat-card-actions>
+    <button fxFill mat-raised-button color="primary">Réinitialiser</button>
+</mat-card-actions>

@@ -1,0 +1,30 @@
+<a href="" style="position: absolute; top: 0; left: 0; margin: 20px; cursor: pointer;"><button
+        class="btn btn-dark btnPersoTempo">Retour (temporaire,
+        pour tester)</button></a>
+<div class="authentication" fxLayout="row" fxLayoutAlign="center start">
+    <mat-card [class.mat-elevation-z24]="true" class="px-0">
+        <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
+            <button mat-flat-button class="btnPerso" (click)="switchForm('login')"
+                [ngClass]="{'active': showLogin}">Connexion</button>
+            <button mat-flat-button class="btnPerso" (click)="switchForm('signin')"
+                [ngClass]="{'active': showSignin}">S'inscrire</button>
+        </mat-card-title>
+
+        <form [formGroup]="form" class="example-form" class="px-3" (submit)="onSubmit()">
+            <mat-card-content>
+                <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="form" [pwd]="pwd" [getEmailError]="getEmailError"
+                    [getPwdError]="getPwdError"></app-login>
+                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd" [getEmailError]="getEmailError"
+                    [getPwdError]="getPwdError">
+                </app-signin>
+                <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="form" [getEmailError]="getEmailError">
+                </app-reset>
+            </mat-card-content>
+        </form>
+
+        <mat-card-footer class="w-100" fxLayoutAlign="end end">
+            <button mat-flat-button (click)="switchForm('reset')" [ngClass]="{'active': showReset}">Mot de passe
+                oublié</button>
+        </mat-card-footer>
+    </mat-card>
+</div>
