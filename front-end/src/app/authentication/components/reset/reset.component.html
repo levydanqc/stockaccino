@@ -1,10 +1,36 @@
-<mat-form-field appearance="outline">
-    <mat-label>Courriel</mat-label>
-    <input matInput placeholder="Courriel" [formControl]="email" required>
-    <mat-icon matSuffix>alternate_email</mat-icon>
-    <mat-hint>Entrez votre adresse courriel.</mat-hint>
-    <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
-</mat-form-field>
-<mat-card-actions>
-    <button fxFill mat-raised-button color="primary">Réinitialiser</button>
-</mat-card-actions>
+<div *ngIf="editor == 'request'">
+    <mat-form-field appearance="outline">
+        <mat-label>Courriel</mat-label>
+        <input matInput placeholder="Courriel" [formControl]="email" required>
+        <mat-icon matSuffix>alternate_email</mat-icon>
+        <mat-hint>Entrez votre adresse courriel.</mat-hint>
+        <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
+    </mat-form-field>
+    <mat-card-actions>
+        <button fxFill mat-raised-button color="primary" (click)="request()">Envoyer le courriel</button>
+    </mat-card-actions>
+</div>
+<div *ngIf="editor == 'confirm'">
+    <form #myForm="ngForm">
+        <mat-form-field appearance="outline">
+        <mat-label>Entrez le code reçu à l'adresse courriel.</mat-label>
+        <input matInput placeholder="000000" required>
+        <mat-hint>Entrez le code reçu par courriel.</mat-hint>
+        </mat-form-field>
+        <mat-card-actions>
+            <button fxFill mat-raised-button color="primary" (click)="confirm(this.code)">Valider</button>
+        </mat-card-actions>
+    </form>
+    <p>DEBUG (temporaire): Code: {{this.code}}</p>
+    <p>DEBUG (temporaire): Le email: {{this.emailRequested}}</p>
+</div>
+<div *ngIf="editor == 'reset'">
+    <mat-form-field appearance="outline">
+        <mat-label>Nouveau mot de passe</mat-label>
+        <input matInput required>
+        <mat-hint>Entrez votre nouveau mot de passe.</mat-hint>
+    </mat-form-field>
+    <mat-card-actions>
+        <button fxFill mat-raised-button color="primary" (click)="reset()">Réinitialiser</button>
+    </mat-card-actions>
+</div>
