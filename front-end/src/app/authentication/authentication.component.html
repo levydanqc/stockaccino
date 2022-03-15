@@ -4,13 +4,13 @@
 <div class="authentication" fxLayout="row" fxLayoutAlign="center start">
     <mat-card [class.mat-elevation-z24]="true" class="px-0">
         <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
-            <button mat-flat-button class="btnPerso" (click)="switchForm('login')"
+            <button mat-flat-button class="btnPerso" (click)="switchForm('login'); myForm.resetForm()"
                 [ngClass]="{'active': showLogin}">Connexion</button>
-            <button mat-flat-button class="btnPerso" (click)="switchForm('signin')"
+            <button mat-flat-button class="btnPerso" (click)="switchForm('signin'); myForm.resetForm()"
                 [ngClass]="{'active': showSignin}">S'inscrire</button>
         </mat-card-title>
 
-        <form [formGroup]="form" class="example-form" class="px-3" (submit)="onSubmit()">
+        <form #myForm="ngForm" [formGroup]="form" class="example-form" class="px-3" (submit)="onSubmit()">
             <mat-card-content>
                 <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="form" [pwd]="pwd" [getEmailError]="getEmailError"
                     [getPwdError]="getPwdError"></app-login>

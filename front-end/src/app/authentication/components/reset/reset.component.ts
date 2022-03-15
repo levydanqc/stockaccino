@@ -18,5 +18,7 @@ export class ResetComponent implements OnInit {
     this.email = this.form.get('email') as FormControl;
   }
 
-  onSubmit() {}
+  onSubmit() {
+    
+  }
 }
