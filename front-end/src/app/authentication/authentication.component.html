@@ -21,10 +21,11 @@
                 </app-reset>
             </mat-card-content>
         </form>
-
-        <mat-card-footer class="w-100" fxLayoutAlign="end end">
-            <button mat-flat-button (click)="switchForm('reset')" [ngClass]="{'active': showReset}">Mot de passe
-                oublié</button>
-        </mat-card-footer>
+        <div *ngIf="editor == 'login'">
+            <mat-card-footer class="w-100" fxLayoutAlign="end end">
+                <button mat-flat-button (click)="switchForm('reset')" [ngClass]="{'active': showReset}">Mot de passe
+                    oublié</button>
+            </mat-card-footer>
+        </div>
     </mat-card>
 </div>
