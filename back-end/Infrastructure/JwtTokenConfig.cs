@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace JwtAuthDemo.Infrastructure
+namespace Stockaccino.Infrastructure
 {
     public class JwtTokenConfig
     {
