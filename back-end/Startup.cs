@@ -51,11 +51,11 @@ namespace Stockaccino
             });
             services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
             services.AddHostedService<JwtRefreshTokenCache>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UsersService>();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "JWT Auth Demo", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Stockaccino API", Version = "v1" });
 
                 var securityScheme = new OpenApiSecurityScheme
                 {
@@ -98,8 +98,8 @@ namespace Stockaccino
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("./swagger/v1/swagger.json", "JWT Auth Demo V1");
-                c.DocumentTitle = "JWT Auth Demo";
+                c.SwaggerEndpoint("./swagger/v1/swagger.json", "Stockaccino API V1");
+                c.DocumentTitle = "Stockaccino API";
                 c.RoutePrefix = string.Empty;
             });
 
