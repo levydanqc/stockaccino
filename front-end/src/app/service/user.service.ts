@@ -18,9 +18,9 @@ export class UserService {
   }
 
 
-  verifyUser(email: string, password: string) {
+  verifyUser(email: string, password: string): Observable<IUser>{
     var verifyUrl = this.apiUrl + `verify/${email}`;
-    return this.http.get(verifyUrl, {
+    return this.http.get<IUser>(verifyUrl, {
       headers: {password: password}
     });
   }

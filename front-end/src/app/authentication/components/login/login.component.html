@@ -16,6 +16,8 @@
     <mat-error *ngIf="pwd.invalid">{{getPwdError()}}</mat-error>
 </mat-form-field>
 
+<div class="error" *ngIf="invalid">Échec de connection. Votre adresse courriel ou le mot de passe est invalide.</div>
+
 <mat-card-actions>
     <button (click)="onSubmit()" fxFill mat-raised-button color="primary">Se connecter</button>
 </mat-card-actions>
