@@ -1,5 +1,6 @@
 ﻿<Properties StartupConfiguration="{0B2C89AF-C1FE-4550-BAC5-FB9DBD481E32}|Default">
-  <MonoDevelop.Ide.ItemProperties.DotNet.Docker PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/YahooController.cs">
     <Files>
       <File FileName="Models/User.cs" Line="10" Column="23" />
@@ -29,7 +30,6 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.DotNet.Docker PreferredExecutionTarget="/Applications/Safari.app" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
