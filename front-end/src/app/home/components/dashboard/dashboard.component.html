@@ -1,7 +1,12 @@
 <div class="DashBoardContainer">
     <div class="DashBoardContent">
-        <a href="/account"><button class="btn btn-dark btnPerso">Login (temporaire, test button)</button></a>
-
-
+        <div>{{message}}</div>
+        <div *ngIf="message">
+            <br>
+            <button (click)="deconnexion()" class="btn btn-dark btnPerso">Déconnexion</button>
+        </div>
+        <div *ngIf="!message">
+            <a href="/account"><button class="btn btn-dark btnPerso">Login (temporaire, test button)</button></a>
+        </div>
     </div>
 </div>

@@ -3,6 +3,7 @@ import { ControlContainer, Form, FormControl, FormGroup } from '@angular/forms';
 import { IUser } from '../../../user';
 import { UserService } from 'src/app/service/user.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   invalid: boolean = false;
 
   constructor(private controlContainer: ControlContainer, private _userService: UserService,
-    private router: Router) {}
+    private router: Router, private cookieService: CookieService) {}
 
   ngOnInit(): void {
     this.form = this.controlContainer.control as FormGroup;
@@ -38,11 +39,11 @@ export class LoginComponent implements OnInit {
     var estValide = this.verifyUser(this.email.value, this.password.value);
     console.log("EstValide: ", estValide);
     if (estValide) {
-      // TODO: Connecter l'utilisateur
       this.router.navigate(['/']);
+      this.cookieService.delete('UserEmail');
+      this.cookieService.set('UserEmail', this.email.value)
     }
     else {
-      // TODO: Affichr un message d'erreur
       console.log("Connection refusée.");
       this.invalid = true;
     }
