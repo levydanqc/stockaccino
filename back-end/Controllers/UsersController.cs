@@ -45,7 +45,7 @@ public class UsersController : ControllerBase
         return user;
     }
 
-    [HttpGet("{id:length(24)}")]
+    [HttpGet("findById/{id:length(24)}")]
     public async Task<ActionResult<User>> GetById(string id)
     {
         User? user = await _usersService.GetAsyncById(id);
