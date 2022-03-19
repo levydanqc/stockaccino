@@ -39,7 +39,7 @@ export class ResetComponent implements OnInit {
 
   submit(event: string) {
     this.onSubmit.emit();
-    if (this.form.valid) {
+    if (this.form.get('email')?.valid) {
       //TODO: do your thing
       if (event == 'request') {
         this.request();
