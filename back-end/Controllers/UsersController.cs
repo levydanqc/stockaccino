@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
 
         return user;
     }
-
+    
     [HttpGet("verify/{email}")]
     public async Task<ActionResult<User>> Get(string email, [FromHeader] string password)
     {
@@ -57,7 +57,7 @@ public class UsersController : ControllerBase
 
         return user;
     }
-
+    
     [HttpPost]
     public async Task<IActionResult> Post(User newUser)
     {
