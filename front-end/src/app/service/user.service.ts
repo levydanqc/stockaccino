@@ -1,27 +1,50 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IUser } from '../user';
 import { Observable, observable } from 'rxjs';
 
+interface Parameters {
+  endpoint: string;
+  headers: HttpHeaders | null;
+  body: HttpParams | null;
+  query: Array<Object> | null;
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  apiUrl: string;
+  //TODO: change for remote url
+  apiUrl: string = 'https://localhost:7056/api/users/';
 
-  constructor(private http: HttpClient) {
-    this.apiUrl = "https://localhost:7056/api/users/";
+  constructor(private http: HttpClient) {}
+
+  getUsers(): Observable<IUser[]> {
+    return this.apiCall({
+      endpoint: '',
+      headers: null,
+      body: null,
+      query: null,
+    });
   }
 
-  getUsers(): Observable<IUser[]>{
-    return this.http.get<IUser[]>(this.apiUrl);
+  apiCall(params: Parameters): Observable<any> {
+    let url: string =
+      this.apiUrl + params.endpoint + '?' + params.query?.join('&');
+    return this.http.get<any>(url, {
+      headers: params.headers!,
+      params: params.body!,
+    });
   }
 
-
-  verifyUser(email: string, password: string): Observable<IUser>{
-    var verifyUrl = this.apiUrl + `verify/${email}`;
-    return this.http.get<IUser>(verifyUrl, {
-      headers: {password: password}
+  verifyUser(email: string, password: string): Observable<IUser> {
+    //TODO: hash password
+    //TODO: payload in body instead
+    return this.apiCall({
+      endpoint: `verify/${email}`,
+      headers: new HttpHeaders({ password: password }),
+      body: null,
+      query: null,
     });
   }
 }
