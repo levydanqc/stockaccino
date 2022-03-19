@@ -32,6 +32,32 @@ public class UsersController : ControllerBase
         return user;
     }
 
+    [HttpGet("verify/{email}")]
+    public async Task<ActionResult<User>> Get(string email, [FromHeader] string password)
+    {
+        User? user = await _usersService.GetAsync(email, password);
+
+        if (user is null)
+        {
+            return NotFound();
+        }
+
+        return user;
+    }
+
+    [HttpGet("findById/{id:length(24)}")]
+    public async Task<ActionResult<User>> GetById(string id)
+    {
+        User? user = await _usersService.GetAsyncById(id);
+
+        if (user is null)
+        {
+            return NotFound();
+        }
+
+        return user;
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post(User newUser)
     {
