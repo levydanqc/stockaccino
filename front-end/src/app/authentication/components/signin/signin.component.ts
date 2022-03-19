@@ -35,6 +35,13 @@ export class SigninComponent implements OnInit {
     this.email = this.form.get('email') as FormControl;
   }
 
+  submit() {
+    this.onSubmit.emit();
+    if (this.form.valid) {
+      //TODO: signin
+    }
+  }
+
   matchPwd() {
     if (this.pwd.value != this.confirmPwd.value) {
       this.confirmPwd.setErrors({

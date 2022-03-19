@@ -7,7 +7,7 @@
         <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
     </mat-form-field>
     <mat-card-actions>
-        <button fxFill mat-raised-button color="primary" (click)="this.onSubmit.emit(''); request()">Envoyer le
+        <button fxFill mat-raised-button color="primary" (click)="submit('request')">Envoyer le
             courriel</button>
     </mat-card-actions>
 </div>
@@ -20,7 +20,7 @@
         </mat-form-field>
         <mat-card-actions>
             <button fxFill mat-raised-button color="primary"
-                (click)="this.onSubmit.emit(''); confirm(this.code)">Valider</button>
+                (click)="submit('confirm')">Valider</button>
         </mat-card-actions>
     </form>
     <p>DEBUG (temporaire): Code: {{this.code}}</p>
@@ -34,6 +34,6 @@
     </mat-form-field>
     <mat-card-actions>
         <button fxFill mat-raised-button color="primary"
-            (click)="this.onSubmit.emit(''); reset()">Réinitialiser</button>
+            (click)="submit('reset')">Réinitialiser</button>
     </mat-card-actions>
 </div>

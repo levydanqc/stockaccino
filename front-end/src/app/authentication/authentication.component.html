@@ -13,13 +13,13 @@
         <form novalidate #myForm="ngForm" [formGroup]="form" class="example-form" class="px-3">
             <mat-card-content>
                 <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="form" [pwd]="pwd"
-                    [getEmailError]="getEmailError" [getPwdError]="getPwdError" (onSubmit)="onSubmit($event)">
+                    [getEmailError]="getEmailError" [getPwdError]="getPwdError" (onSubmit)="onSubmit()">
                 </app-login>
-                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd"
-                    (onSubmit)="onSubmit($event)" [getEmailError]="getEmailError" [getPwdError]="getPwdError">
+                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd" (onSubmit)="onSubmit()"
+                    [getEmailError]="getEmailError" [getPwdError]="getPwdError">
                 </app-signin>
                 <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="form" [getEmailError]="getEmailError"
-                    (onSubmit)="onSubmit($event)">
+                    (onSubmit)="onSubmit()">
                 </app-reset>
             </mat-card-content>
         </form>

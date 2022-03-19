@@ -37,6 +37,20 @@ export class ResetComponent implements OnInit {
     this.editor = type;
   }
 
+  submit(event: string) {
+    this.onSubmit.emit();
+    if (this.form.valid) {
+      //TODO: do your thing
+      if (event == 'request') {
+        this.request();
+      } else if (event == 'confirm') {
+        this.confirm(this.code);
+      } else if (event == 'reset') {
+        this.reset();
+      }
+    }
+  }
+
   request() {
     // TODO: Valider l'adresse courriel
     // TODO: Envoyer le code par courriel à emailClient
@@ -50,10 +64,9 @@ export class ResetComponent implements OnInit {
 
   confirm(codeClient: number) {
     var codeCorrect = this.code;
-    if (codeCorrect == codeClient){
+    if (codeCorrect == codeClient) {
       this.editor = 'reset';
-    }
-    else {
+    } else {
       // TODO: Return une erreur
     }
   }

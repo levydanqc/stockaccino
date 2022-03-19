@@ -35,11 +35,10 @@ export class AuthenticationComponent {
     this.editor = type;
   }
 
-  onSubmit(event: string) {
+  onSubmit() {
     if (!this.form.valid) {
       this.form.markAllAsTouched();
     }
-    console.log(event);
   }
 
   getEmailError = (): string => {

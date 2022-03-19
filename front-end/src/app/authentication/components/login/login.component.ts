@@ -30,6 +30,19 @@ export class LoginComponent implements OnInit {
     private cookieService: CookieService
   ) {}
 
+  submit() {
+    this.onSubmit.emit();
+    if (this.form.valid) {
+      this._userService
+        .verifyUser(this.email.value, this.password.value)
+        .subscribe((data) => {
+          this.user = data;
+          this.cookieService.set('user', this.user.Id);
+          this.router.navigate(['/']);
+        });
+    }
+  }
+
   ngOnInit(): void {
     this.form = this.controlContainer.control as FormGroup;
     this.form.addControl('pwd', this.pwd);
