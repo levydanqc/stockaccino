@@ -15,7 +15,7 @@ mat-card-title button {
   font-size: larger;
 }
 
-mat-form-field {
+::ng-deep mat-form-field {
   width: 100%;
   margin: 0.5rem 0;
 }

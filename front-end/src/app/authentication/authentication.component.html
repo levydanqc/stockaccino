@@ -10,14 +10,16 @@
                 [ngClass]="{'active': showSignin}">S'inscrire</button>
         </mat-card-title>
 
-        <form #myForm="ngForm" [formGroup]="form" class="example-form" class="px-3" (submit)="onSubmit()">
+        <form novalidate #myForm="ngForm" [formGroup]="form" class="example-form" class="px-3">
             <mat-card-content>
-                <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="form" [pwd]="pwd" [getEmailError]="getEmailError"
-                    [getPwdError]="getPwdError"></app-login>
-                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd" [getEmailError]="getEmailError"
-                    [getPwdError]="getPwdError">
+                <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="form" [pwd]="pwd"
+                    [getEmailError]="getEmailError" [getPwdError]="getPwdError" (onSubmit)="onSubmit($event)">
+                </app-login>
+                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd"
+                    (onSubmit)="onSubmit($event)" [getEmailError]="getEmailError" [getPwdError]="getPwdError">
                 </app-signin>
-                <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="form" [getEmailError]="getEmailError">
+                <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="form" [getEmailError]="getEmailError"
+                    (onSubmit)="onSubmit($event)">
                 </app-reset>
             </mat-card-content>
         </form>

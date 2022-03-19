@@ -7,7 +7,7 @@
         <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
     </mat-form-field>
     <mat-card-actions>
-        <button fxFill mat-raised-button color="primary" (click)="request()">Envoyer le courriel</button>
+        <button fxFill mat-raised-button color="primary" (click)="this.onSubmit.emit('reset');">Envoyer le courriel</button>
     </mat-card-actions>
 </div>
 <div *ngIf="editor == 'confirm'">

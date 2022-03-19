@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
 
 // Request = envoyer un email pour demander un changement de mot de passe
@@ -18,6 +18,8 @@ export class ResetComponent implements OnInit {
   @Input() getEmailError!: () => string;
   email!: FormControl;
   form!: FormGroup;
+  @Output()
+  onSubmit = new EventEmitter<string>();
 
   constructor(private controlContainer: ControlContainer) {}
 
@@ -63,9 +65,5 @@ export class ResetComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.controlContainer.control as FormGroup;
     this.email = this.form.get('email') as FormControl;
-  }
-
-  onSubmit() {
-    
   }
 }

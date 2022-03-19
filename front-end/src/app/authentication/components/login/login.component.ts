@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, Form, FormControl, FormGroup } from '@angular/forms';
 import { IUser } from '../../../user';
 import { UserService } from 'src/app/service/user.service';
@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
   user!: IUser;
   hide: boolean = true;
   invalid: boolean = false;
+  @Output()
+  onSubmit = new EventEmitter<string>();
 
   constructor(
     private controlContainer: ControlContainer,
@@ -33,20 +35,5 @@ export class LoginComponent implements OnInit {
     this.form.addControl('pwd', this.pwd);
     this.email = this.form.get('email') as FormControl;
     this.password = this.form.get('pwd') as FormControl;
-  }
-
-  onSubmit() {
-    let user = this._userService
-      .verifyUser(this.email.value, this.password.value)
-      .subscribe((data) => (this.user = data));
-    if (user) {
-      // TODO: https://github.com/levydanqc/stockaccino/issues/7
-      this.router.navigate(['/']);
-      this.cookieService.delete('UserEmail');
-      this.cookieService.set('UserEmail', this.email.value);
-    } else {
-      console.log('Connection refusée.');
-      this.invalid = true;
-    }
   }
 }

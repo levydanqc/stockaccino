@@ -10,6 +10,8 @@ export type EditorType = 'login' | 'signin' | 'reset';
 })
 export class AuthenticationComponent {
   editor: EditorType = 'login';
+  submit: boolean = false;
+
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
   });
@@ -34,7 +36,13 @@ export class AuthenticationComponent {
     this.editor = type;
   }
 
-  onSubmit() {}
+  onSubmit(event: string) {
+    this.submit = true;
+    if (this.form.valid) {
+      this.submit = false;
+    }
+    console.log(event);
+  }
 
   getEmailError = (): string => {
     const email = this.form.get('email') as FormControl;

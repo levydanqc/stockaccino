@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   ControlContainer,
   FormControl,
@@ -21,6 +21,8 @@ export class SigninComponent implements OnInit {
   prenom: FormControl = new FormControl('', [Validators.required]);
   confirmPwd: FormControl = new FormControl('');
   hide: boolean = true;
+  @Output()
+  onSubmit = new EventEmitter<string>();
 
   constructor(private controlContainer: ControlContainer) {}
 
@@ -31,8 +33,6 @@ export class SigninComponent implements OnInit {
     this.form.addControl('pwd', this.pwd);
     this.email = this.form.get('email') as FormControl;
   }
-
-  onSubmit() {}
 
   matchPwd() {
     if (this.pwd.value != this.confirmPwd.value) {
@@ -56,7 +56,10 @@ export class SigninComponent implements OnInit {
   }
 
   getConfirmPwdError() {
-    if (this.confirmPwd.hasError('matching') || this.confirmPwd.hasError('required')) {
+    if (
+      this.confirmPwd.hasError('matching') ||
+      this.confirmPwd.hasError('required')
+    ) {
       return 'Les mots de passe ne correspondent pas';
     }
     return '';

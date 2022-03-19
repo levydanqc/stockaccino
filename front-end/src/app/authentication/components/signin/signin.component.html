@@ -34,5 +34,5 @@
     <mat-error *ngIf="confirmPwd.invalid">{{getConfirmPwdError()}}</mat-error>
 </mat-form-field>
 <mat-card-actions>
-    <button fxFill mat-raised-button color="primary">S'inscrire</button>
+    <button (click)="this.onSubmit.emit('signin');" fxFill mat-raised-button color="primary">S'inscrire</button>
 </mat-card-actions>
