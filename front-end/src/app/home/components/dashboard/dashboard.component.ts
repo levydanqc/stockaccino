@@ -12,6 +12,7 @@ export class DashboardComponent {
   constructor(private cookieService: CookieService) {}
 
   deconnexion() {
+    //TODO: https://github.com/levydanqc/stockaccino/issues/7
     this.cookieService.delete('UserEmail');
     location.reload();
   }
