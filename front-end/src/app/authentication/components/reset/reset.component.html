@@ -1,4 +1,4 @@
-<div *ngIf="editor == 'request'">
+<div *ngIf="showRequest()">
     <mat-form-field appearance="outline">
         <mat-label>Courriel</mat-label>
         <input matInput placeholder="Courriel" [formControl]="email" required>
@@ -11,11 +11,12 @@
             courriel</button>
     </mat-card-actions>
 </div>
-<div *ngIf="editor == 'confirm'">
+<div *ngIf="showConfirm()">
+    <div class="error" *ngIf="message">{{message}}</div>
     <form #myForm="ngForm">
         <mat-form-field appearance="outline">
             <mat-label>Entrez le code reçu à l'adresse courriel.</mat-label>
-            <input matInput placeholder="000000" required>
+            <input matInput placeholder="000000" name="codeForm" id="codeForm" required>
             <mat-hint>Entrez le code reçu par courriel.</mat-hint>
         </mat-form-field>
         <mat-card-actions>
@@ -23,9 +24,8 @@
         </mat-card-actions>
     </form>
     <p>DEBUG (temporaire): Code: {{this.code}}</p>
-    <p>DEBUG (temporaire): Le email: {{this.emailRequested}}</p>
 </div>
-<div *ngIf="editor == 'reset'">
+<div *ngIf="showReset()">
     <mat-form-field appearance="outline">
         <mat-label>Nouveau mot de passe</mat-label>
         <input matInput required>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // Request = envoyer un email pour demander un changement de mot de passe
 // Confirm = confirmaton du code envoyé à l'adresse courriel
@@ -14,6 +15,7 @@ export type EditorType = 'request' | 'confirm' | 'reset';
 export class ResetComponent implements OnInit {
   editor: EditorType = 'request';
   code: number = 1000000;
+  message!: string;
   emailRequested: string = 'void';
   @Input() getEmailError!: () => string;
   email!: FormControl;
@@ -21,30 +23,31 @@ export class ResetComponent implements OnInit {
   @Output()
   onSubmit = new EventEmitter<string>();
 
-  constructor(private controlContainer: ControlContainer) {}
+  constructor(private controlContainer: ControlContainer, private router: Router,) {}
 
-  get showRequest() {
+  showRequest() {
     return this.editor == 'request';
   }
-  get showConfirm() {
+  showConfirm() {
     return this.editor == 'confirm';
   }
-  get showReset() {
+  showReset() {
     return this.editor == 'reset';
-  }
-
-  switchForm(type: EditorType) {
-    this.editor = type;
   }
 
   submit(event: string) {
     this.onSubmit.emit();
     if (this.form.get('email')?.valid) {
-      //TODO: do your thing
       if (event == 'request') {
         this.request();
       } else if (event == 'confirm') {
-        this.confirm(this.code);
+        let codeClient = (<HTMLInputElement>document.getElementById("codeForm")).value;
+        if (!isNaN(+codeClient)) {
+          this.confirm(+codeClient);
+        }
+        else {
+          this.message = "Vous devez entrez le code constitué de 6 chiffres."
+        }
       } else if (event == 'reset') {
         this.reset();
       }
@@ -64,10 +67,10 @@ export class ResetComponent implements OnInit {
 
   confirm(codeClient: number) {
     var codeCorrect = this.code;
-    if (codeCorrect == codeClient) {
+    if (codeCorrect === codeClient) {
       this.editor = 'reset';
     } else {
-      // TODO: Return une erreur
+      this.message = "Le code est incorrect.";
     }
   }
 
