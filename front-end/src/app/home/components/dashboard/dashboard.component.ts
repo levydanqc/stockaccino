@@ -7,21 +7,16 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  message!: string;
-
   constructor(
     private cookieService: CookieService,
     private _userService: UserService
   ) {}
 
-  ngOnInit(): void {
-    // DELETE: only for debug
-    this._userService.getUsers().subscribe((data) => console.log(data));
-  }
+  ngOnInit(): void {}
 
   deconnexion() {
     //TODO: https://github.com/levydanqc/stockaccino/issues/7
-    this.cookieService.delete('UserEmail');
+    this.cookieService.delete('id');
     location.reload();
   }
 }

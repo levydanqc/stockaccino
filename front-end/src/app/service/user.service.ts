@@ -30,7 +30,9 @@ export class UserService {
 
   apiCall(params: Parameters): Observable<any> {
     let url: string =
-      this.apiUrl + params.endpoint + '?' + params.query?.join('&');
+      this.apiUrl +
+      params.endpoint +
+      (params.query ? '?' + params.query?.join('&') : '');
     return this.http.get<any>(url, {
       headers: params.headers!,
       params: params.body!,

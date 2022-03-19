@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
   public form!: FormGroup;
   email!: FormControl;
   password!: FormControl;
-  user!: IUser;
   hide: boolean = true;
   invalid: boolean = false;
   @Output()
@@ -37,12 +36,16 @@ export class LoginComponent implements OnInit {
       // TODO: https://github.com/levydanqc/stockaccino/issues/7
       let user = this._userService
         .verifyUser(this.email.value, this.password.value)
-        .subscribe((data) => (this.user = data));
-      if (user) {
-        this.cookieService.delete('id');
-        this.cookieService.set('id', this.user.Id.toString());
-        this.router.navigate(['/']);
-      }
+        .subscribe(
+          (data) => {
+            console.log(data);
+            this.cookieService.set('id', data.Id);
+            this.router.navigate(['/']);
+          },
+          (error) => {
+            this.invalid = true;
+          }
+        );
     }
   }
 

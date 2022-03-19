@@ -1,3 +1,5 @@
+<div class="error" *ngIf="invalid">Email ou mot de passe invalid.</div>
+
 <mat-form-field appearance="outline">
     <mat-label>Courriel</mat-label>
     <input matInput id="courriel" placeholder="Courriel" [formControl]="email" required>
@@ -15,8 +17,6 @@
     <mat-hint>Entrez votre mot de passe.</mat-hint>
     <mat-error *ngIf="pwd.invalid">{{getPwdError()}}</mat-error>
 </mat-form-field>
-
-<div class="error" *ngIf="invalid">Échec de connection. Votre adresse courriel ou le mot de passe est invalide.</div>
 
 <mat-card-actions>
     <button (click)="submit()" fxFill mat-raised-button color="primary">Se connecter</button>
