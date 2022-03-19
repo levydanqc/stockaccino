@@ -31,15 +31,18 @@ export class LoginComponent implements OnInit {
   ) {}
 
   submit() {
+    console.log('submit');
     this.onSubmit.emit();
     if (this.form.valid) {
-      this._userService
+      // TODO: https://github.com/levydanqc/stockaccino/issues/7
+      let user = this._userService
         .verifyUser(this.email.value, this.password.value)
-        .subscribe((data) => {
-          this.user = data;
-          this.cookieService.set('user', this.user.Id);
-          this.router.navigate(['/']);
-        });
+        .subscribe((data) => (this.user = data));
+      if (user) {
+        this.cookieService.delete('id');
+        this.cookieService.set('id', this.user.Id.toString());
+        this.router.navigate(['/']);
+      }
     }
   }
 
