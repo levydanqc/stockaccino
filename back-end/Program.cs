@@ -36,6 +36,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
+app.UseCors(options => options.AllowAnyOrigin());
 //app.Use(async (context, next) =>
 //{
 //    string? test = context.Request.Query["test"];
