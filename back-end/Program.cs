@@ -36,23 +36,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+app.UseAuthorization();
 
-app.UseCors(options => options.AllowAnyOrigin());
-//app.Use(async (context, next) =>
-//{
-//    string? test = context.Request.Query["test"];
-//    Console.WriteLine(test);
-
-//    if (!string.IsNullOrEmpty(test))
-//    {
-//        await next(context);
-//    } else
-//    {
-//        context.Response.ContentType = "application/json";
-//        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-//        await context.Response.WriteAsJsonAsync(new { message = "Error" });
-//    }
-//});
+app.UseCors(options => options.AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+);
 
 
 app.MapControllers();
