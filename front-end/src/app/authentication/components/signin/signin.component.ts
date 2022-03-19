@@ -31,6 +31,7 @@ export class SigninComponent implements OnInit {
     this.form.addControl('nom', this.nom);
     this.form.addControl('prenom', this.prenom);
     this.form.addControl('pwd', this.pwd);
+    this.form.addControl('confirmPwd', this.confirmPwd);
     this.email = this.form.get('email') as FormControl;
   }
 

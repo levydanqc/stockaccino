@@ -10,7 +10,6 @@ export type EditorType = 'login' | 'signin' | 'reset';
 })
 export class AuthenticationComponent {
   editor: EditorType = 'login';
-  submit: boolean = false;
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -37,9 +36,8 @@ export class AuthenticationComponent {
   }
 
   onSubmit(event: string) {
-    this.submit = true;
-    if (this.form.valid) {
-      this.submit = false;
+    if (!this.form.valid) {
+      this.form.markAllAsTouched();
     }
     console.log(event);
   }
