@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export type EditorType = 'login' | 'signin' | 'reset';
@@ -33,6 +33,11 @@ export class AuthenticationComponent {
 
   public switchForm(type: EditorType) {
     this.editor = type;
+  }
+
+  onSignIn() {
+    this.editor = "login";
+    location.reload();
   }
 
   onSubmit() {

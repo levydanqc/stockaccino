@@ -15,7 +15,7 @@
                 <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="form" [pwd]="pwd"
                     [getEmailError]="getEmailError" [getPwdError]="getPwdError" (onSubmit)="onSubmit()">
                 </app-login>
-                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd" (onSubmit)="onSubmit()"
+                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd" (onSignIn)="onSignIn()" (onSubmit)="onSubmit()"
                     [getEmailError]="getEmailError" [getPwdError]="getPwdError">
                 </app-signin>
                 <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="form" [getEmailError]="getEmailError"

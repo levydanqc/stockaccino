@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   email!: FormControl;
   password!: FormControl;
   hide: boolean = true;
-  invalid: boolean = false;
+  invalid!: boolean;
   @Output()
   onSubmit = new EventEmitter<string>();
 

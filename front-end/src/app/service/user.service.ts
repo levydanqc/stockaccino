@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IUser } from '../user';
 import { IUserPost } from '../userPost';
 import { Observable, observable, TimeoutError } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 interface Parameters {
   endpoint: string;
@@ -18,7 +19,7 @@ export class UserService {
   //TODO: change for remote url
   apiUrl: string = 'https://localhost:7056/api/users/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   // Retourne tous les utilisateurs.
   getUsers(): Observable<IUser[]> {
@@ -30,12 +31,7 @@ export class UserService {
     });
   }
 
-  // Vérifier si un utilisateur existe avec cette addresse courriel.
-  // Retourne true si l'adresse courriel est déjà utilisée, false si elle est libre.
-  getUserByEmail(email: string): boolean {
-    // FIXME: Meme si je modifie estutilise plus bas dans le code, cette fonction retourne
-    // toujours estUtilise selon comment on l'initialise a la ligne suivante.
-    let estUtilise: boolean = false; // Mis a false pour tester la creation de compte
+  verifyEmail(email: string) {
     this.apiCall({
       endpoint: email,
       headers: null,
@@ -43,15 +39,12 @@ export class UserService {
       query: null
     }).subscribe(
       (data) => {
-        console.log("email utilisé");
-        estUtilise = true;
+        this.cookieService.set("estUtilise", "true");
       },
       (error) => {
-        console.log("email pas utilisé");
-        estUtilise = false;
+        this.cookieService.set("estUtilise", "false");
       }
     );
-    return estUtilise;
   }
 
   postUser(email: string, password: string, nom: string, prenom: string) {
@@ -62,9 +55,7 @@ export class UserService {
       Password: password,
       Username: prenom + nom
     }
-    console.log("en train de creer le user dans le service");
-    // FIXME: Cette ligne n'appelle pas la route
-    this.http.post(this.apiUrl, user);
+    this.http.post(this.apiUrl, user).subscribe(res => {});
   }
 
   apiCall(params: Parameters): Observable<any> {
