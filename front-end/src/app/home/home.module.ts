@@ -7,6 +7,11 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { HistoryComponent } from './components/history/history.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SearchComponent } from './components/search/search.component';
@@ -21,7 +26,14 @@ import { SearchComponent } from './components/search/search.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
   ]
 })
 export class DashboardModule { }

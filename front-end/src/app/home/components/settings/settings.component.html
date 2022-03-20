@@ -1,14 +1,36 @@
 <div class="DashBoardContainer">
     <div class="DashBoardContent">
-        <h2>Informations: </h2>
-        <form>
-            <div class="form-group">
-                <input type="email" class="form-control" placeholder="{{email}}"></div>
-            <div class="form-group">
-                <input class="form-control" placeholder="Prenom"></div>
-            <div class="form-group">
-                <input class="form-control" placeholder="Nom"></div>
-            <button type="submit" class="btn btn-dark">Sauvegarder les changements</button>
-        </form>
+        <h2>Informations du compte: </h2>
+        <div *ngIf="currentMode == 'show'">
+            <form>
+                <div class="form-group">
+                    <div class="error" *ngIf="errorEmail">{{errorEmail}}</div>
+                    <label for="email">Adresse courriel</label>
+                    <input name="email" id="email" class="form-control" value="{{email}}" disabled></div>
+                <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input name="prenom" id="prenom" class="form-control" value="{{prenom}}" disabled></div>
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input name="nom" id="nom" class="form-control" value="{{nom}}" disabled></div>
+                <button type="button" (click)="switchToModify()" class="btn btn-dark">Modifier mon compte</button>
+            </form>
+        </div>
+        <div *ngIf="currentMode == 'modify'">
+            <form>
+                <div class="form-group">
+                    <div class="error" *ngIf="errorEmail">{{errorEmail}}</div>
+                    <label for="email">Adresse courriel</label>
+                    <input name="email" id="email" type="email" class="form-control" placeholder="{{email}}"></div>
+                <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input name="prenom" id="prenom" class="form-control" placeholder="{{prenom}}"></div>
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input name="nom" id="nom" class="form-control" placeholder="{{nom}}"></div>
+                <button type="button" (click)="submitForm()" class="btn btn-dark">Sauvegarder les changements</button>
+                <button type="button" (click)="switchToShow()" class="btn btn-dark myBtn">Annuler</button>
+            </form>
+        </div>
     </div>
 </div>

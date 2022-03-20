@@ -10,7 +10,13 @@ import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, HttpClientJsonpModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    HttpClientJsonpModule
+  ],
   providers: [CookieService],
   bootstrap: [AppComponent],
 })
