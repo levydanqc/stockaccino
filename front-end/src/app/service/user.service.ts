@@ -57,7 +57,6 @@ export class UserService {
   }
 
   updateUser(id: string, email?: string, nom?: string, prenom?: string) {
-    console.log("4");
     let user!: IUser;
     this.getUserById(id).subscribe(data => {
       user = data;
@@ -71,7 +70,6 @@ export class UserService {
       if (prenom) {
         user.Prenom = prenom;
       }
-      console.log("5");
       this.http.put(this.apiUrl + id, user).subscribe(res => {});
     })
   }

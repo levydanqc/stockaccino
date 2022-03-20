@@ -29,7 +29,6 @@ export class SettingsComponent implements OnInit {
     let email!: string;
     let prenom!: string;
     let nom!: string;
-    console.log("1");
 
     if ((<HTMLInputElement>document.getElementById("email")).value != "") {
       if (!this.validerEmail((<HTMLInputElement>document.getElementById("email")).value)) {
@@ -49,7 +48,6 @@ export class SettingsComponent implements OnInit {
 
     if (this.errorEmail == undefined && email) {
       this._userService.updateUser(this.cookieService.get("id"), email, nom, prenom);
-      console.log("2");
       setTimeout(()=>{
         window.location.reload();
       }, 100);
@@ -57,7 +55,6 @@ export class SettingsComponent implements OnInit {
     }
     else if (this.errorEmail == undefined){
       this._userService.updateUser(this.cookieService.get("id"), undefined, nom, prenom);
-      console.log("3");
       setTimeout(()=>{
         window.location.reload();
       }, 100);
