@@ -1,7 +1,6 @@
-<div class="error" *ngIf="error">{{error}}</div>
 <mat-form-field appearance="outline">
     <mat-label>Courriel</mat-label>
-    <input matInput placeholder="Courriel" [formControl]="email" (blur)="verifyEmail()" required>
+    <input matInput placeholder="Courriel" [formControl]="email" required>
     <mat-icon matSuffix>alternate_email</mat-icon>
     <mat-hint>Entrez votre adresse courriel.</mat-hint>
     <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
@@ -35,5 +34,5 @@
     <mat-error *ngIf="confirmPwd.invalid">{{getConfirmPwdError()}}</mat-error>
 </mat-form-field>
 <mat-card-actions>
-    <button (click)="this.submit('signin')" type="submit" fxFill mat-raised-button color="primary">S'inscrire</button>
+    <button fxFill mat-raised-button color="primary">S'inscrire</button>
 </mat-card-actions>

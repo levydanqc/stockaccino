@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, Form, FormControl, FormGroup } from '@angular/forms';
+import { IUser } from '../../../user';
 import { UserService } from 'src/app/service/user.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -16,10 +17,9 @@ export class LoginComponent implements OnInit {
   public form!: FormGroup;
   email!: FormControl;
   password!: FormControl;
+  user!: IUser;
   hide: boolean = true;
-  invalid!: boolean;
-  @Output()
-  onSubmit = new EventEmitter<string>();
+  invalid: boolean = false;
 
   constructor(
     private controlContainer: ControlContainer,
@@ -28,30 +28,25 @@ export class LoginComponent implements OnInit {
     private cookieService: CookieService
   ) {}
 
-  submit() {
-    console.log('submit');
-    this.onSubmit.emit();
-    if (this.form.valid) {
-      // TODO: https://github.com/levydanqc/stockaccino/issues/7
-      let user = this._userService
-        .verifyUser(this.email.value, this.password.value)
-        .subscribe(
-          (data) => {
-            console.log(data);
-            this.cookieService.set('id', data.Id);
-            this.router.navigate(['/']);
-          },
-          (error) => {
-            this.invalid = true;
-          }
-        );
-    }
-  }
-
   ngOnInit(): void {
     this.form = this.controlContainer.control as FormGroup;
     this.form.addControl('pwd', this.pwd);
     this.email = this.form.get('email') as FormControl;
     this.password = this.form.get('pwd') as FormControl;
+  }
+
+  onSubmit() {
+    let user = this._userService
+      .verifyUser(this.email.value, this.password.value)
+      .subscribe((data) => (this.user = data));
+    if (user) {
+      // TODO: https://github.com/levydanqc/stockaccino/issues/7
+      this.router.navigate(['/']);
+      this.cookieService.delete('UserEmail');
+      this.cookieService.set('UserEmail', this.email.value);
+    } else {
+      console.log('Connection refusée.');
+      this.invalid = true;
+    }
   }
 }

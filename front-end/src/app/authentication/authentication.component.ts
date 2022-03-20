@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export type EditorType = 'login' | 'signin' | 'reset';
@@ -10,7 +10,6 @@ export type EditorType = 'login' | 'signin' | 'reset';
 })
 export class AuthenticationComponent {
   editor: EditorType = 'login';
-
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
   });
@@ -31,20 +30,11 @@ export class AuthenticationComponent {
     return this.editor == 'reset';
   }
 
-  public switchForm(type: EditorType) {
+  switchForm(type: EditorType) {
     this.editor = type;
   }
 
-  onSignIn() {
-    this.editor = "login";
-    location.reload();
-  }
-
-  onSubmit() {
-    if (!this.form.valid) {
-      this.form.markAllAsTouched();
-    }
-  }
+  onSubmit() {}
 
   getEmailError = (): string => {
     const email = this.form.get('email') as FormControl;

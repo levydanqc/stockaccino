@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{0B2C89AF-C1FE-4550-BAC5-FB9DBD481E32}|Default">
+  <MonoDevelop.Ide.ItemProperties.DotNet.Docker PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/YahooController.cs">
+    <Files>
+      <File FileName="Models/User.cs" Line="10" Column="23" />
+      <File FileName="Models/UserDatabaseSettings.cs" Line="10" Column="2" />
+      <File FileName="Services/UsersService.cs" Line="31" Column="55" />
+      <File FileName="Controllers/UsersController.cs" Line="35" Column="15" />
+      <File FileName="Services/YahooService.cs" Line="16" Column="11" />
+      <File FileName="Controllers/YahooController.cs" Line="15" Column="24" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DotNet.Docker" expanded="True">
+            <Node name="DotNet.Docker" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Services" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>
