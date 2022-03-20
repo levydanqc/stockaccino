@@ -69,7 +69,7 @@ public class UsersController : ControllerBase
     [HttpPut("{id:length(24)}")]
     public async Task<IActionResult> Update(string id, User updatedUser)
     {
-        User? user = await _usersService.GetAsync(id);
+        User? user = await _usersService.GetAsyncById(id);
 
         if (user is null)
         {
