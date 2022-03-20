@@ -17,4 +17,10 @@ public class YahooController : ControllerBase
     {
         return await _yahooService.GetTrending();
     }
+
+    [HttpGet("/autocomplete")]
+    public async Task<string> Get(string input)
+    {
+        return await _yahooService.GetAutocomplete(input);
+    }
 }
