@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientJsonpModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -15,7 +16,9 @@ import { CookieService } from 'ngx-cookie-service';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

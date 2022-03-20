@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -13,8 +14,14 @@ export class SettingsComponent implements OnInit {
   nom!: string;
   currentMode!: string;
   errorEmail?: string;
+  public form!: FormGroup;
+  emailForm!: FormControl;
 
-  constructor(private cookieService: CookieService, private _userService: UserService) {}
+  constructor(
+    private cookieService: CookieService,
+    private _userService: UserService,
+    private controlContainer: ControlContainer,
+    ) {}
 
   ngOnInit(): void {
     this._userService.getUserById(this.cookieService.get("id")).subscribe(data => {
@@ -23,12 +30,17 @@ export class SettingsComponent implements OnInit {
       this.nom = data.Nom;
     });
     this.currentMode = "show";
+    this.form = this.controlContainer.control as FormGroup;
+    this.form.addControl('emailForm', this.emailForm);
+    this.emailForm = this.form.get('emailForm') as FormControl;
   }
 
   submitForm() {
     let email!: string;
     let prenom!: string;
     let nom!: string;
+
+    console.log("Value du formControl email: ", this.emailForm.value);
 
     if ((<HTMLInputElement>document.getElementById("email")).value != "") {
       if (!this.validerEmail((<HTMLInputElement>document.getElementById("email")).value)) {

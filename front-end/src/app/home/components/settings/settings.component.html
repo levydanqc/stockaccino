@@ -17,11 +17,11 @@
             </form>
         </div>
         <div *ngIf="currentMode == 'modify'">
-            <form>
+            <form [formGroup]="form">
                 <div class="form-group">
                     <div class="error" *ngIf="errorEmail">{{errorEmail}}</div>
                     <label for="email">Adresse courriel</label>
-                    <input name="email" id="email" type="email" class="form-control" placeholder="{{email}}"></div>
+                    <input name="email" id="email" type="email" class="form-control" [formControl]="emailForm" placeholder="{{email}}"></div>
                 <div class="form-group">
                     <label for="prenom">Prénom</label>
                     <input name="prenom" id="prenom" class="form-control" placeholder="{{prenom}}"></div>
