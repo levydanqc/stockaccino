@@ -2,9 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
-// Request = envoyer un email pour demander un changement de mot de passe
-// Confirm = confirmaton du code envoyé à l'adresse courriel
-// Reset = changement du mot de passe
 export type EditorType = 'request' | 'confirm' | 'reset';
 
 @Component({
