@@ -1,18 +1,43 @@
-mat-sidenav-container {
-  height: 100%;
+.mat-nav-list {
+  .chevron-button {
+    transition: 300ms ease-in-out;
+    transform: rotate(0deg);
+    position: absolute;
+    right: 0;
+  }
+  .chevron-button.rotated {
+    transform: rotate(180deg);
+  }
+}
 
-  mat-sidenav {
-    mat-nav-list {
-      .chevron-button {
-        transition: 300ms ease-in-out;
-        transform: rotate(0deg);
-        position: absolute;
-        right: 0;
-      }
-      
-      .chevron-button.rotated {
-        transform: rotate(180deg);
-      }
-    }
+.option-img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir="rtl"] .option-img {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+form {
+  width: 50%;
+  & input {
+    width: 100%;
+    background: transparent;
+    border: 0.2rem solid #000000af;
+    background: url("../../../../assets/search.svg") no-repeat left center;
+    border-radius: 1rem;
+    padding: 0.5rem;
+  }
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .mat-autocomplete-panel {
+  border-radius: 1rem !important;
+  margin-top: 0.5rem;
+  & .mat-autocomplete-panel#md-autocomplete-0 {
+    color: red;
   }
 }

@@ -30,11 +30,23 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <div class="content">
-    <mat-toolbar>
-      <h1>{{title}}</h1>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-  </div>
+  <mat-toolbar>
+    <h1>{{title}}</h1>
+    <div class="spacer"></div>
+    <form>
+      <mat-icon mat-icon>search</mat-icon>
+      <input placeholder="Recherche de stock..." matInput aria-label="Search" [matAutocomplete]="auto"
+      [formControl]="stateCtrl">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+          <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+          <span>{{state.name}}</span> |
+          <small>Population: {{state.population}}</small>
+        </mat-option>
+      </mat-autocomplete>
+    </form>
+  </mat-toolbar>
+
+  <router-outlet></router-outlet>
 
 </mat-sidenav-container>
