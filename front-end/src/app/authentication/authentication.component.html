@@ -1,6 +1,3 @@
-<a href="" style="position: absolute; top: 0; left: 0; margin: 20px; cursor: pointer;"><button
-        class="btn btn-dark btnPersoTempo">Retour (temporaire,
-        pour tester)</button></a>
 <div class="authentication" fxLayout="row" fxLayoutAlign="center start">
     <mat-card [class.mat-elevation-z24]="true" class="px-0">
         <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
@@ -10,14 +7,16 @@
                 [ngClass]="{'active': showSignin}">S'inscrire</button>
         </mat-card-title>
 
-        <form #myForm="ngForm" [formGroup]="form" class="example-form" class="px-3" (submit)="onSubmit()">
+        <form novalidate #myForm="ngForm" [formGroup]="form" class="example-form" class="px-3">
             <mat-card-content>
-                <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="form" [pwd]="pwd" [getEmailError]="getEmailError"
-                    [getPwdError]="getPwdError"></app-login>
-                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd" [getEmailError]="getEmailError"
-                    [getPwdError]="getPwdError">
+                <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="form" [pwd]="pwd"
+                    [getEmailError]="getEmailError" [getPwdError]="getPwdError" (onSubmit)="onSubmit()">
+                </app-login>
+                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd" (onSignIn)="onSignIn()" (onSubmit)="onSubmit()"
+                    [getEmailError]="getEmailError" [getPwdError]="getPwdError">
                 </app-signin>
-                <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="form" [getEmailError]="getEmailError">
+                <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="form" [getEmailError]="getEmailError"
+                    (onSubmit)="onSubmit()">
                 </app-reset>
             </mat-card-content>
         </form>
