@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IUser } from '../user';
+import { IUserPost } from '../userPost';
 import { Observable, observable, TimeoutError } from 'rxjs';
 
 interface Parameters {
@@ -32,9 +33,9 @@ export class UserService {
   // Vérifier si un utilisateur existe avec cette addresse courriel.
   // Retourne true si l'adresse courriel est déjà utilisée, false si elle est libre.
   getUserByEmail(email: string): boolean {
-    // BUG: Meme si je modifie estUtilise plus bas dans le code, cette fonctione retourne
-    // *toujours* estUtilise comme etant false (puisqu'il est initialisé ici)
-    let estUtilise: boolean = false; // a false pour tester la creation.
+    // FIXME: Meme si je modifie estutilise plus bas dans le code, cette fonction retourne
+    // toujours estUtilise selon comment on l'initialise a la ligne suivante.
+    let estUtilise: boolean = false; // Mis a false pour tester la creation de compte
     this.apiCall({
       endpoint: email,
       headers: null,
@@ -42,11 +43,11 @@ export class UserService {
       query: null
     }).subscribe(
       (data) => {
-        console.log("utilisé");
+        console.log("email utilisé");
         estUtilise = true;
       },
       (error) => {
-        console.log("pas utilisé");
+        console.log("email pas utilisé");
         estUtilise = false;
       }
     );
@@ -54,15 +55,15 @@ export class UserService {
   }
 
   postUser(email: string, password: string, nom: string, prenom: string) {
-    let user: IUser = {
+    let user: IUserPost = {
       Email: email,
       Prenom: prenom,
       Nom: nom,
       Password: password,
-      Username: prenom + nom,
-      Id: "" // FIXME: Ici, il ne devrait pas y avoir d'id, mais l'enlever cause une chaine de problemes
+      Username: prenom + nom
     }
     console.log("en train de creer le user dans le service");
+    // FIXME: Cette ligne n'appelle pas la route
     this.http.post(this.apiUrl, user);
   }
 

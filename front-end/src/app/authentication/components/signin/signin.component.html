@@ -1,7 +1,7 @@
 <div class="error" *ngIf="error">{{error}}</div>
 <mat-form-field appearance="outline">
     <mat-label>Courriel</mat-label>
-    <input matInput placeholder="Courriel" [formControl]="email" required>
+    <input matInput placeholder="Courriel" [formControl]="email" (blur)="verifyEmail()" required>
     <mat-icon matSuffix>alternate_email</mat-icon>
     <mat-hint>Entrez votre adresse courriel.</mat-hint>
     <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>

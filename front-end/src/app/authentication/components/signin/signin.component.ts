@@ -23,6 +23,7 @@ export class SigninComponent implements OnInit {
   prenom: FormControl = new FormControl('', [Validators.required]);
   confirmPwd: FormControl = new FormControl('');
   error!: string;
+  emailUnavailable!: boolean;
   hide: boolean = true;
   @Output()
   onSubmit = new EventEmitter<string>();
@@ -44,15 +45,15 @@ export class SigninComponent implements OnInit {
     this.onSubmit.emit();
     if (this.form.valid) {
       if (event == 'signin') {
-        let emailUnavailable: boolean = this._userService.getUserByEmail(this.email.value);
-        console.log("Le email est déjà utilisé: ", emailUnavailable);
-        if (emailUnavailable) {
+        console.log("Variable emailUnavailable: ", this.emailUnavailable);
+        if (this.emailUnavailable) {
           this.error = "Cette adresse courriel est déjà utilisée."
         }
         else {
           // TODO: Créer l'utilisateur
           console.log("Creation du user effectue.");
           
+          // FIXME: Ne crée pas l'utilisateur. La route backend n'est pas appelée.
           this._userService.postUser(
             this.email.value,
             this.pwd.value,
@@ -65,6 +66,16 @@ export class SigninComponent implements OnInit {
         }
       }
     }
+  }
+
+  verifyEmail() {
+    this.emailUnavailable = this._userService.getUserByEmail(this.email.value);
+    // FIXME: Ici, il faudrait afficher un message d'erreur dans le formulaire, mais
+    //        _userService.getUserByEmail va toujours retourner false directement, que le email soit
+    //        valide ou pas. Voir dans user.service.ts, au niveau de la fonction getUSerByEmail.
+
+    // Bref, emailUnavailable est toujours false, meme si la console nous affiche réellement si
+    // l'adresse courriel est utilisée ou non.
   }
 
   matchPwd() {
