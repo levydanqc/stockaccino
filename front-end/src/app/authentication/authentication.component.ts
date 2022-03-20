@@ -31,7 +31,7 @@ export class AuthenticationComponent {
     return this.editor == 'reset';
   }
 
-  switchForm(type: EditorType) {
+  public switchForm(type: EditorType) {
     this.editor = type;
   }
 

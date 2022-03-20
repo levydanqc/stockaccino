@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, Form, FormControl, FormGroup } from '@angular/forms';
-import { IUser } from '../../../user';
 import { UserService } from 'src/app/service/user.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
