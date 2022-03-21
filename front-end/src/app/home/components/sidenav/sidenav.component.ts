@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { debounceTime, tap, switchMap, finalize } from 'rxjs';
 import { YahooService } from 'src/app/service/yahoo.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 export interface State {
   flag: string;
@@ -20,10 +21,13 @@ export class SidenavComponent {
   isExpanded: boolean = false;
   input = new FormControl();
   filteredResults: any;
-  isLoading = false;
+  isLoading = true;
 
-  constructor(private router: Router, private yahooService: YahooService) {
-    // get the current url
+  constructor(
+    private router: Router,
+    private yahooService: YahooService,
+    private spinner: NgxSpinnerService
+  ) {
     this.router.events.subscribe((url: any) => {
       if (url.url === '/') {
         this.title = 'Tableau de bord';
@@ -39,6 +43,10 @@ export class SidenavComponent {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.spinner.show();
+  }
+
   ngOnInit() {
     this.input.valueChanges
       .pipe(
@@ -46,6 +54,7 @@ export class SidenavComponent {
         tap(() => {
           this.filteredResults = [];
           this.isLoading = true;
+          this.spinner.show();
         }),
         switchMap((value) => {
           if (value.length > 0) {

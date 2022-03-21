@@ -26,12 +26,10 @@ body {
 }
 
 .DashBoardContent {
-  
   padding: 50px;
-  background-color: #F5F5F5;
-  box-shadow: 
-      12px 12px 16px 0 rgba(0, 0, 0, 0.25),
-      -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+  background-color: $grey;
+  box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
   border-radius: 50px;
   justify-content: left;
   margin-right: 4rem;
