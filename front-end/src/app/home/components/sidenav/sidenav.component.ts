@@ -21,7 +21,7 @@ export class SidenavComponent {
   isExpanded: boolean = false;
   input = new FormControl();
   filteredResults: any;
-  isLoading = true;
+  isLoading = false;
 
   constructor(
     private router: Router,
@@ -42,7 +42,6 @@ export class SidenavComponent {
       }
     });
   }
-
   ngAfterViewInit(): void {
     this.spinner.show();
   }

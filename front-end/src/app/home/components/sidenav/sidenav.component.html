@@ -33,7 +33,8 @@
   <mat-toolbar>
     <h1>{{title}}</h1>
     <mat-form-field floatLabel='never' class="m-auto">
-      <input matInput placeholder="Search" aria-label="State" [matAutocomplete]="auto" [formControl]="input">
+      <input matInput placeholder="Rechercher un stock" aria-label="State" [matAutocomplete]="auto"
+        [formControl]="input">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngIf="isLoading" class="isLoading">
           <ngx-spinner bdColor="#00000000" size="medium" color="#00000080" type="ball-newton-cradle"
@@ -41,8 +42,8 @@
           </ngx-spinner>
         </mat-option>
         <ng-container *ngIf="!isLoading">
-          <mat-option *ngFor="let result of filteredResults" [value]="result.name">
-            <span><b>{{result.name}}</b> ({{result.symbol}})</span>
+          <mat-option *ngFor="let result of filteredResults" [value]="result.symbol">
+            <span>{{result.name}}<b>({{result.symbol}})</b></span>
           </mat-option>
         </ng-container>
       </mat-autocomplete>

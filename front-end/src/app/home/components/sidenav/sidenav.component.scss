@@ -21,7 +21,32 @@
 }
 
 .mat-form-field {
-  width: 50%;
+  width: 20%;
+  transition: 300ms ease-in-out width;
+  -webkit-transition: width 300ms ease-in-out;
+  padding-bottom: 0;
+  &:hover {
+    filter: invert(5%) sepia(86%) saturate(6882%) hue-rotate(242deg)
+      brightness(80%) contrast(103%);
+    border-color: #071163;
+    transition: 300ms ease-in-out color;
+    -webkit-transition: color 300ms ease-in-out;
+  }
+  &:focus-within {
+    width: 35%;
+    transition: 300ms ease-in-out width;
+    -webkit-transition: width 300ms ease-in-out;
+  }
+}
+
+::ng-deep .mat-form-field-label {
+  padding-left: 1.5rem;
+}
+
+input {
+  background: url("../../../../assets/search.svg") no-repeat left center;
+  background-size: 1rem;
+  padding-left: 1.5rem;
 }
 
 h1 {
