@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   submit() {
-    console.log('submit');
     this.onSubmit.emit();
     if (this.form.valid) {
       // TODO: https://github.com/levydanqc/stockaccino/issues/7
@@ -37,7 +36,6 @@ export class LoginComponent implements OnInit {
         .verifyUser(this.email.value, this.password.value)
         .subscribe(
           (data) => {
-            console.log(data);
             this.cookieService.set('id', data.Id);
             this.router.navigate(['/']);
           },
