@@ -32,9 +32,11 @@
 
   <mat-toolbar>
     <h1>{{title}}</h1>
-    <mat-form-field floatLabel='never' class="m-auto">
-      <input matInput placeholder="Rechercher un stock" aria-label="State" [matAutocomplete]="auto"
-        [formControl]="input">
+    <mat-form-field class="m-auto">
+      <mat-label>Rechercher un stock</mat-label>
+      <input matInput placeholder="Ex: Apple Inc." aria-label="State" [matAutocomplete]="auto" [formControl]="input"
+        (focus)="this.isFocus = true;" (blur)="this.isFocus = false;">
+      <img matPrefix src="assets/search.svg" alt="search" [ngClass]="{'focus': this.isFocus, 'unfocus': !this.isFocus}">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngIf="isLoading" class="isLoading">
           <ngx-spinner bdColor="#00000000" size="medium" color="#00000080" type="ball-newton-cradle"

@@ -21,8 +21,10 @@ export class SidenavComponent {
   isExpanded: boolean = false;
   input = new FormControl();
   filteredResults: any;
-  isLoading = false;
-
+  isLoading: boolean = false;
+  isFocus: boolean = false;
+  clearClicked: boolean = false;
+  
   constructor(
     private router: Router,
     private yahooService: YahooService,
