@@ -12,13 +12,13 @@ public class YahooController : ControllerBase
     public YahooController(YahooService yahooService) =>
         _yahooService = yahooService;
 
-    [HttpGet("/trending")]
+    [HttpGet("trending")]
     public async Task<string> Get()
     {
         return await _yahooService.GetTrending();
     }
 
-    [HttpGet("/autocomplete")]
+    [HttpGet("autocomplete")]
     public async Task<string> Get(string input)
     {
         return await _yahooService.GetAutocomplete(input);
