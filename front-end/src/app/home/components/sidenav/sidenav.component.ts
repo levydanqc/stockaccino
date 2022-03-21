@@ -55,6 +55,8 @@ export class SidenavComponent {
               })
             );
           }
+          this.isLoading = false;
+          return [];
         })
       )
       .subscribe((data) => {

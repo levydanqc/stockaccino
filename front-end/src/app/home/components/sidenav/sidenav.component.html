@@ -32,8 +32,7 @@
 
   <mat-toolbar>
     <h1>{{title}}</h1>
-    <div class="spacer"></div>
-    <mat-form-field>
+    <mat-form-field floatLabel='never' class="m-auto">
       <input matInput placeholder="Search" aria-label="State" [matAutocomplete]="auto" [formControl]="input">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
