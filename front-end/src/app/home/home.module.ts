@@ -34,7 +34,7 @@ import { SearchComponent } from './components/search/search.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule,
+    MatIconModule
   ]
 })
 export class DashboardModule { }
