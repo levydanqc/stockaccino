@@ -11,8 +11,6 @@ import { HistoryComponent } from './components/history/history.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SearchComponent } from './components/search/search.component';
 
-import { NgxSpinnerModule } from 'ngx-spinner';
-
 schemas: [CUSTOM_ELEMENTS_SCHEMA];
 
 @NgModule({
@@ -23,12 +21,6 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     SettingsComponent,
     SearchComponent,
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    MaterialModule,
-    NgxSpinnerModule,
-  ],
-  exports: [NgxSpinnerModule],
+  imports: [CommonModule, DashboardRoutingModule, MaterialModule],
 })
 export class DashboardModule {}

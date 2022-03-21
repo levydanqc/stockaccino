@@ -54,7 +54,6 @@ export class SidenavComponent {
         tap(() => {
           this.filteredResults = [];
           this.isLoading = true;
-          this.spinner.show();
         }),
         switchMap((value) => {
           if (value.length > 0) {
