@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { debounceTime, tap, switchMap, finalize } from 'rxjs';
+import { YahooService } from 'src/app/service/yahoo.service';
 
 export interface State {
   flag: string;
@@ -18,10 +18,11 @@ export interface State {
 export class SidenavComponent {
   title: string = 'Stockaccino';
   isExpanded: boolean = false;
-  stateCtrl = new FormControl();
-  filteredStates: Observable<State[]>;
+  input = new FormControl();
+  filteredResults: any;
+  isLoading = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private yahooService: YahooService) {
     // get the current url
     this.router.events.subscribe((url: any) => {
       if (url.url === '/') {
@@ -36,45 +37,28 @@ export class SidenavComponent {
         this.title = 'Recherche';
       }
     });
-
-    this.filteredStates = this.stateCtrl.valueChanges.pipe(
-      startWith(''),
-      map((state) => (state ? this._filterStates(state) : this.states.slice()))
-    );
   }
 
-  states: State[] = [
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg',
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg',
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg',
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg',
-    },
-  ];
-
-  private _filterStates(value: string): State[] {
-    const filterValue = value.toLowerCase();
-
-    return this.states.filter((state) =>
-      state.name.toLowerCase().includes(filterValue)
-    );
+  ngOnInit() {
+    this.input.valueChanges
+      .pipe(
+        debounceTime(500),
+        tap(() => {
+          this.filteredResults = [];
+          this.isLoading = true;
+        }),
+        switchMap((value) => {
+          if (value.length > 0) {
+            return this.yahooService.getAutocomplete(value).pipe(
+              finalize(() => {
+                this.isLoading = false;
+              })
+            );
+          }
+        })
+      )
+      .subscribe((data) => {
+        this.filteredResults = data;
+      });
   }
 }

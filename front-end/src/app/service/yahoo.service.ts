@@ -10,7 +10,7 @@ import { map, Observable } from 'rxjs';
 export class YahooService {
   constructor(private http: HttpClient) {}
 
-  public getAutocomplete(query: string): Observable<ResultAutocomplete[]> {
+  public getAutocomplete(query: string): any {
     const queryParams = new HttpParams().append('input', query);
 
     let response = this.get(Constants.AUTOCOMPLETE_URL, {

@@ -33,18 +33,18 @@
   <mat-toolbar>
     <h1>{{title}}</h1>
     <div class="spacer"></div>
-    <form>
-      <mat-icon mat-icon>search</mat-icon>
-      <input placeholder="Recherche de stock..." matInput aria-label="Search" [matAutocomplete]="auto"
-      [formControl]="stateCtrl">
+    <mat-form-field>
+      <input matInput placeholder="Search" aria-label="State" [matAutocomplete]="auto" [formControl]="input">
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
-          <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
-          <span>{{state.name}}</span> |
-          <small>Population: {{state.population}}</small>
-        </mat-option>
+        <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+        <ng-container *ngIf="!isLoading">
+          <mat-option *ngFor="let result of filteredResults" [value]="result.name">
+            <span><b>{{result.name}}</b> ({{result.symbol}})</span>
+          </mat-option>
+        </ng-container>
       </mat-autocomplete>
-    </form>
+    </mat-form-field>
+
   </mat-toolbar>
 
   <router-outlet></router-outlet>
