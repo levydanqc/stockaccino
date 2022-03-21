@@ -31,7 +31,6 @@ public class YahooService
 
     internal async Task<string> GetAutocomplete(string input)
     {
-        //region=US&lang=en&query=apple
         var query = new Dictionary<string, string?>
         {
             ["region"] = "CA",
