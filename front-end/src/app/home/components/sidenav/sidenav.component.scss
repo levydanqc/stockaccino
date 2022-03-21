@@ -1,18 +1,61 @@
-mat-sidenav-container {
-  height: 100%;
-
-  mat-sidenav {
-    mat-nav-list {
-      .chevron-button {
-        transition: 300ms ease-in-out;
-        transform: rotate(0deg);
-        position: absolute;
-        right: 0;
-      }
-      
-      .chevron-button.rotated {
-        transform: rotate(180deg);
-      }
-    }
+.mat-nav-list {
+  .chevron-button {
+    transition: 300ms ease-in-out;
+    transform: rotate(0deg);
+    position: absolute;
+    right: 0;
   }
+  .chevron-button.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.option-img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir="rtl"] .option-img {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+.mat-form-field {
+  width: 25%;
+  transition: 300ms ease-in-out width;
+  -webkit-transition: width 300ms ease-in-out;
+  padding-bottom: 0;
+  &:focus-within {
+    width: 35%;
+    transition: 300ms ease-in-out width;
+    -webkit-transition: width 300ms ease-in-out;
+  }
+}
+
+::ng-deep .mat-form-field-label {
+  padding-left: 0.5rem;
+}
+
+input {
+  padding-left: 0.5rem;
+}
+
+.focus {
+  transform: rotate(360deg);
+  transition: transform 500ms ease-in-out
+}
+
+.unfocus {
+  transform: rotate(0deg);
+  transition: transform 300ms ease-in-out
+}
+
+h1 {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.isLoading {
+  position: relative;
 }

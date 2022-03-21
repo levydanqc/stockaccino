@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using Stockaccino.Models;
 using Stockaccino.Services;
 
@@ -13,8 +12,8 @@ builder.Services.Configure<UserDatabaseSettings>(
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 builder.Services.AddSingleton<UsersService>();
-//YahooService yahooService = new YahooService();
-//builder.Services.AddSingleton<YahooService>(yahooService);
+YahooService yahooService = new YahooService(builder.Configuration.GetSection("YahooApiKey").Value);
+builder.Services.AddSingleton<YahooService>(yahooService);
 
 
 builder.Services.AddControllers()

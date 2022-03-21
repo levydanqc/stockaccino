@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { IUser } from '../user';
-import { IUserPost } from '../userPost';
+import { User } from '../classes/user';
+import { IUserPost } from '../classes/userPost';
 import { Observable, observable, TimeoutError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -22,12 +22,12 @@ export class UserService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   // Retourne tous les utilisateurs.
-  getUsers(): Observable<IUser[]> {
+  getUsers(): Observable<User[]> {
     return this.apiCall({
       endpoint: '',
       headers: null,
       body: null,
-      query: null
+      query: null,
     });
   }
 
@@ -36,13 +36,13 @@ export class UserService {
       endpoint: email,
       headers: null,
       body: null,
-      query: null
+      query: null,
     }).subscribe(
       (data) => {
-        this.cookieService.set("estUtilise", "true");
+        this.cookieService.set('estUtilise', 'true');
       },
       (error) => {
-        this.cookieService.set("estUtilise", "false");
+        this.cookieService.set('estUtilise', 'false');
       }
     );
   }
@@ -53,9 +53,9 @@ export class UserService {
       Prenom: prenom,
       Nom: nom,
       Password: password,
-      Username: prenom + nom
-    }
-    this.http.post(this.apiUrl, user).subscribe(res => {});
+      Username: prenom + nom,
+    };
+    this.http.post(this.apiUrl, user).subscribe((res) => {});
   }
 
   apiCall(params: Parameters): Observable<any> {
@@ -71,7 +71,7 @@ export class UserService {
 
   // Verifie si le email et le mot de passe sont corrects pour l'utilisateur
   // qui tente une connexion.
-  verifyUser(email: string, password: string): Observable<IUser> {
+  verifyUser(email: string, password: string): Observable<User> {
     //TODO: hash password
     //TODO: payload in body instead
     return this.apiCall({
