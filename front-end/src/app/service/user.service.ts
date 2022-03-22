@@ -47,6 +47,15 @@ export class UserService {
     );
   }
 
+  getUserByEmail(email: string) {
+    return this.apiCall({
+      endpoint: `${email}`,
+      headers: null,
+      body: null,
+      query: null
+    });
+  }
+
   getUserById(id: string) {
     return this.apiCall({
       endpoint: `findById/${id}`,

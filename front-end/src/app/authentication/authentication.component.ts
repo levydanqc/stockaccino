@@ -10,7 +10,6 @@ export type EditorType = 'login' | 'signin' | 'reset';
 })
 export class AuthenticationComponent {
   editor: EditorType = 'login';
-
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
   });
@@ -36,8 +35,12 @@ export class AuthenticationComponent {
   }
 
   onSignIn() {
-    this.editor = "login";
+    this.switchForm("login");
     location.reload();
+  }
+
+  onReset() {
+    this.switchForm("login");
   }
 
   onSubmit() {

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
 import { UserService } from 'src/app/service/user.service';
 
 export type EditorType = 'request' | 'confirm' | 'reset';
@@ -21,11 +20,12 @@ export class ResetComponent implements OnInit{
   
   @Output()
   onSubmit = new EventEmitter<string>();
+  @Output()
+  onReset = new EventEmitter<string>();
 
   constructor(
     private controlContainer: ControlContainer,
     private _userService: UserService,
-    private cookieService: CookieService,
   ) {}
 
   ngOnInit(): void {
@@ -73,15 +73,18 @@ export class ResetComponent implements OnInit{
   }
 
   reset() {
-    // getUSerByEmail
-    // get id
-    // this._userService.updateUser(
-    //   this.cookieService.get('id'),
-    //   undefined,
-    //   undefined,
-    //   undefined,
-    //   this.pwd.value,
-    // );
+    this._userService
+      .getUserByEmail(this.email.value)
+      .subscribe((data) => {
+        this._userService.updateUser(
+          data.Id,
+          undefined,
+          undefined,
+          undefined,
+          this.pwd.value,
+        );
+      });
+    this.onReset.emit();
   }
 
   getCodeError() {

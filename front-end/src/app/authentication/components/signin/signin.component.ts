@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserService } from 'src/app/service/user.service';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { EditorType } from '../../authentication.component';
 
@@ -35,8 +34,7 @@ export class SigninComponent implements OnInit {
   constructor(
       private controlContainer: ControlContainer,
       private _userService: UserService,
-      private router: Router,
-      private cookieService: CookieService
+      private cookieService: CookieService,
     ) {}
 
   ngOnInit(): void {

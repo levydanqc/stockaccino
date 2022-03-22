@@ -16,7 +16,7 @@
                     [getEmailError]="getEmailError" [getPwdError]="getPwdError">
                 </app-signin>
                 <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="this.form" [getEmailError]="getEmailError"
-                    (onSubmit)="onSubmit()">
+                    (onSubmit)="onSubmit()" (onReset)="onReset()">
                 </app-reset>
             </mat-card-content>
         </form>
