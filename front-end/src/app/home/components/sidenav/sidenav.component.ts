@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { debounceTime, tap, switchMap, finalize } from 'rxjs';
-import { YahooService } from 'src/app/service/yahoo.service';
+import { YahooService } from 'src/app/services/yahoo.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 export interface State {
@@ -16,7 +16,7 @@ export interface State {
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
 })
-export class SidenavComponent {
+export class SidenavComponent implements AfterViewInit, OnInit {
   title: string = 'Stockaccino';
   isExpanded: boolean = false;
   input = new FormControl();

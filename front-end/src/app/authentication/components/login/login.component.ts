@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
-import { UserService } from 'src/app/service/user.service';
+import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   hide: boolean = true;
   invalid!: boolean;
   @Output()
-  onSubmit = new EventEmitter<string>();
+  authSubmit = new EventEmitter<string>();
 
   constructor(
     private controlContainer: ControlContainer,
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   submit() {
-    this.onSubmit.emit();
+    this.authSubmit.emit();
     if (this.form.valid) {
       // TODO: https://github.com/levydanqc/stockaccino/issues/7
       let user = this._userService
