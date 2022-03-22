@@ -24,7 +24,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private cookieService: CookieService,
-    private _userService: UserService
+    private _userService: UserService,
   ) {}
 
   ngOnInit(): void {

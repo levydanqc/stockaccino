@@ -56,7 +56,7 @@ export class UserService {
     });
   }
 
-  updateUser(id: string, email?: string, nom?: string, prenom?: string) {
+  updateUser(id: string, email?: string, nom?: string, prenom?: string, password?: string) {
     let user!: IUser;
     this.getUserById(id).subscribe(data => {
       user = data;
@@ -69,6 +69,9 @@ export class UserService {
       }
       if (prenom) {
         user.Prenom = prenom;
+      }
+      if (password) {
+        user.Password = password;
       }
       this.http.put(this.apiUrl + id, user).subscribe(res => {});
     })

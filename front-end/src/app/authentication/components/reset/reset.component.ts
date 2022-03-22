@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from 'src/app/service/user.service';
 
 export type EditorType = 'request' | 'confirm' | 'reset';
 
@@ -20,7 +22,11 @@ export class ResetComponent implements OnInit{
   @Output()
   onSubmit = new EventEmitter<string>();
 
-  constructor(private controlContainer: ControlContainer) {}
+  constructor(
+    private controlContainer: ControlContainer,
+    private _userService: UserService,
+    private cookieService: CookieService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.controlContainer.control as FormGroup;
@@ -67,8 +73,15 @@ export class ResetComponent implements OnInit{
   }
 
   reset() {
-    // TODO: Reset le password du bon user
-   console.log(this.pwd.value);
+    // getUSerByEmail
+    // get id
+    // this._userService.updateUser(
+    //   this.cookieService.get('id'),
+    //   undefined,
+    //   undefined,
+    //   undefined,
+    //   this.pwd.value,
+    // );
   }
 
   getCodeError() {
