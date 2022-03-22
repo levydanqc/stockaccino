@@ -14,8 +14,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier && ng lint",
-      "pre-push": "ng build --aot true"
+      "pre-commit": "npm run prettier && ng lint"
     }
   },
   "private": true,
