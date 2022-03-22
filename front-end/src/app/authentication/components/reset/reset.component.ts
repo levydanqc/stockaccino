@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ControlContainer, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 export type EditorType = 'request' | 'confirm' | 'reset';
 
@@ -9,21 +9,31 @@ export type EditorType = 'request' | 'confirm' | 'reset';
   templateUrl: './reset.component.html',
   styleUrls: ['./reset.component.scss'],
 })
-export class ResetComponent implements OnInit {
+export class ResetComponent implements OnInit{
   editor: EditorType = 'request';
-  code: number = 1000000;
-  message!: string;
-  emailRequested: string = 'void';
+  code?: number;
   @Input() getEmailError!: () => string;
-  email!: FormControl;
   form!: FormGroup;
+  email!: FormControl;
+  codeForm: FormControl = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
+  pwd: FormControl = new FormControl('', [Validators.required, Validators.minLength(6)])
+  
   @Output()
-  authSubmit = new EventEmitter<string>();
+  onSubmit = new EventEmitter<string>();
+  @Output()
+  onReset = new EventEmitter<string>();
 
   constructor(
     private controlContainer: ControlContainer,
-    private router: Router
+    private _userService: UserService,
   ) {}
+
+  ngOnInit(): void {
+    this.form = this.controlContainer.control as FormGroup;
+    this.email = this.form.get('email') as FormControl;
+    this.form.addControl('code', this.codeForm);
+    this.form.addControl('pwd', this.pwd);
+  }
 
   showRequest() {
     return this.editor == 'request';
@@ -36,50 +46,61 @@ export class ResetComponent implements OnInit {
   }
 
   submit(event: string) {
-    this.authSubmit.emit();
-    if (this.form.get('email')?.valid) {
-      if (event == 'request') {
+    this.onSubmit.emit();
+    if (event === 'reset')
+      this.reset();
+    else if (event ==='confirm') {
+      if (this.form.get('code')?.valid)
+        this.confirm();
+    }
+    else if (event === 'request') {
+      console.log(this.form.get('email'));
+      if (this.form.get('email')?.valid)
         this.request();
-      } else if (event == 'confirm') {
-        let codeClient = (<HTMLInputElement>document.getElementById('codeForm'))
-          .value;
-        if (!isNaN(+codeClient)) {
-          this.confirm(+codeClient);
-        } else {
-          this.message = 'Vous devez entrez le code constitué de 6 chiffres.';
-        }
-      } else if (event == 'reset') {
-        this.reset();
-      }
     }
   }
 
   request() {
-    // TODO: Valider l'adresse courriel
-    // TODO: Envoyer le code par courriel à emailClient
-    this.emailRequested = 'temporaire@debug.com';
     this.editor = 'confirm';
-    var codeGenere = Math.floor(100000 + Math.random() * 900000);
-
-    // Temporairement, le code est envoyé dans la page pour debug
-    this.code = codeGenere;
+    this.code = Math.floor(100000 + Math.random() * 900000);
   }
 
-  confirm(codeClient: number) {
-    var codeCorrect = this.code;
-    if (codeCorrect === codeClient) {
+  confirm() {
+    if (this.code === Number(this.codeForm.value))
       this.editor = 'reset';
-    } else {
-      this.message = 'Le code est incorrect.';
-    }
+    else
+      this.codeForm.setErrors({invalid: true});
   }
 
   reset() {
-    // TODO: Reset le password du bon user
+    this._userService
+      .getUserByEmail(this.email.value)
+      .subscribe((data) => {
+        this._userService.updateUser(
+          data.Id,
+          undefined,
+          undefined,
+          undefined,
+          this.pwd.value,
+        );
+      });
+    this.onReset.emit();
   }
 
-  ngOnInit(): void {
-    this.form = this.controlContainer.control as FormGroup;
-    this.email = this.form.get('email') as FormControl;
+  getCodeError() {
+    let code = this.form.get('code');
+    if (code?.hasError('required'))
+      return 'Vous devez entrer le code';
+    else if (code?.hasError('invalid'))
+      return 'Le code ne corresponds pas';
+    return code?.hasError('pattern') ? "Le code ne doit contenir que des chiffres." : '';
   }
+
+  getPwdError = (): string => {
+    if (this.pwd.hasError('required'))
+      return 'Vous devez entrer un mot de passe';
+    return this.pwd.hasError('minlength')
+      ? 'Le mot de passe doit contenir au moins 6 caractères'
+      : '';
+  };
 }

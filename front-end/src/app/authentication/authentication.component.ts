@@ -35,9 +35,16 @@ export class AuthenticationComponent {
     this.editor = type;
   }
 
-  onSignIn() {
-    this.editor = 'login';
+  authSignIn() {
+    this.switchForm("login");
     this.form.reset();
+    location.reload();
+  }
+
+  onReset() {
+    this.switchForm("login");
+    this.form.reset();
+    location.reload();
   }
 
   onSubmit() {

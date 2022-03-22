@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from '../classes/user';
 import { IUserPost } from '../classes/userPost';
-import { Observable, observable, TimeoutError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { Constants } from '../../assets/constants';
 
 interface Parameters {
   endpoint: string;
@@ -16,8 +17,7 @@ interface Parameters {
   providedIn: 'root',
 })
 export class UserService {
-  //TODO: change for remote url
-  apiUrl: string = 'https://localhost:7056/api/users/';
+  apiUrl = Constants.USER_URL;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
@@ -47,6 +47,15 @@ export class UserService {
     );
   }
 
+  getUserByEmail(email: string) {
+    return this.apiCall({
+      endpoint: `${email}`,
+      headers: null,
+      body: null,
+      query: null
+    });
+  }
+
   getUserById(id: string) {
     return this.apiCall({
       endpoint: `findById/${id}`,
@@ -56,9 +65,9 @@ export class UserService {
     });
   }
 
-  updateUser(id: string, email?: string, nom?: string, prenom?: string) {
+  updateUser(id: string, email?: string, nom?: string, prenom?: string, password?: string) {
     let user!: User;
-    this.getUserById(id).subscribe((data) => {
+    this.getUserById(id).subscribe(data => {
       user = data;
       if (email) {
         user.Email = email;
@@ -70,8 +79,11 @@ export class UserService {
       if (prenom) {
         user.Prenom = prenom;
       }
-      this.http.put(this.apiUrl + id, user).subscribe((res) => {});
-    });
+      if (password) {
+        user.Password = password;
+      }
+      this.http.put(this.apiUrl + id, user).subscribe(res => {});
+    })
   }
 
   postUser(email: string, password: string, nom: string, prenom: string) {
