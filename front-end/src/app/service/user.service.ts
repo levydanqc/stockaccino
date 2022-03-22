@@ -47,6 +47,33 @@ export class UserService {
     );
   }
 
+  getUserById(id: string) {
+    return this.apiCall({
+      endpoint: `findById/${id}`,
+      headers: null,
+      body: null,
+      query: null
+    });
+  }
+
+  updateUser(id: string, email?: string, nom?: string, prenom?: string) {
+    let user!: IUser;
+    this.getUserById(id).subscribe(data => {
+      user = data;
+      if (email) {
+        user.Email = email;
+      }
+      if (nom) {
+        console.log(user);
+        user.Nom = nom;
+      }
+      if (prenom) {
+        user.Prenom = prenom;
+      }
+      this.http.put(this.apiUrl + id, user).subscribe(res => {});
+    })
+  }
+
   postUser(email: string, password: string, nom: string, prenom: string) {
     let user: IUserPost = {
       Email: email,
