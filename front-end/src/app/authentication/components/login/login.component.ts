@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   submit() {
-    console.log('submit');
     this.onSubmit.emit();
     if (this.form.valid) {
       // TODO: https://github.com/levydanqc/stockaccino/issues/7

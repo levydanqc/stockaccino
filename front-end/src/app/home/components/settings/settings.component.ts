@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/service/user.service';
 
 export type Mode = 'show' | 'modify';
@@ -15,7 +11,7 @@ export type Mode = 'show' | 'modify';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  currentMode: string = 'show';
+  currentMode: Mode = 'show';
   form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     nom: new FormControl('', [Validators.required]),
@@ -42,23 +38,16 @@ export class SettingsComponent implements OnInit {
   }
 
   placeholder(input: string) {
-    if (input == 'email') {
-      return this.isShow() ? '' : this.form.get('email');
-    } else if (input == 'prenom') {
-      return this.isShow() ? '' : this.form.get('prenom');
-    } else if (input == 'nom') {
-      return this.isShow() ? '' : this.form.get('nom');
-    }
-    return '';
+    return this.form.get(input)?.value;
   }
 
   value(input: string) {
     if (input == 'email') {
-      return this.isShow() ? this.form.get('email') : '';
+      return this.isShow() ? this.form.get('email')?.value : '';
     } else if (input == 'prenom') {
-      return this.isShow() ? this.form.get('prenom') : '';
+      return this.isShow() ? this.form.get('prenom')?.value : '';
     } else if (input == 'nom') {
-      return this.isShow() ? this.form.get('nom') : '';
+      return this.isShow() ? this.form.get('nom')?.value : '';
     }
     return '';
   }
@@ -71,9 +60,6 @@ export class SettingsComponent implements OnInit {
         this.form.get('nom')?.value,
         this.form.get('prenom')?.value
       );
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
       this.switch('show');
     }
   }
