@@ -1,35 +1,30 @@
 <div class="DashBoardContainer">
     <div class="DashBoardContent">
         <h2>Informations du compte: </h2>
-        <div *ngIf="currentMode == 'show'">
-            <form>
+        <div *ngIf="">
+            <form (submit)="submitForm()" [formGroup]="form">
                 <div class="form-group">
-                    <div class="error" *ngIf="errorEmail">{{errorEmail}}</div>
                     <label for="email">Adresse courriel</label>
-                    <input name="email" id="email" class="form-control" value="{{email}}" disabled></div>
+                    <input name="email" id="email" class="form-control" formControlName="email"
+                        [value]="placeholder('email')" [disabled]="isShow()">
+                    <mat-error *ngIf="this.form.get('email')!.invalid">{{getEmailError()}}</mat-error>
+                </div>
                 <div class="form-group">
                     <label for="prenom">Prénom</label>
-                    <input name="prenom" id="prenom" class="form-control" value="{{prenom}}" disabled></div>
+                    <input name="prenom" id="prenom" class="form-control" formControlName="prenom"
+                        [value]="placeholder('prenom')" [disabled]="isShow()">
+                </div>
                 <div class="form-group">
                     <label for="nom">Nom</label>
-                    <input name="nom" id="nom" class="form-control" value="{{nom}}" disabled></div>
-                <button type="button" (click)="switchToModify()" class="btn btn-dark">Modifier mon compte</button>
-            </form>
-        </div>
-        <div *ngIf="currentMode == 'modify'">
-            <form [formGroup]="form">
-                <div class="form-group">
-                    <div class="error" *ngIf="errorEmail">{{errorEmail}}</div>
-                    <label for="email">Adresse courriel</label>
-                    <input name="email" id="email" type="email" class="form-control" [formControl]="emailForm" placeholder="{{email}}"></div>
-                <div class="form-group">
-                    <label for="prenom">Prénom</label>
-                    <input name="prenom" id="prenom" class="form-control" placeholder="{{prenom}}"></div>
-                <div class="form-group">
-                    <label for="nom">Nom</label>
-                    <input name="nom" id="nom" class="form-control" placeholder="{{nom}}"></div>
-                <button type="button" (click)="submitForm()" class="btn btn-dark">Sauvegarder les changements</button>
-                <button type="button" (click)="switchToShow()" class="btn btn-dark myBtn">Annuler</button>
+                    <input name="nom" id="nom" class="form-control" formControlName="nom" [value]="placeholder('nom')"
+                        [disabled]="isShow()">
+                </div>
+                <button *ngIf="isShow()" type="button" (click)="switch('modify')" class="btn btn-dark">Modifier mon
+                    compte</button>
+                <div *ngIf="isShow()">
+                    <button type="button" type="submit" class="btn btn-dark">Sauvegarder</button>
+                    <button type="button" (click)="switch('show')" class="btn btn-dark myBtn">Annuler</button>
+                </div>
             </form>
         </div>
     </div>
