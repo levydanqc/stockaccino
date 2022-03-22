@@ -1,10 +1,10 @@
 <div *ngIf="showRequest()">
     <mat-form-field appearance="outline">
         <mat-label>Courriel</mat-label>
-        <input matInput placeholder="Courriel" [formControl]="email" required>
+        <input matInput placeholder="Courriel" [formControl]="this.email" required>
         <mat-icon matSuffix>alternate_email</mat-icon>
         <mat-hint>Entrez votre adresse courriel.</mat-hint>
-        <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
+        <mat-error *ngIf="this.form.get('email')?.invalid">{{getEmailError()}}</mat-error>
     </mat-form-field>
     <mat-card-actions>
         <button fxFill mat-raised-button color="primary" (click)="submit('request')">Envoyer le
@@ -12,12 +12,12 @@
     </mat-card-actions>
 </div>
 <div *ngIf="showConfirm()">
-    <div class="error" *ngIf="message">{{message}}</div>
     <form #myForm="ngForm">
         <mat-form-field appearance="outline">
             <mat-label>Entrez le code reçu à l'adresse courriel.</mat-label>
-            <input matInput placeholder="000000" name="codeForm" id="codeForm" required>
+            <input matInput placeholder="000000" name="codeForm" id="codeForm" [formControl]="this.codeForm" required>
             <mat-hint>Entrez le code reçu par courriel.</mat-hint>
+            <mat-error *ngIf="this.form.get('code')?.invalid">{{getCodeError()}}</mat-error>
         </mat-form-field>
         <mat-card-actions>
             <button fxFill mat-raised-button color="primary" (click)="submit('confirm')">Valider</button>
@@ -28,8 +28,9 @@
 <div *ngIf="showReset()">
     <mat-form-field appearance="outline">
         <mat-label>Nouveau mot de passe</mat-label>
-        <input matInput required>
+        <input [formControl]='this.pwd' matInput type='password' required>
         <mat-hint>Entrez votre nouveau mot de passe.</mat-hint>
+        <mat-error *ngIf="this.form.get('pwd')?.invalid">{{getPwdError()}}</mat-error>
     </mat-form-field>
     <mat-card-actions>
         <button fxFill mat-raised-button color="primary" (click)="submit('reset')">Réinitialiser</button>
