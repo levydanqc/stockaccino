@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
         .verifyUser(this.email.value, this.password.value)
         .subscribe(
           (data) => {
-            console.log(data);
             this.cookieService.set('id', data.Id);
             this.router.navigate(['/']);
           },

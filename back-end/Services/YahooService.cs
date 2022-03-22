@@ -29,6 +29,18 @@ public class YahooService
         return await _client.GetStringAsync(_baseUrl + _endPoints["trending"]);
     }
 
+    internal async Task<string> GetAutocomplete(string input)
+    {
+        var query = new Dictionary<string, string?>
+        {
+            ["region"] = "CA",
+            ["lang"] = "fr",
+            ["query"] = input,
+        };
+
+        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["autocomplete"], query));
+    }
+
     public async Task<string> GetQuote(string[] symbols)
     {
         string uri = _baseUrl + _endPoints["quote"];
