@@ -5,8 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { UserService } from 'src/app/service/user.service';
-import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { EditorType } from '../../authentication.component';
 
@@ -28,16 +27,15 @@ export class SigninComponent implements OnInit {
   error?: string;
   hide: boolean = true;
   @Output()
-  onSubmit = new EventEmitter<string>();
+  authSubmit = new EventEmitter<string>();
   @Output()
-  onSignIn = new EventEmitter<string>();
+  authSignIn = new EventEmitter<string>();
 
   constructor(
-      private controlContainer: ControlContainer,
-      private _userService: UserService,
-      private router: Router,
-      private cookieService: CookieService
-    ) {}
+    private controlContainer: ControlContainer,
+    private _userService: UserService,
+    private cookieService: CookieService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.controlContainer.control as FormGroup;
@@ -46,18 +44,16 @@ export class SigninComponent implements OnInit {
     this.form.addControl('pwd', this.pwd);
     this.form.addControl('confirmPwd', this.confirmPwd);
     this.email = this.form.get('email') as FormControl;
-    this.cookieService.delete("estUtilise");
+    this.cookieService.delete('estUtilise');
   }
 
   submit(event: string) {
-    this.onSubmit.emit();
+    this.authSubmit.emit();
     if (this.form.valid) {
       if (event == 'signin') {
-        if (this.cookieService.get("estUtilise") == "true") {
-          this.error = "Cette adresse courriel est déjà utilisée.";
-        }
-        else {
-          // Créer l'utilisateur
+        if (this.cookieService.get('estUtilise') === 'true') {
+          this.error = 'Cette adresse courriel est déjà utilisée.';
+        } else {
           this._userService.postUser(
             this.email.value,
             this.pwd.value,
@@ -65,10 +61,9 @@ export class SigninComponent implements OnInit {
             this.prenom.value
           );
 
-          this.cookieService.delete("estUtilise");
+          this.cookieService.delete('estUtilise');
 
-          // Rediriger l'utilisateur
-          this.onSignIn.emit();
+          this.authSubmit.emit('signin');
         }
       }
     }

@@ -18,9 +18,12 @@ export class ResetComponent implements OnInit {
   email!: FormControl;
   form!: FormGroup;
   @Output()
-  onSubmit = new EventEmitter<string>();
+  authSubmit = new EventEmitter<string>();
 
-  constructor(private controlContainer: ControlContainer, private router: Router,) {}
+  constructor(
+    private controlContainer: ControlContainer,
+    private router: Router
+  ) {}
 
   showRequest() {
     return this.editor == 'request';
@@ -33,17 +36,17 @@ export class ResetComponent implements OnInit {
   }
 
   submit(event: string) {
-    this.onSubmit.emit();
+    this.authSubmit.emit();
     if (this.form.get('email')?.valid) {
       if (event == 'request') {
         this.request();
       } else if (event == 'confirm') {
-        let codeClient = (<HTMLInputElement>document.getElementById("codeForm")).value;
+        let codeClient = (<HTMLInputElement>document.getElementById('codeForm'))
+          .value;
         if (!isNaN(+codeClient)) {
           this.confirm(+codeClient);
-        }
-        else {
-          this.message = "Vous devez entrez le code constitué de 6 chiffres."
+        } else {
+          this.message = 'Vous devez entrez le code constitué de 6 chiffres.';
         }
       } else if (event == 'reset') {
         this.reset();
@@ -67,7 +70,7 @@ export class ResetComponent implements OnInit {
     if (codeCorrect === codeClient) {
       this.editor = 'reset';
     } else {
-      this.message = "Le code est incorrect.";
+      this.message = 'Le code est incorrect.';
     }
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from 'src/app/service/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 export type Mode = 'show' | 'modify';
 

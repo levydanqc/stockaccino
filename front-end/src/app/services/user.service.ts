@@ -52,13 +52,13 @@ export class UserService {
       endpoint: `findById/${id}`,
       headers: null,
       body: null,
-      query: null
+      query: null,
     });
   }
 
   updateUser(id: string, email?: string, nom?: string, prenom?: string) {
-    let user!: IUser;
-    this.getUserById(id).subscribe(data => {
+    let user!: User;
+    this.getUserById(id).subscribe((data) => {
       user = data;
       if (email) {
         user.Email = email;
@@ -70,8 +70,8 @@ export class UserService {
       if (prenom) {
         user.Prenom = prenom;
       }
-      this.http.put(this.apiUrl + id, user).subscribe(res => {});
-    })
+      this.http.put(this.apiUrl + id, user).subscribe((res) => {});
+    });
   }
 
   postUser(email: string, password: string, nom: string, prenom: string) {

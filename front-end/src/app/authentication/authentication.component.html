@@ -10,17 +10,17 @@
         <form novalidate #myForm="ngForm" [formGroup]="form" class="example-form" class="px-3">
             <mat-card-content>
                 <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="form" [pwd]="pwd"
-                    [getEmailError]="getEmailError" [getPwdError]="getPwdError" (onSubmit)="onSubmit()">
+                    [getEmailError]="getEmailError" [getPwdError]="getPwdError" (authSubmit)="onSubmit()">
                 </app-login>
-                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd" (onSignIn)="onSignIn()" (onSubmit)="onSubmit()"
-                    [getEmailError]="getEmailError" [getPwdError]="getPwdError">
+                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="form" [pwd]="pwd" (authSignIn)="onSignIn()"
+                    (authSubmit)="onSubmit()" [getEmailError]="getEmailError" [getPwdError]="getPwdError">
                 </app-signin>
                 <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="form" [getEmailError]="getEmailError"
-                    (onSubmit)="onSubmit()">
+                    (authSubmit)="onSubmit()">
                 </app-reset>
             </mat-card-content>
         </form>
-        <div *ngIf="editor == 'login'">
+        <div *ngIf="editor === 'login'">
             <mat-card-footer class="w-100" fxLayoutAlign="end end">
                 <button mat-flat-button (click)="switchForm('reset')" [ngClass]="{'active': showReset}">Mot de passe
                     oublié</button>

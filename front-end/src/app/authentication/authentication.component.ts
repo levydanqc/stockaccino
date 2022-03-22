@@ -36,8 +36,8 @@ export class AuthenticationComponent {
   }
 
   onSignIn() {
-    this.editor = "login";
-    location.reload();
+    this.editor = 'login';
+    this.form.reset();
   }
 
   onSubmit() {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { UserService } from 'src/app/service/user.service';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
