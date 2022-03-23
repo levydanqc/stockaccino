@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 export type EditorType = 'login' | 'signin' | 'reset';
 
@@ -19,7 +20,7 @@ export class AuthenticationComponent {
     Validators.minLength(6),
   ]);
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   get showLogin() {
     return this.editor == 'login';
@@ -38,13 +39,13 @@ export class AuthenticationComponent {
   authSignIn() {
     this.switchForm("login");
     this.form.reset();
-    location.reload();
+    this.router.navigate([this.router.url]);
   }
 
   onReset() {
     this.switchForm("login");
     this.form.reset();
-    location.reload();
+    this.router.navigate([this.router.url]);
   }
 
   onSubmit() {

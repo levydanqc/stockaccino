@@ -62,7 +62,6 @@ export class SigninComponent implements OnInit {
           );
 
           this.cookieService.delete('estUtilise');
-          
           this.authSignIn.emit();
         }
       }
