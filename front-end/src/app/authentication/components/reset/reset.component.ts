@@ -19,9 +19,9 @@ export class ResetComponent implements OnInit{
   pwd: FormControl = new FormControl('', [Validators.required, Validators.minLength(6)])
   
   @Output()
-  onSubmit = new EventEmitter<string>();
+  formSubmit = new EventEmitter<string>();
   @Output()
-  onReset = new EventEmitter<string>();
+  formReset = new EventEmitter<string>();
 
   constructor(
     private controlContainer: ControlContainer,
@@ -46,7 +46,7 @@ export class ResetComponent implements OnInit{
   }
 
   submit(event: string) {
-    this.onSubmit.emit();
+    this.formSubmit.emit();
     if (event === 'reset')
       this.reset();
     else if (event ==='confirm') {
@@ -84,7 +84,7 @@ export class ResetComponent implements OnInit{
           this.pwd.value,
         );
       });
-    this.onReset.emit();
+    this.formReset.emit();
   }
 
   getCodeError() {

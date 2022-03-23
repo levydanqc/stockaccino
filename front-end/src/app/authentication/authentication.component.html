@@ -16,11 +16,11 @@
                     [getEmailError]="getEmailError" [getPwdError]="getPwdError">
                 </app-signin>
                 <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="this.form" [getEmailError]="getEmailError"
-                    (onSubmit)="onSubmit()" (onReset)="onReset()">
+                    (formSubmit)="onSubmit()" (formReset)="onReset()">
                 </app-reset>
             </mat-card-content>
         </form>
-        <div *ngIf="editor == 'login'">
+        <div *ngIf="editor === 'login'">
             <mat-card-footer class="w-100" fxLayoutAlign="end end">
                 <button mat-flat-button (click)="switchForm('reset')" [ngClass]="{'active': showReset}">Mot de passe
                     oublié</button>
