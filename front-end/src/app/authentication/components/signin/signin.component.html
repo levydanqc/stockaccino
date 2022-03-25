@@ -1,27 +1,27 @@
 <div class="error" *ngIf="error">{{error}}</div>
 <mat-form-field appearance="outline">
     <mat-label>Courriel</mat-label>
-    <input matInput placeholder="Courriel" [formControl]="email" (blur)="verifyEmail()" required>
+    <input matInput placeholder="Courriel" [formControl]="email" (blur)="verifyEmail()" (keydown.enter)="this.submit('signin')" required>
     <mat-icon matSuffix>alternate_email</mat-icon>
     <mat-hint>Entrez votre adresse courriel.</mat-hint>
     <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
 </mat-form-field>
 <mat-form-field appearance="outline">
     <mat-label>Nom</mat-label>
-    <input matInput placeholder="Nom" [formControl]="nom" required>
+    <input matInput placeholder="Nom" [formControl]="nom" (keydown.enter)="this.submit('signin')" required>
     <mat-hint>Entrez votre nom.</mat-hint>
     <mat-error *ngIf="nom.invalid">{{getNomError()}}</mat-error>
 </mat-form-field>
 <mat-form-field appearance="outline">
     <mat-label>Prénom</mat-label>
-    <input matInput placeholder="Prénom" [formControl]="prenom" required>
+    <input matInput placeholder="Prénom" [formControl]="prenom" (keydown.enter)="this.submit('signin')" required>
     <mat-hint>Entrez votre prénom.</mat-hint>
     <mat-error *ngIf="prenom.invalid">{{getPrenomError()}}</mat-error>
 </mat-form-field>
 <mat-form-field appearance="outline">
     <mat-label>Mot de passe</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="pwd" required>
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="pwd" (keydown.enter)="this.submit('signin')" required>
+    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
@@ -30,7 +30,7 @@
 </mat-form-field>
 <mat-form-field appearance="outline">
     <mat-label>Confirmer le mot de passe</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="confirmPwd" (keyup)="matchPwd()" required>
+    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="confirmPwd" (keyup)="matchPwd()" (keydown.enter)="this.submit('signin')" required>
     <mat-hint>Entrez votre mot de passe.</mat-hint>
     <mat-error *ngIf="confirmPwd.invalid">{{getConfirmPwdError()}}</mat-error>
 </mat-form-field>
