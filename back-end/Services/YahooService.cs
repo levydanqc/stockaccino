@@ -41,14 +41,16 @@ public class YahooService
         return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["autocomplete"], query));
     }
 
-    public async Task<string> GetQuote(string[] symbols)
+    public async Task<string> GetQuote(string symbol)
     {
-        string uri = _baseUrl + _endPoints["quote"];
-        string url = QueryHelpers.AddQueryString(uri, "symbols", String.Join(",", symbols));
-        url = QueryHelpers.AddQueryString(url, "lang", "en");
-        url = QueryHelpers.AddQueryString(url, "region", "CA");
+        var query = new Dictionary<string, string?>
+        {
+            ["region"] = "CA",
+            ["lang"] = "fr",
+            ["symbols"] = symbol,
+        };
 
-        return await _client.GetStringAsync(url);
+        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
     }
 
 }

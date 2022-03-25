@@ -17,11 +17,6 @@
         <span *ngIf="isExpanded">Wallet</span>
       </mat-list-item>
 
-      <mat-list-item [routerLink]="'search'">
-        <mat-icon mat-list-icon>search</mat-icon>
-        <span *ngIf="isExpanded">Recherche</span>
-      </mat-list-item>
-
       <mat-list-item [routerLink]="'settings'">
         <mat-icon mat-list-icon>manage_accounts</mat-icon>
         <span *ngIf="isExpanded">Compte</span>
@@ -35,7 +30,7 @@
     <mat-form-field class="m-auto">
       <mat-label>Rechercher un stock</mat-label>
       <input matInput placeholder="Ex: Apple Inc." aria-label="State" [matAutocomplete]="auto" [formControl]="input"
-        (focus)="this.isFocus = true;" (blur)="this.isFocus = false;">
+        (focus)="this.isFocus = true;" (blur)="this.isFocus = false;" (keydown.enter)="search()">
       <img matPrefix src="assets/search.svg" alt="search" [ngClass]="{'focus': this.isFocus, 'unfocus': !this.isFocus}">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngIf="isLoading" class="isLoading">

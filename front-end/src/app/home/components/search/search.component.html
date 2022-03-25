@@ -1,1 +1,10 @@
-<p>search works!</p>
+<div class="DashBoardContainer">
+    <div class="DashBoardContent">
+        <div *ngIf="!quote">
+            <h1>La compagnie que vous recherchez n'existe pas.</h1>
+        </div>
+        <div *ngIf="quote">
+            <h1>{{quote['quoteResponse']['result'][0]['longName']}}</h1>
+        </div>
+    </div>
+</div>

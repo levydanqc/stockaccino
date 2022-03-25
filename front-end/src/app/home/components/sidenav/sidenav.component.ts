@@ -72,4 +72,9 @@ export class SidenavComponent implements AfterViewInit, OnInit {
         this.filteredResults = data;
       });
   }
+
+  search() {
+    let searchedStock: string = this.input.value;
+    this.router.navigate(['/search'], { queryParams: { searchedStock: searchedStock } }); 
+  }
 }
