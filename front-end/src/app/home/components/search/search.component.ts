@@ -12,6 +12,7 @@ export class SearchComponent implements OnInit {
   quote?: any;
   stock?: any;
   chartData?: any;
+  isLoading: boolean = true;
 
   constructor(
       private Activatedroute: ActivatedRoute,
@@ -27,7 +28,7 @@ export class SearchComponent implements OnInit {
       });
       this._yahooService.getStockChart(this.searchedStock).subscribe((data: any) => {
         this.chartData = data;
-        console.log(this.chartData);
+        this.isLoading = false;
       });
     }
   }

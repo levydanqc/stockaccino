@@ -1,12 +1,17 @@
 <div class="DashBoardContainer">
     <div class="DashBoardContent">
-        <div *ngIf="!quote">
-            <h1>La compagnie que vous recherchez n'existe pas.</h1>
+        <div *ngIf="isLoading">
+            <h1>Récupération du stock...</h1>
         </div>
-        <div *ngIf="quote">
-            <button type="button" class="floatRight btn btn-dark btnBid">Bid</button>
-            <h1>{{stock['longName']}} ({{stock['symbol']}})</h1>
-            <h2>Demande actuelle: {{stock['ask']}} {{stock['currency']}}</h2>
+        <div *ngIf="!isLoading">
+            <div *ngIf="!stock">
+                <h1>La compagnie que vous recherchez n'existe pas.</h1>
+            </div>
+            <div *ngIf="stock">
+                <button type="button" class="floatRight btn btn-dark btnBid">Bid</button>
+                <h1>{{stock['longName']}} ({{stock['symbol']}})</h1>
+                <h2>Demande actuelle: {{stock['ask']}} {{stock['currency']}}</h2>
+            </div>
         </div>
     </div>
 </div>
