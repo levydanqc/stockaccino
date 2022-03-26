@@ -2,15 +2,16 @@
 
 <mat-form-field appearance="outline">
     <mat-label>Courriel</mat-label>
-    <input matInput id="courriel" placeholder="Courriel" [formControl]="email" required>
+    <input matInput id="courriel" placeholder="Courriel" [formControl]="email" (keydown.enter)="this.submit()" required>
     <mat-icon matSuffix>alternate_email</mat-icon>
     <mat-hint>Entrez votre adresse courriel.</mat-hint>
     <mat-error *ngIf="this.form.get('email')!.invalid">{{getEmailError()}}</mat-error>
 </mat-form-field>
 <mat-form-field appearance="outline">
     <mat-label>Mot de passe</mat-label>
-    <input matInput id="password" [type]="hide ? 'password' : 'text'" [formControl]="pwd" required>
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+    <input matInput id="password" [type]="hide ? 'password' : 'text'" [formControl]="pwd"
+        (keydown.enter)="this.submit()" required>
+    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
