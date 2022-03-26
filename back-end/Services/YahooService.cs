@@ -15,7 +15,8 @@ public class YahooService
         new Dictionary<string, string>() {
         {"trending", "v1/finance/trending/CA"},
         {"autocomplete", "v6/finance/autocomplete"},
-        {"quote", "v6/finance/quote"}
+        {"quote", "v6/finance/quote"},
+        {"chart", "v8/finance/chart/" }
         };
 
     public YahooService(string apiKey)
@@ -51,6 +52,19 @@ public class YahooService
         };
 
         return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
+    }
+
+    public async Task<string> GetChart(string symbol)
+    {
+        var query = new Dictionary<string, string?>
+        {
+            ["region"] = "CA",
+            ["lang"] = "fr",
+            ["range"] = "1mo",
+            ["interval"] = "1d",
+        };
+
+        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["chart"] + symbol, query));
     }
 
 }

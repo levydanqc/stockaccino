@@ -4,7 +4,9 @@
             <h1>La compagnie que vous recherchez n'existe pas.</h1>
         </div>
         <div *ngIf="quote">
-            <h1>{{quote['quoteResponse']['result'][0]['longName']}}</h1>
+            <button type="button" class="floatRight btn btn-dark btnBid">Bid</button>
+            <h1>{{stock['longName']}} ({{stock['symbol']}})</h1>
+            <h2>Demande actuelle: {{stock['ask']}} {{stock['currency']}}</h2>
         </div>
     </div>
 </div>

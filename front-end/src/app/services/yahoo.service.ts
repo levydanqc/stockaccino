@@ -30,6 +30,12 @@ export class YahooService {
     });
   }
 
+  public getStockChart(symbol: string): any {
+    return this.get(Constants.STOCK_CHART_URL, {
+      params: new HttpParams().append('symbol', symbol)
+    });
+  }
+
   public get(url: string, options?: any): Observable<any> {
     return this.http.get(url, options);
   }

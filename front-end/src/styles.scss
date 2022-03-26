@@ -7,11 +7,16 @@ $material-design-icons-font-directory-path: "~material-design-icons-iconfont/dis
 main {
   height: 100vh;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   min-height: 100%;
   background: $white;
+}
+
+button:hover {
+  box-shadow: 0px 3px 10px 3px grey;
 }
 
 .spacer {
