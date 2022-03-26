@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Stockaccino.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly UsersService _usersService;
