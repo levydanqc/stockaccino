@@ -9,7 +9,8 @@
 </mat-form-field>
 <mat-form-field appearance="outline">
     <mat-label>Mot de passe</mat-label>
-    <input matInput id="password" [type]="hide ? 'password' : 'text'" [formControl]="pwd" (keydown.enter)="this.submit()" required>
+    <input matInput id="password" [type]="hide ? 'password' : 'text'" [formControl]="pwd"
+        (keydown.enter)="this.submit()" required>
     <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
