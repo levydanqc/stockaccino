@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from '../classes/user';
-import { IUserPost } from '../classes/userPost';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Constants } from '../../assets/constants';
@@ -87,7 +86,7 @@ export class UserService {
   }
 
   postUser(email: string, password: string, nom: string, prenom: string) {
-    let user: IUserPost = {
+    let user: User = {
       Email: email,
       Prenom: prenom,
       Nom: nom,
