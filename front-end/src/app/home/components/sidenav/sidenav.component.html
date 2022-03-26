@@ -38,7 +38,10 @@
             [fullScreen]="false">
           </ngx-spinner>
         </mat-option>
-        <ng-container *ngIf="!isLoading">
+        <mat-option *ngIf="noResult()">
+          <span>Aucun résultat...</span>
+        </mat-option>
+        <ng-container *ngIf="!isLoading && filteredResults?.length">
           <mat-option *ngFor="let result of filteredResults" [value]="result.symbol">
             <span>{{result.name}}<b>({{result.symbol}})</b></span>
           </mat-option>
