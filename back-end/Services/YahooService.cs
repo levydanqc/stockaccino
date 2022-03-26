@@ -15,7 +15,8 @@ public class YahooService
         new Dictionary<string, string>() {
         {"trending", "v1/finance/trending/CA"},
         {"autocomplete", "v6/finance/autocomplete"},
-        {"quote", "v6/finance/quote"}
+        {"quote", "v6/finance/quote"},
+        {"chart", "v8/finance/chart/" }
         };
 
     public YahooService(string apiKey)
@@ -41,14 +42,29 @@ public class YahooService
         return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["autocomplete"], query));
     }
 
-    public async Task<string> GetQuote(string[] symbols)
+    public async Task<string> GetQuote(string symbol)
     {
-        string uri = _baseUrl + _endPoints["quote"];
-        string url = QueryHelpers.AddQueryString(uri, "symbols", String.Join(",", symbols));
-        url = QueryHelpers.AddQueryString(url, "lang", "en");
-        url = QueryHelpers.AddQueryString(url, "region", "CA");
+        var query = new Dictionary<string, string?>
+        {
+            ["region"] = "CA",
+            ["lang"] = "fr",
+            ["symbols"] = symbol,
+        };
 
-        return await _client.GetStringAsync(url);
+        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
+    }
+
+    public async Task<string> GetChart(string symbol)
+    {
+        var query = new Dictionary<string, string?>
+        {
+            ["region"] = "CA",
+            ["lang"] = "fr",
+            ["range"] = "1mo",
+            ["interval"] = "1d",
+        };
+
+        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["chart"] + symbol, query));
     }
 
 }

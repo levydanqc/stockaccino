@@ -24,7 +24,7 @@ export class SidenavComponent implements AfterViewInit, OnInit {
   isLoading: boolean = false;
   isFocus: boolean = false;
   clearClicked: boolean = false;
-  
+
   constructor(
     private router: Router,
     private yahooService: YahooService,
@@ -71,5 +71,23 @@ export class SidenavComponent implements AfterViewInit, OnInit {
       .subscribe((data) => {
         this.filteredResults = data;
       });
+  }
+
+  noResult() {
+    return (
+      !this.isLoading &&
+      this.input.value !== '' &&
+      this.filteredResults &&
+      this.filteredResults?.length < 1
+    );
+  }
+
+  search() {
+    if (this.filteredResults?.length > 0) {
+      let searchedStock: string = this.input.value;
+      this.router.navigate(['/search'], {
+        queryParams: { searchedStock: searchedStock },
+      });
+    }
   }
 }

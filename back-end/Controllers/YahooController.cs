@@ -23,4 +23,16 @@ public class YahooController : ControllerBase
     {
         return await _yahooService.GetAutocomplete(input);
     }
+
+    [HttpGet("search")]
+    public async Task<string> GetSearchedStock(string input)
+    {
+        return await (_yahooService.GetQuote(input));
+    }
+
+    [HttpGet("chart")]
+    public async Task<string> GetStockChart(string symbol)
+    {
+        return await (_yahooService.GetChart(symbol));
+    }
 }

@@ -24,6 +24,18 @@ export class YahooService {
     );
   }
 
+  public getSearchedStock(query: string): any {
+    return this.get(Constants.SEARCH_STOCK_URL, {
+      params: new HttpParams().append('input', query),
+    });
+  }
+
+  public getStockChart(symbol: string): any {
+    return this.get(Constants.STOCK_CHART_URL, {
+      params: new HttpParams().append('symbol', symbol)
+    });
+  }
+
   public get(url: string, options?: any): Observable<any> {
     return this.http.get(url, options);
   }
@@ -35,6 +47,7 @@ export class YahooService {
   public put(url: string, data: any, options?: any) {
     return this.http.put(url, data, options);
   }
+
   public delete(url: string, options?: any) {
     return this.http.delete(url, options);
   }
