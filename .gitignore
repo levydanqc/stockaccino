@@ -1,3 +1,5 @@
 *.private*
 *.test
 **/.DS_Store
+deploy.log
+update.sh
