@@ -13,12 +13,6 @@ public class UsersController : ControllerBase
     public UsersController(UsersService usersService) =>
         _usersService = usersService;
 
-    [HttpGet]
-    public async Task<List<User>> Get()
-    {
-        return await _usersService.GetAsync();
-    }
-
     [HttpGet("{email}")]
     public async Task<ActionResult<User>> Get(string email)
     {
@@ -26,7 +20,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         return user;
@@ -39,7 +33,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         return user;
@@ -52,7 +46,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         return user;
@@ -73,14 +67,14 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         updatedUser.Id = user.Id;
 
         await _usersService.UpdateAsync(id, updatedUser);
 
-        return NoContent();
+        return Ok();
     }
 
     [HttpDelete("{id:length(24)}")]
@@ -90,11 +84,11 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         await _usersService.RemoveAsync(id);
 
-        return NoContent();
+        return Ok();
     }
 }

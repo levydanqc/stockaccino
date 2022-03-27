@@ -31,8 +31,8 @@ public class YahooController : ControllerBase
     }
 
     [HttpGet("chart")]
-    public async Task<string> GetStockChart(string symbol)
+    public async Task<string> GetStockChart(string symbol, string range, string interval)
     {
-        return await (_yahooService.GetChart(symbol));
+        return await (_yahooService.GetChart(symbol, range, interval));
     }
 }

@@ -20,16 +20,6 @@ export class UserService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  // Retourne tous les utilisateurs.
-  getUsers(): Observable<User[]> {
-    return this.apiCall({
-      endpoint: '',
-      headers: null,
-      body: null,
-      query: null,
-    });
-  }
-
   verifyEmail(email: string) {
     this.apiCall({
       endpoint: email,
@@ -51,7 +41,7 @@ export class UserService {
       endpoint: `${email}`,
       headers: null,
       body: null,
-      query: null
+      query: null,
     });
   }
 
@@ -64,9 +54,15 @@ export class UserService {
     });
   }
 
-  updateUser(id: string, email?: string, nom?: string, prenom?: string, password?: string) {
+  updateUser(
+    id: string,
+    email?: string,
+    nom?: string,
+    prenom?: string,
+    password?: string
+  ) {
     let user!: User;
-    this.getUserById(id).subscribe(data => {
+    this.getUserById(id).subscribe((data) => {
       user = data;
       if (email) {
         user.Email = email;
@@ -81,8 +77,8 @@ export class UserService {
       if (password) {
         user.Password = password;
       }
-      this.http.put(this.apiUrl + id, user).subscribe(res => {});
-    })
+      this.http.put(this.apiUrl + id, user).subscribe((res) => {});
+    });
   }
 
   postUser(email: string, password: string, nom: string, prenom: string) {

@@ -1,7 +1,4 @@
-﻿using Stockaccino.Models;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Stockaccino.Services;
@@ -54,14 +51,14 @@ public class YahooService
         return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
     }
 
-    public async Task<string> GetChart(string symbol)
+    public async Task<string> GetChart(string symbol, string range, string interval)
     {
         var query = new Dictionary<string, string?>
         {
             ["region"] = "CA",
             ["lang"] = "fr",
-            ["range"] = "1mo",
-            ["interval"] = "1d",
+            ["range"] = range,
+            ["interval"] = interval,
         };
 
         return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["chart"] + symbol, query));
