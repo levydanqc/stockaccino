@@ -52,6 +52,11 @@ export class SettingsComponent implements OnInit {
     return '';
   }
 
+  deconnexion() {
+    this.cookieService.delete('id');
+    location.reload();
+  }
+
   submitForm() {
     if (this.form.valid) {
       this._userService.updateUser(
