@@ -1,7 +1,8 @@
-<ejs-chart [primaryXAxis]="xAxis">
+<ejs-chart [primaryXAxis]="xAxis" [primaryYAxis]="yAxis" [title]="chartTitle" [tooltip]="tooltipSettings"
+    [crosshair]="crossSettings">
     <e-series-collection>
-        <e-series type="Hilo" name="Apple Inc." [dataSource]="data" xName="x" high="high" low="low">
-
+        <e-series type="Candle" name="Apple Inc." [dataSource]="data" xName="x" high="high" low="low" open="open"
+            close="close" volume="volume" [marker]="marker">
         </e-series>
     </e-series-collection>
 </ejs-chart>

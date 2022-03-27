@@ -16,6 +16,11 @@ import { ChartModule } from '@syncfusion/ej2-angular-charts';
 import {
   HiloSeriesService,
   DateTimeService,
+  TooltipService,
+  CrosshairService,
+  HiloOpenCloseSeriesService,
+  CandleSeriesService,
+  DateTimeCategoryService,
 } from '@syncfusion/ej2-angular-charts';
 
 schemas: [CUSTOM_ELEMENTS_SCHEMA];
@@ -30,6 +35,14 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     GraphComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule, MaterialModule, ChartModule],
-  providers: [HiloSeriesService, DateTimeService],
+  providers: [
+    HiloSeriesService,
+    DateTimeService,
+    TooltipService,
+    CrosshairService,
+    HiloOpenCloseSeriesService,
+    CandleSeriesService,
+    DateTimeCategoryService,
+  ],
 })
 export class DashboardModule {}
