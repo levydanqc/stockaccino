@@ -83,6 +83,42 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
+    [HttpPut("watch/{id:length(24)}/{symbol}")]
+    public async Task<IActionResult> WatchStock(string id, string symbol)
+    {
+        User? user = await _usersService.GetAsyncById(id);
+
+        if (user is null) return NotFound();
+
+        if (!user.Stocks.Contains(symbol))
+        {
+            List<string> watchlist = user.Stocks.ToList();
+            watchlist.Add(symbol);
+            user.Stocks = watchlist.ToArray();
+        }
+        await _usersService.UpdateAsync(id, user);
+
+        return NoContent();
+    }
+
+    [HttpPut("unwatch/{id:length(24)}/{symbol}")]
+    public async Task<IActionResult> RemoveStock(string id, string symbol)
+    {
+        User? user = await _usersService.GetAsyncById(id);
+
+        if (user is null) return NotFound();
+
+        if (user.Stocks.Contains(symbol))
+        {
+            List<string> watchlist = user.Stocks.ToList();
+            watchlist.Remove(symbol);
+            user.Stocks = watchlist.ToArray();
+        }
+        await _usersService.UpdateAsync(id, user);
+
+        return NoContent();
+    }
+
     [HttpDelete("{id:length(24)}")]
     public async Task<IActionResult> Delete(string id)
     {

@@ -64,6 +64,14 @@ export class UserService {
     });
   }
 
+  watchStock(id: string, symbol: string) {
+    this.http.put(`${this.apiUrl}watch/${id}/${symbol}`, null).subscribe(res => {});
+  }
+
+  unwatchStock(id: string, symbol: string) {
+    this.http.put(`${this.apiUrl}unwatch/${id}/${symbol}`, null).subscribe(res => {});
+  }
+
   updateUser(id: string, email?: string, nom?: string, prenom?: string, password?: string) {
     let user!: User;
     this.getUserById(id).subscribe(data => {
@@ -91,7 +99,7 @@ export class UserService {
       Prenom: prenom,
       Nom: nom,
       Password: password,
-      Username: prenom + nom,
+      Stocks: [],
     };
     this.http.post(this.apiUrl, user).subscribe((res) => {});
   }
