@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
 
         return user;
     }
-    
+
     [HttpGet("verify/{email}")]
     public async Task<ActionResult<User>> Get(string email, [FromHeader] string password)
     {
@@ -57,7 +57,7 @@ public class UsersController : ControllerBase
 
         return user;
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Post(User newUser)
     {
@@ -79,6 +79,43 @@ public class UsersController : ControllerBase
         updatedUser.Id = user.Id;
 
         await _usersService.UpdateAsync(id, updatedUser);
+
+        return NoContent();
+    }
+
+
+    [HttpPut("watch/{symbol}")]
+    public async Task<IActionResult> WatchStock([FromBody] string id, string symbol)
+    {
+        User? user = await _usersService.GetAsyncById(id);
+
+        if (user is null) return NotFound();
+
+        if (!user.Stocks.Contains(symbol))
+        {
+            List<string> watchlist = user.Stocks.ToList();
+            watchlist.Add(symbol);
+            user.Stocks = watchlist.ToArray();
+        }
+        await _usersService.UpdateAsync(id, user);
+
+        return NoContent();
+    }
+
+    [HttpPut("unwatch/{symbol}")]
+    public async Task<IActionResult> RemoveStock([FromBody] string id, string symbol)
+    {
+        User? user = await _usersService.GetAsyncById(id);
+
+        if (user is null) return NotFound();
+
+        if (user.Stocks.Contains(symbol))
+        {
+            List<string> watchlist = user.Stocks.ToList();
+            watchlist.Remove(symbol);
+            user.Stocks = watchlist.ToArray();
+        }
+        await _usersService.UpdateAsync(id, user);
 
         return NoContent();
     }

@@ -4,5 +4,5 @@ export interface User {
   Prenom: string;
   Nom: string;
   Password: string;
-  Username: string;
+  Stocks: string[];
 }

@@ -8,7 +8,8 @@
                 <h1>La compagnie que vous recherchez n'existe pas.</h1>
             </div>
             <div *ngIf="stock">
-                <button type="button" class="floatRight btn btn-dark btnBid">Bid</button>
+                <button *ngIf="isWatched" (click)="unwatch()" type="button" class="floatRight btn btn-dark btnBid">Retirer de ma watchlist</button>
+                <button *ngIf="!isWatched" (click)="watch()" type="button" class="floatRight btn btn-dark btnBid">Ajouter à ma watchlist</button>
                 <h1>{{stock['longName']}} ({{stock['symbol']}})</h1>
                 <h2>Demande actuelle: {{stock['ask']}} {{stock['currency']}}</h2>
             </div>
