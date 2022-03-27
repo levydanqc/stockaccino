@@ -14,29 +14,29 @@ public class UsersController : ControllerBase
         _usersService = usersService;
 
     [HttpGet("{email}")]
-    public async Task<ActionResult<User>> Get(string email)
+    public async Task<ActionResult> Get(string email)
     {
         User? user = await _usersService.GetAsync(email);
 
         if (user is null)
         {
-            return NoContent();
+            return Ok();
         }
 
-        return user;
+        return NoContent();
     }
-    
+
     [HttpGet("verify/{email}")]
-    public async Task<ActionResult<User>> Get(string email, [FromHeader] string password)
+    public async Task<ActionResult> VerifyCredentials(string email, [FromHeader] string password)
     {
         User? user = await _usersService.GetAsync(email, password);
 
         if (user is null)
         {
-            return NoContent();
+            return Unauthorized();
         }
 
-        return user;
+        return Ok(new { id = user.Id });
     }
 
     [HttpGet("findById/{id:length(24)}")]
@@ -51,13 +51,13 @@ public class UsersController : ControllerBase
 
         return user;
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Post(User newUser)
     {
         await _usersService.CreateAsync(newUser);
 
-        return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+        return CreatedAtAction(nameof(Post), new { id = newUser.Id });
     }
 
     [HttpPut("{id:length(24)}")]
@@ -74,7 +74,7 @@ public class UsersController : ControllerBase
 
         await _usersService.UpdateAsync(id, updatedUser);
 
-        return Ok();
+        return Ok(new { id = updatedUser.Id });
     }
 
     [HttpDelete("{id:length(24)}")]
