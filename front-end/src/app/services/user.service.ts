@@ -65,11 +65,15 @@ export class UserService {
   }
 
   watchStock(id: string, symbol: string) {
-    this.http.put(`${this.apiUrl}watch/${id}/${symbol}`, null).subscribe(res => {});
+    this.http.put(`${this.apiUrl}watch/${symbol}`, `\"${id}\"`, { headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })}).subscribe(res => {});
   }
 
   unwatchStock(id: string, symbol: string) {
-    this.http.put(`${this.apiUrl}unwatch/${id}/${symbol}`, null).subscribe(res => {});
+    this.http.put(`${this.apiUrl}unwatch/${symbol}`, `\"${id}\"`, { headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })}).subscribe(res => {});
   }
 
   updateUser(id: string, email?: string, nom?: string, prenom?: string, password?: string) {

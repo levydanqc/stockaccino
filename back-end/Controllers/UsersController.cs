@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
 
         return user;
     }
-    
+
     [HttpGet("verify/{email}")]
     public async Task<ActionResult<User>> Get(string email, [FromHeader] string password)
     {
@@ -57,7 +57,7 @@ public class UsersController : ControllerBase
 
         return user;
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Post(User newUser)
     {
@@ -83,8 +83,9 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
-    [HttpPut("watch/{id:length(24)}/{symbol}")]
-    public async Task<IActionResult> WatchStock(string id, string symbol)
+
+    [HttpPut("watch/{symbol}")]
+    public async Task<IActionResult> WatchStock([FromBody] string id, string symbol)
     {
         User? user = await _usersService.GetAsyncById(id);
 
@@ -101,8 +102,8 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
-    [HttpPut("unwatch/{id:length(24)}/{symbol}")]
-    public async Task<IActionResult> RemoveStock(string id, string symbol)
+    [HttpPut("unwatch/{symbol}")]
+    public async Task<IActionResult> RemoveStock([FromBody] string id, string symbol)
     {
         User? user = await _usersService.GetAsyncById(id);
 
