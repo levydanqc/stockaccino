@@ -10,7 +10,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HistoryComponent } from './components/history/history.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SearchComponent } from './components/search/search.component';
-import { GraphComponent } from './components/graph/graph.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 import { ChartModule } from '@syncfusion/ej2-angular-charts';
 import {
@@ -32,7 +32,7 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     HistoryComponent,
     SettingsComponent,
     SearchComponent,
-    GraphComponent,
+    ChartComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule, MaterialModule, ChartModule],
   providers: [
