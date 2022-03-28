@@ -1,0 +1,7 @@
+<ejs-stockchart #chart id="chart-container" [periods]="periods" [title]="title" enableSelector="False"
+    enablePeriodSelector="False" enableCustomRange="False">
+    <e-stockchart-series-collection>
+        <e-stockchart-series [dataSource]='chartData' type='Candle' xName='date' High='high' Low='low' Open='open'
+            Close='close' Name='Apple'></e-stockchart-series>
+    </e-stockchart-series-collection>
+</ejs-stockchart>

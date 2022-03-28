@@ -1,8 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-$material-design-icons-font-directory-path: "~material-design-icons-iconfont/dist/fonts/";
+$material-design-icons-font-directory-path: '~material-design-icons-iconfont/dist/fonts/';
 
-@import "~material-design-icons-iconfont/src/material-design-icons";
-@import "./theme.scss";
+@import '~material-design-icons-iconfont/src/material-design-icons';
+@import './theme.scss';
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
 
 main {
   height: 100vh;
@@ -10,7 +18,7 @@ main {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   min-height: 100%;
   background: $white;
 }
