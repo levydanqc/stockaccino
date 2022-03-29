@@ -16,6 +16,7 @@ import { ChartComponent } from './components/dashboard/components/chart/chart.co
 import {
   ChartAllModule,
   StockChartAllModule,
+  RangeNavigatorAllModule,
 } from '@syncfusion/ej2-angular-charts';
 import {
   DateTimeService,
@@ -23,6 +24,9 @@ import {
   TooltipService,
   CategoryService,
   LineSeriesService,
+  TmaIndicatorService,
+  ColumnSeriesService,
+  RangeAreaSeriesService,
 } from '@syncfusion/ej2-angular-charts';
 import {
   DataLabelService,
@@ -49,6 +53,7 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     ChartAllModule,
     StockChartAllModule,
     ToolbarModule,
+    RangeNavigatorAllModule,
   ],
   providers: [
     DateTimeService,
@@ -58,6 +63,9 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     CandleSeriesService,
     CategoryService,
     LineSeriesService,
+    TmaIndicatorService,
+    ColumnSeriesService,
+    RangeAreaSeriesService,
   ],
 })
 export class DashboardModule {}

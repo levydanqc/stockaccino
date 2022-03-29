@@ -6,13 +6,20 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  IStockChartEventArgs,
   getElement,
-  PeriodsModel,
   StockChartComponent,
+  IRangeSelectorRenderEventArgs,
+  IRangeLoadedEventArgs,
 } from '@syncfusion/ej2-angular-charts';
 import { chartData } from './datasource';
-import { ToolbarComponent } from '@syncfusion/ej2-angular-navigations';
+import {
+  ItemModel,
+  MenuEventArgs,
+  ToolbarComponent,
+} from '@syncfusion/ej2-angular-navigations';
+import { DropDownButton } from '@syncfusion/ej2-splitbuttons';
+
+import { Button } from '@syncfusion/ej2-buttons';
 
 @Component({
   selector: 'app-chart',
@@ -29,17 +36,35 @@ export class ChartComponent implements OnInit, OnDestroy {
   public setTimeoutValue!: number;
   @ViewChild('chart', { static: true })
   public stock!: StockChartComponent | StockChartComponent;
+  public selectorRender!: (args: IRangeSelectorRenderEventArgs) => void;
+  public onRangeChange!: (args: any) => void;
+  public indicators: Object[] = [];
 
   constructor() {}
 
   ngOnInit() {
+    this.selectorRender = (args: IRangeSelectorRenderEventArgs) => {
+      console.log(args);
+    };
+
+    this.onRangeChange= (args: any) => {
+      console.log(args);
+    };
+
     this.periods = {
-      position: 'Top',
+      position: 'Left',
       periods: [
-        { intervalType: 'Minutes', interval: 1, text: '1m' },
-        { intervalType: 'Minutes', interval: 30, text: '30m' },
-        { intervalType: 'Hours', interval: 1, text: '1H', selected: true },
-        { intervalType: 'Hours', interval: 2, text: '2H' },
+        { intervalType: 'Days', interval: 1, text: '1D' },
+        { intervalType: 'Days', interval: 3, text: '3D' },
+        { intervalType: 'Days', interval: 6, text: '6D' },
+        { intervalType: 'Weeks', interval: 1, text: '1W' },
+        { intervalType: 'Months', interval: 1, text: '1M' },
+        ,
+        { intervalType: 'Months', interval: 6, text: '6M' },
+        { intervalType: 'Years', interval: 1, text: '1Y' },
+        { intervalType: 'Years', interval: 5, text: '5Y' },
+        { intervalType: 'Years', interval: 10, text: '10Y' },
+        { intervalType: 'Auto', text: 'YTD' },
       ],
     };
     this.setTimeoutValue = 5000;
