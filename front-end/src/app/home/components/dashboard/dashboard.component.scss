@@ -1,26 +1,38 @@
 @import "../../../../theme.scss";
 
+::ng-deep.DashBoardContent {
+    margin-right: 0rem;
+    border-radius: 0rem;
+    min-height: 40rem;
+}
+
 .carte {
     padding-left: 1rem;
     padding-right: 1rem;
+    padding-top: 0.7rem;
     align-items: center;
     margin: 0.3rem;
     background-color: #E8E8E8;
-    border-radius: 3rem;
+    border-radius: 1rem;
     display: flex;
     height: 3rem;
     justify-content: center;
-    max-width: max-content;
-    box-shadow: 
-    12px 12px 16px 0 rgba(255, 255, 255, 0.3) inset,
-    -8px -8px 12px 0 rgba(0, 0, 0, .25) inset;
+    min-width: 6rem;
+    // box-shadow: 
+    // 12px 12px 16px 0 rgba(255, 255, 255, 0.3) inset,
+    // -8px -8px 30px 0 rgba(0, 0, 0, .25) inset;
     cursor: pointer;
 }
 
+.selectedStock {
+    background-color: #989898;
+}
+
 .carte:hover {
-    box-shadow: 
-    8px 8px 12px 0 rgba(255, 255, 255, 0.3) inset,
-    -12px -12px 16px 0 rgba(0, 0, 0, .25) inset;
+    // box-shadow: 
+    // 8px 8px 12px 0 rgba(255, 255, 255, 0.3) inset,
+    // -12px -12px 16px 0 rgba(0, 0, 0, .25) inset;
+    border: 1px solid black;
 }
 
 .graphContainer {
@@ -59,15 +71,12 @@
     display: inline-flex;
     flex-wrap: wrap;
     overflow-x: auto;
-    padding: 0.5rem;
-    border: solid 1px grey;
+    padding: 1.3rem;
     width: 100%;
-  
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+    margin-right: 10rem;
     .carte {
       flex: 0 0 auto;
     }
   }
-
-.selectedStock {
-    background-color: #989898;
-}

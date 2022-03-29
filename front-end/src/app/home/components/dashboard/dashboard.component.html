@@ -1,21 +1,19 @@
-<div class="DashBoardContainer">
-    <div class="DashBoardContent">
-        <div *ngIf="hasNoStocks"><h1>Ajoutez des stocks à votre Watchlist pour les voir apparaître ici!</h1></div>
-        <div *ngIf="!hasNoStocks">
-            <div class="watchlistContainer">
-                <div *ngFor="let stock of stocks" class="carte" (click)="selectStock(stock, undefined)" [ngClass]="{'selectedStock' : stock === selectedStock}">
-                    <p>{{stock}}</p>
-                </div>
-            </div>
-            <div class="detailsContainer">
-                <h1 *ngIf="stockObject">{{selectedStock}}</h1>
-                <h2 *ngIf="stockObject">Compagnie: {{stockObject['longName']}}</h2>
-                <h2 *ngIf="stockObject">Demande actuelle: {{stockObject['ask']}} {{stockObject['currency']}}</h2>
-                <button type="button" (click)="voirStock()" class="btn btn-dark btnPerso">Plus de détails</button>
-            </div>
-            <div class="graphContainer">
-                <h1>Graphique ici</h1>
-            </div>
+<div *ngIf="hasNoStocks">
+    <h1>Ajoutez des stocks à votre Watchlist pour les voir apparaître ici!</h1>
+</div>
+<div *ngIf="!hasNoStocks">
+    <div class="watchlistContainer">
+        <div *ngFor="let stock of stocks" class="carte" (click)="selectStock(stock, undefined)" [ngClass]="{'selectedStock' : stock === selectedStock}">
+            <p>{{stock}}</p>
         </div>
+    </div>
+    <div class="DashBoardContent">
+        <div class="detailsContainer">
+            <h1 *ngIf="stockObject">{{selectedStock}}</h1>
+            <h2 *ngIf="stockObject">Compagnie: {{stockObject['longName']}}</h2>
+            <h2 *ngIf="stockObject">Demande actuelle: {{stockObject['ask']}} {{stockObject['currency']}}</h2>
+            <button type="button" (click)="voirStock()" class="btn btn-dark btnPerso">Plus de détails</button>
+        </div>
+        
     </div>
 </div>
