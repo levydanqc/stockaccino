@@ -20,6 +20,7 @@ import {
 import { DropDownButton } from '@syncfusion/ej2-splitbuttons';
 
 import { Button } from '@syncfusion/ej2-buttons';
+import { YahooService } from 'src/app/services/yahoo.service';
 
 @Component({
   selector: 'app-chart',
@@ -32,22 +33,22 @@ export class ChartComponent implements OnInit, OnDestroy {
   public periods!: Object;
   public title: string = 'Apple Inc. (AAPL)';
   public i: number = 0;
+  public setTimeoutValue: number = 10000;
   public interval: any;
-  public setTimeoutValue!: number;
   @ViewChild('chart', { static: true })
   public stock!: StockChartComponent | StockChartComponent;
   public selectorRender!: (args: IRangeSelectorRenderEventArgs) => void;
   public onRangeChange!: (args: any) => void;
   public indicators: Object[] = [];
 
-  constructor() {}
+  constructor(private yahooservice: YahooService) {}
 
   ngOnInit() {
     this.selectorRender = (args: IRangeSelectorRenderEventArgs) => {
       console.log(args);
     };
 
-    this.onRangeChange= (args: any) => {
+    this.onRangeChange = (args: any) => {
       console.log(args);
     };
 
@@ -67,7 +68,6 @@ export class ChartComponent implements OnInit, OnDestroy {
         { intervalType: 'Auto', text: 'YTD' },
       ],
     };
-    this.setTimeoutValue = 5000;
     this.interval = setInterval(() => {
       let i: number;
       if (getElement('chart-container') === null) {
@@ -88,10 +88,17 @@ export class ChartComponent implements OnInit, OnDestroy {
         this.stock.series[0].dataSource = this.chartData;
         this.stock.refresh();
       }
-    }, 3000);
+    }, this.setTimeoutValue);
   }
 
   ngOnDestroy() {
     clearInterval(this.interval);
+  }
+
+  getData() {
+    // fetch data from yahooservice
+    this.yahooservice.getData().subscribe((data) => {
+     console.log() 
+    };
   }
 }

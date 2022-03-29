@@ -1,8 +1,7 @@
-<ejs-stockchart #chart id="chart-container" [periods]="periods" [title]="title" [enableSelector]="false">
-    [enablePeriodSelector]="true" [enableCustomRange]="false" (selectorRender)="selectorRender($event)"
-    (rangeChange)="onRangeChange($event)">
+<ejs-stockchart #chart id="chart-container" [periods]="periods" [title]="title" [enableSelector]="false"
+    [enablePeriodSelector]="true" [enableCustomRange]="true">
     <e-stockchart-series-collection>
-        <e-stockchart-series [dataSource]='chartData' type='Candle' xName='date' High='high' Low='low' Open='open'
-            Close='close' Name='Apple'></e-stockchart-series>
+        <e-stockchart-series [dataSource]='chartData' type='Candle' xName='date' high='high' low='low' open='open'
+            close='close' volume="volume" [name]="title"></e-stockchart-series>
     </e-stockchart-series-collection>
 </ejs-stockchart>
