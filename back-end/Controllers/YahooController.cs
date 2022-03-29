@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stockaccino.Services;
+using Newtonsoft;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Stockaccino.Controllers;
 
@@ -31,8 +34,12 @@ public class YahooController : ControllerBase
     }
 
     [HttpGet("chart")]
-    public async Task<string> GetStockChart(string symbol)
+    public async Task<IActionResult> GetStockChart(string symbol, string range, string interval)
     {
-        return await _yahooService.GetChart(symbol);
+        string raw = await _yahooService.GetChart(symbol, range, interval);
+
+        JObject? jObject = JsonConvert.DeserializeObject<JObject>(raw);
+
+        return Ok();
     }
 }
