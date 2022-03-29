@@ -63,6 +63,19 @@
     height: 20rem;
 }
 
+.btnInfos {
+    margin-left: 2rem;
+}
+
+h1 {
+    padding-left: 1rem;
+}
+
+.floatRight {
+    float: right;
+    margin-right: 4rem;
+}
+
 .watchlistContainer {
     background-color: $grey;
     box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
@@ -73,7 +86,7 @@
     overflow-x: auto;
     padding: 1.3rem;
     width: 100%;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     margin-top: 1rem;
     margin-right: 10rem;
     .carte {

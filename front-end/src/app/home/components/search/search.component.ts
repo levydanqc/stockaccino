@@ -24,7 +24,6 @@ export class SearchComponent implements OnInit {
       private _yahooService: YahooService,
       private _userService: UserService,
       private _cookieService: CookieService,
-      private router: Router,
     ) {}
 
   ngOnInit(): void {
