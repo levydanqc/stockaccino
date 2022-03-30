@@ -42,11 +42,6 @@ export class DashboardComponent implements OnInit {
       queryParams: { searchedStock: this.selectedStock },
     });
   }
-  
-  unwatchStock(stock?: string) {
-    // if (stock) this._userService.unwatchStock(this.cookieService.get('id'), stock);
-    // this.router.navigate([this.router.url]);
-  }
 
   ngOnInit(): void {
     this._userService.getUserById(this.cookieService.get('id')).subscribe((data: any) => {
