@@ -11,7 +11,7 @@ import { YahooService } from 'src/app/services/yahoo.service';
 })
 export class DashboardComponent implements OnInit {
   stocks?: string[];
-  hasNoStocks?: boolean;
+  hasStocks?: boolean;
   selectedStock?: string;
   stockObject?: any;
 
@@ -48,13 +48,13 @@ export class DashboardComponent implements OnInit {
       this.stocks = data.Stocks;
       if (this.stocks)
         if (this.stocks.length > 0) {
-          this.hasNoStocks = false;
+          this.hasStocks = true;
           this._yahooService.getSearchedStock(this.stocks[0]).subscribe((data: any) => {
             this.stockObject = data['quoteResponse']['result'][0];
           });
           this.selectedStock = this.stocks[0];
         }
-        else this.hasNoStocks = true;
+        else this.hasStocks = false;
     });
   }
 }
