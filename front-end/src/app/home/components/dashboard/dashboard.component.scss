@@ -25,7 +25,7 @@
 }
 
 .selectedStock {
-    background-color: #989898;
+    background-color: $smokegrey;
 }
 
 .carte:hover {
@@ -61,14 +61,6 @@
     margin-left: 2rem;
     margin-top: 6rem;
     height: 20rem;
-}
-
-.btnInfos {
-    margin-left: 2rem;
-}
-
-h1 {
-    padding-left: 1rem;
 }
 
 .watchlistContainer {

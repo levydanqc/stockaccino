@@ -9,6 +9,7 @@ $warn: mat-palette($mat-red);
 $white: #ebeeff;
 $grey: #f5f5f5;
 $lightgrey: lightgrey;
+$smokegrey: #989898;
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
