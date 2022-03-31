@@ -1,21 +1,22 @@
 <div class="DashBoardContainer">
     <div class="DashBoardContent">
+        <button (click)="deconnexion()" class="btn btn-dark btnPerso float-end">Déconnexion</button>
         <h2>Informations du compte: </h2>
         <div>
             <form (submit)="submitForm()" [formGroup]="form">
-                <div class="form-group">
+                <div class="mb-4">
                     <label for="email">Adresse courriel</label>
                     <input name="email" id="email" class="form-control" formControlName="email" [value]="value('email')"
                         [placeholder]="placeholder('email')" [attr.disabled]="isShow()? true : null">
                     <mat-error *ngIf="this.form.get('email')!.invalid">{{getEmailError()}}</mat-error>
                 </div>
-                <div class="form-group">
+                <div class="mb-4">
                     <label for="prenom">Prénom</label>
                     <input name="prenom" id="prenom" class="form-control" formControlName="prenom"
                         [value]="value('prenom')" [placeholder]="placeholder('prenom')"
                         [attr.disabled]="isShow()? true : null">
                 </div>
-                <div class="form-group">
+                <div class="mb-4">
                     <label for="nom">Nom</label>
                     <input name="nom" id="nom" class="form-control" formControlName="nom" [value]="value('nom')"
                         [placeholder]="placeholder('nom')" [attr.disabled]="isShow()? true : null">
@@ -24,7 +25,7 @@
                     compte</button>
                 <div *ngIf="!isShow()">
                     <button type="button" type="submit" class="btn btn-dark">Sauvegarder</button>
-                    <button type="button" (click)="switch('show')" class="btn btn-dark myBtn">Annuler</button>
+                    <button type="button" (click)="switch('show')" class="btn btn-dark ms-2">Annuler</button>
                 </div>
             </form>
         </div>
