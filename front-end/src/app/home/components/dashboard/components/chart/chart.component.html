@@ -1,7 +1,7 @@
-<ejs-stockchart #chart id="chart-container" [periods]="periods" [title]="title" [enableSelector]="false"
-    [enablePeriodSelector]="true" [enableCustomRange]="true">
+<ejs-stockchart #chart id="chart-container" [periods]="periods" [title]="code" [enableSelector]="false"
+    [enablePeriodSelector]="true" [enableCustomRange]="true" [tooltip]='tooltip' [crosshair]='crosshair'>
     <e-stockchart-series-collection>
-        <e-stockchart-series [dataSource]='chartData' type='Candle' xName='date' high='high' low='low' open='open'
-            close='close' volume="volume" [name]="title"></e-stockchart-series>
+        <e-stockchart-series [dataSource]='chartData' type='Candle' xName='Date' high='High' low='Low' open='Open'
+            close='Close' volume="Volume" [name]="code"></e-stockchart-series>
     </e-stockchart-series-collection>
 </ejs-stockchart>

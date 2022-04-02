@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Constants } from 'src/assets/constants';
-import { ResultAutocomplete } from '../classes/yahooResults/autocomplete';
+import { ChartRange } from '../classes/yahoo/range';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
@@ -13,42 +13,33 @@ export class YahooService {
   public getAutocomplete(query: string): any {
     const queryParams = new HttpParams().append('input', query);
 
-    let response = this.get(Constants.AUTOCOMPLETE_URL, {
+    let response = this.http.get(Constants.AUTOCOMPLETE_URL, {
       params: queryParams,
     });
 
     return response.pipe(
       map((data) => {
-        return data.ResultSet.Result;
+        return data;
       })
     );
   }
 
   public getSearchedStock(query: string): any {
-    return this.get(Constants.SEARCH_STOCK_URL, {
+    return this.http.get(Constants.SEARCH_STOCK_URL, {
       params: new HttpParams().append('input', query),
     });
   }
 
-  public getStockChart(symbol: string): any {
-    return this.get(Constants.STOCK_CHART_URL, {
-      params: new HttpParams().append('symbol', symbol)
+  public getStockChart(symbol: string, range: ChartRange): Observable<any> {
+    let interval = '1d';
+    if (range === ChartRange.ONE_DAY || range === ChartRange.FIVE_DAYS)
+      interval = '1m';
+    if (range === ChartRange.ONE_MONTH) interval = '5m';
+    return this.http.get(Constants.STOCK_CHART_URL, {
+      params: new HttpParams()
+        .append('symbol', symbol)
+        .append('range', range.toString())
+        .append('interval', '1d'),
     });
-  }
-
-  public get(url: string, options?: any): Observable<any> {
-    return this.http.get(url, options);
-  }
-
-  public post(url: string, data: any, options?: any) {
-    return this.http.post(url, data, options);
-  }
-
-  public put(url: string, data: any, options?: any) {
-    return this.http.put(url, data, options);
-  }
-
-  public delete(url: string, options?: any) {
-    return this.http.delete(url, options);
   }
 }
