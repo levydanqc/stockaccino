@@ -8,10 +8,25 @@
                 <h1>La compagnie que vous recherchez n'existe pas.</h1>
             </div>
             <div *ngIf="stock">
-                <button *ngIf="isWatched" (click)="unwatch()" type="button" class="floatRight btn btn-dark btnBid">Retirer de ma watchlist</button>
-                <button *ngIf="!isWatched" (click)="watch()" type="button" class="floatRight btn btn-dark btnBid">Ajouter à ma watchlist</button>
+                <button *ngIf="isWatched" (click)="unwatch()" type="button" class="float-end btn btn-dark btnBid">Retirer de ma watchlist</button>
+                <button *ngIf="!isWatched" (click)="watch()" type="button" class="float-end btn btn-dark btnBid">Ajouter à ma watchlist</button>
                 <h1>{{stock['longName']}} ({{stock['symbol']}})</h1>
-                <h2>Demande actuelle: {{stock['ask']}} {{stock['currency']}}</h2>
+                <h3 class="float-end me-5">Nom d'échange complet: {{stock['fullExchangeName']}}</h3>
+                <h2>Demande actuelle (bid): {{stock['bid']}} {{stock['currency']}}</h2>
+                <h3 class="float-end me-5">Demande moyenne à l'ouverture: {{stock['regularMarketOpen']}}</h3>
+                <h2>Demande actuelle (ask): {{stock['ask']}} {{stock['currency']}}</h2>
+                <h3 class="float-end me-5">Nombre d'échanges moyen par jour (volume): {{stock['regularMarketVolume']}}</h3>
+                <h2>Évaluation moyenne des analystes: {{stock['averageAnalystRating']}}</h2>
+                <h3 class="float-end me-5">Moyenne sur les derniers 50 jours: {{stock['fiftyDayAverage']}}</h3>                
+                <h3>Étalement moyen d'une journée régulière: {{stock['regularMarketDayRange']}}</h3>
+                <h3 class="float-end me-5">Moyenne sur les derniers 200 jours: {{stock['twoHundredDayAverage']}}</h3>
+                <h3>Étalement sur les 52 dernières semaines: {{stock['fiftyTwoWeekRange']}}</h3>
+                <h3 class="float-end me-5">Bid size: {{stock['bidSize']}}</h3>
+                <h3>Ask size: {{stock['askSize']}}</h3>
+                <hr/>
+                <div>
+                    <h1>Graphique ici</h1>
+                </div>
             </div>
         </div>
     </div>
