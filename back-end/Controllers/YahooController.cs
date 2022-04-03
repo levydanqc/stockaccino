@@ -51,14 +51,6 @@ public class YahooController : ControllerBase
 
             for (int j = 0; j < ((JArray)jObject["chart"]!["result"]![0]!["timestamp"]!).Count; j++)
             {
-                if (jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["high"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["low"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["close"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["open"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["volume"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["timestamp"]![j] == null)
-                    continue;
-
                 DateTime datetime = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(
                     jObject!["chart"]!["result"]![0]!["timestamp"]![j])).LocalDateTime;
                 stocks.Add(new Stock(
