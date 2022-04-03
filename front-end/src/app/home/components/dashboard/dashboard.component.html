@@ -1,7 +1,17 @@
-<div class="DashBoardContainer">
+<div *ngIf="!hasStocks">
+    <h1 class="mt-5 ms-5">Ajoutez des stocks à votre Watchlist pour les voir apparaître ici!</h1>
+</div>
+<div *ngIf="hasStocks">
+    <div class="watchlistContainer">
+        <div *ngFor="let stock of stocks" class="carte" (click)="selectStock(stock, undefined)" [ngClass]="{'selectedStock' : stock === selectedStock}">
+            <p>{{stock}}</p>
+        </div>
+    </div>
+        <button type="button" (click)="voirStock()" class="btn btn-dark btnPerso ms-4">Plus de détails</button>
+        <h1 class="float-start ps-2">{{stockObject['longName']}} ({{selectedStock}})</h1>
     <div class="DashBoardContent">
-        <br>
-        <button (click)="deconnexion()" class="btn btn-dark btnPerso">Déconnexion</button>
+        <p>Graphique ici</p>
     </div>
 </div>
+
 <app-chart code="AAPL"></app-chart>

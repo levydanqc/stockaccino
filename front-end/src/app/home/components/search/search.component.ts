@@ -20,12 +20,11 @@ export class SearchComponent implements OnInit {
   isWatched?: boolean;
 
   constructor(
-    private Activatedroute: ActivatedRoute,
-    private _yahooService: YahooService,
-    private _userService: UserService,
-    private _cookieService: CookieService,
-    private router: Router
-  ) {}
+      private Activatedroute: ActivatedRoute,
+      private _yahooService: YahooService,
+      private _userService: UserService,
+      private _cookieService: CookieService,
+    ) {}
 
   ngOnInit(): void {
     this.searchedStock =

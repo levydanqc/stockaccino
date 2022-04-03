@@ -1,0 +1,78 @@
+@import "../../../../theme.scss";
+
+::ng-deep.DashBoardContent {
+    margin-right: 0rem;
+    border-radius: 0rem;
+    min-height: 40rem;
+}
+
+.carte {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.7rem;
+    align-items: center;
+    margin: 0.3rem;
+    background-color: $cardgrey;
+    border-radius: 1rem;
+    display: flex;
+    height: 3rem;
+    justify-content: center;
+    min-width: 6rem;
+    // box-shadow: 
+    // 12px 12px 16px 0 rgba(255, 255, 255, 0.3) inset,
+    // -8px -8px 30px 0 rgba(0, 0, 0, .25) inset;
+    cursor: pointer;
+    &:hover {
+        border: 1px solid black;
+    }
+}
+
+.selectedStock {
+    background-color: $smokegrey;
+}
+
+.graphContainer {
+    background-color: $lightgrey;
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 3rem;
+    max-width: 55%;
+    margin-right: 2rem;
+    margin-top: 6rem;
+    height: 20rem;
+    padding: 1rem;
+}
+
+.detailsContainer {
+    background-color: $lightgrey;
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 3rem;
+    text-align: center;
+    justify-content: center;
+    padding: 3rem;
+    float: right;
+    max-width: 40%;
+    min-width: 40%;
+    margin-left: 2rem;
+    margin-top: 6rem;
+    height: 20rem;
+}
+
+.watchlistContainer {
+    background-color: $grey;
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 3rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    padding: 1.3rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-right: 10rem;
+    .carte {
+      flex: 0 0 auto;
+    }
+  }
