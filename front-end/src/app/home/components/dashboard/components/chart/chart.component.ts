@@ -7,21 +7,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  getElement,
   StockChartComponent,
-  IRangeSelectorRenderEventArgs,
-  IRangeLoadedEventArgs,
   PeriodsModel,
 } from '@syncfusion/ej2-angular-charts';
-import { chartData } from './datasource';
-import {
-  ItemModel,
-  MenuEventArgs,
-  ToolbarComponent,
-} from '@syncfusion/ej2-angular-navigations';
-import { DropDownButton } from '@syncfusion/ej2-splitbuttons';
-
-import { Button } from '@syncfusion/ej2-buttons';
 import { YahooService } from 'src/app/services/yahoo.service';
 
 @Component({
