@@ -17,15 +17,16 @@
                 <h2>Demande actuelle (ask): {{stock['ask']}} {{stock['currency']}}</h2>
                 <h3 class="float-end me-5">Nombre d'échanges moyen par jour (volume): {{stock['regularMarketVolume']}}</h3>
                 <h2>Évaluation moyenne des analystes: {{stock['averageAnalystRating']}}</h2>
-                <h3 class="float-end me-5">Moyenne sur les derniers 50 jours: {{stock['fiftyDayAverage']}}</h3>
+                <h3 class="float-end me-5">Moyenne sur les derniers 50 jours: {{stock['fiftyDayAverage']}}</h3>                
                 <h3>Étalement moyen d'une journée régulière: {{stock['regularMarketDayRange']}}</h3>
                 <h3 class="float-end me-5">Moyenne sur les derniers 200 jours: {{stock['twoHundredDayAverage']}}</h3>
                 <h3>Étalement sur les 52 dernières semaines: {{stock['fiftyTwoWeekRange']}}</h3>
                 <h3 class="float-end me-5">Bid size: {{stock['bidSize']}}</h3>
                 <h3>Ask size: {{stock['askSize']}}</h3>
-                <hr />
-                <h2>Historique des prix</h2>
-                <app-chart [code]="stock['symbol']"></app-chart>
+                <hr/>
+                <div>
+                    <h1>Graphique ici</h1>
+                </div>
             </div>
         </div>
     </div>
