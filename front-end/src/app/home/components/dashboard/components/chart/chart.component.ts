@@ -26,10 +26,7 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   public chartData!: Object[];
   public crosshair: Object = { enable: true };
-  public tooltip: Object = {
-    enable: true,
-    // header: '<b>${point.x}</b>',
-  };
+  public tooltip: Object = { enable: true };
   public marker: Object = { visible: true, width: 100, height: 10 };
   public primaryXAxis: Object = {
     valueType: 'DateTime',
