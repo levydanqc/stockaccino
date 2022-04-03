@@ -36,7 +36,6 @@ public class YahooController : ControllerBase
     [HttpGet("chart")]
     public async Task<IActionResult> GetStockChart(string symbol)
     {
-        Console.WriteLine("***********Requested!**********");
         string[] ranges = new string[] { "10y", "1m", "5d" };
         string[] intervals = new string[] { "1d", "5m", "1m" };
         List<Stock> stocks = new();
