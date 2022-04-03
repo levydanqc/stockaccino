@@ -59,27 +59,6 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getStockData();
-    // this.interval = setInterval(() => {
-    //   let i: number;
-    //   if (getElement('chart-container') === null) {
-    //     clearInterval(this.interval);
-    //   } else {
-    //     this.chartData.push({
-    //       date: new Date(
-    //         new Date('2017-09-18').setDate(
-    //           new Date('2017-09-18').getDate() + this.i + 1
-    //         )
-    //       ),
-    //       high: Math.floor(Math.random() * (100 - 90 + 1) + 90),
-    //       low: Math.floor(Math.random() * (60 - 50 + 1) + 50),
-    //       close: Math.floor(Math.random() * (99 - 51 + 1) + 51),
-    //       open: Math.floor(Math.random() * (99 - 51 + 1) + 51),
-    //     });
-    //     this.i++;
-    //     this.stock.series[0].dataSource = this.chartData;
-    //     this.stock.refresh();
-    //   }
-    // }, this.setTimeoutValue);
   }
 
   ngOnDestroy() {
