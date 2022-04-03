@@ -3,7 +3,6 @@ using Stockaccino.Services;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Stockaccino.Models;
-using System.Collections.Generic;
 
 namespace Stockaccino.Controllers;
 
@@ -37,9 +36,10 @@ public class YahooController : ControllerBase
     [HttpGet("chart")]
     public async Task<IActionResult> GetStockChart(string symbol)
     {
+        Console.WriteLine("***********Requested!**********");
         string[] ranges = new string[] { "10y", "1m", "5d" };
         string[] intervals = new string[] { "1d", "5m", "1m" };
-        List<Stock> stocks = new List<Stock>();
+        List<Stock> stocks = new();
 
         for (int i = 0; i < ranges.Length; i++)
         {
@@ -49,26 +49,33 @@ public class YahooController : ControllerBase
             if (jObject!["chart"]!["error"]!.HasValues)
                 return NoContent();
 
-            for (int j = 0; j < ((JArray)jObject["chart"]!["result"]![0]!["timestamp"]!).Count; j++)
+            if (jObject["chart"]!["result"]![0]!["timestamp"] != null && jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!.HasValues)
             {
-                if (jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["high"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["low"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["close"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["open"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["volume"]![j] == null ||
-                    jObject!["chart"]!["result"]![0]!["timestamp"]![j] == null)
-                    continue;
+                for (int j = 0; j < ((JArray)jObject["chart"]!["result"]![0]!["timestamp"]!).Count; j++)
+                {
+                    if (jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["high"]![j] == null ||
+                        jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["low"]![j] == null ||
+                        jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["close"]![j] == null ||
+                        jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["open"]![j] == null ||
+                        jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["volume"]![j] == null ||
+                        jObject!["chart"]!["result"]![0]!["timestamp"]![j] == null ||
+                        string.IsNullOrWhiteSpace(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["high"]![j]!.ToString()) ||
+                        string.IsNullOrWhiteSpace(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["low"]![j]!.ToString()) ||
+                        string.IsNullOrWhiteSpace(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["close"]![j]!.ToString()) ||
+                        string.IsNullOrWhiteSpace(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["open"]![j]!.ToString()) ||
+                        string.IsNullOrWhiteSpace(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["volume"]![j]!.ToString()))
+                        continue;
 
-                DateTime datetime = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(
-                    jObject!["chart"]!["result"]![0]!["timestamp"]![j])).LocalDateTime;
-                stocks.Add(new Stock(
-                    Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["high"]![j]),
-                    Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["low"]![j]),
-                    Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["close"]![j]),
-                    Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["open"]![j]),
-                    Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["volume"]![j]),
-                    datetime
-                    ));
+                    DateTime datetime = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(
+                        jObject!["chart"]!["result"]![0]!["timestamp"]![j])).LocalDateTime;
+                    stocks.Add(new Stock(
+                        Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["high"]![j]),
+                        Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["low"]![j]),
+                        Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["close"]![j]),
+                        Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["open"]![j]),
+                        Convert.ToDouble(jObject!["chart"]!["result"]![0]!["indicators"]!["quote"]![0]!["volume"]![j]),
+                        datetime));
+                }
             }
         }
 
