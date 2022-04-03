@@ -12,6 +12,7 @@ export type Mode = 'show' | 'modify';
 })
 export class SettingsComponent implements OnInit {
   currentMode: Mode = 'show';
+  isLoading = true;
   form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     nom: new FormControl('', [Validators.required]),
@@ -27,6 +28,7 @@ export class SettingsComponent implements OnInit {
     this._userService
       .getUserById(this.cookieService.get('id'))
       .subscribe((data) => {
+        this.isLoading = false;
         this.form.get('email')?.setValue(data.Email);
         this.form.get('prenom')?.setValue(data.Prenom);
         this.form.get('nom')?.setValue(data.Nom);
