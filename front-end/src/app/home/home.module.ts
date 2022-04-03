@@ -11,7 +11,7 @@ import { HistoryComponent } from './components/history/history.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SearchComponent } from './components/search/search.component';
 
-import { ChartComponent } from './components/dashboard/components/chart/chart.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 import {
   ChartAllModule,

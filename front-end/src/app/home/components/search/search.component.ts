@@ -37,6 +37,7 @@ export class SearchComponent implements OnInit {
         .subscribe((data: any) => {
           this.quote = data;
           this.stock = this.quote['quoteResponse']['result'][0];
+          this.isLoading = false;
         });
       // this._yahooService.getStockChart(stockSymbol).subscribe((data: any) => {
       //   this.chartData = data;

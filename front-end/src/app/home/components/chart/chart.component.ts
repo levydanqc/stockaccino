@@ -5,6 +5,8 @@ import {
   OnInit,
   ViewChild,
   ViewEncapsulation,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import {
   StockChartComponent,
@@ -18,7 +20,7 @@ import { YahooService } from 'src/app/services/yahoo.service';
   styleUrls: ['./chart.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ChartComponent implements OnInit, OnDestroy {
+export class ChartComponent implements OnInit, OnDestroy, OnChanges {
   @Input() code = '';
   @ViewChild('chart', { static: true })
   public stock!: StockChartComponent | StockChartComponent;
@@ -55,6 +57,10 @@ export class ChartComponent implements OnInit, OnDestroy {
   constructor(private yahooservice: YahooService) {}
 
   ngOnInit() {
+    this.getStockData();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
     this.getStockData();
   }
 
