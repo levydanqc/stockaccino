@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Constants } from 'src/assets/constants';
-import { ChartRange } from '../classes/yahoo/range';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
@@ -30,16 +29,9 @@ export class YahooService {
     });
   }
 
-  public getStockChart(symbol: string, range: ChartRange): Observable<any> {
-    let interval = '1d';
-    if (range === ChartRange.ONE_DAY || range === ChartRange.FIVE_DAYS)
-      interval = '1m';
-    if (range === ChartRange.ONE_MONTH) interval = '5m';
+  public getStockChart(symbol: string): Observable<any> {
     return this.http.get(Constants.STOCK_CHART_URL, {
-      params: new HttpParams()
-        .append('symbol', symbol)
-        .append('range', range.toString())
-        .append('interval', '1d'),
+      params: new HttpParams().append('symbol', symbol),
     });
   }
 }

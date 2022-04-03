@@ -23,7 +23,6 @@ import { DropDownButton } from '@syncfusion/ej2-splitbuttons';
 
 import { Button } from '@syncfusion/ej2-buttons';
 import { YahooService } from 'src/app/services/yahoo.service';
-import { ChartRange } from 'src/app/classes/yahoo/range';
 
 @Component({
   selector: 'app-chart',
@@ -35,11 +34,24 @@ export class ChartComponent implements OnInit, OnDestroy {
   @Input() code = '';
   @ViewChild('chart', { static: true })
   public stock!: StockChartComponent | StockChartComponent;
+  public isLoading: boolean = true;
 
-  public chartData: Object[] = [];
+  public chartData!: Object[];
   public crosshair: Object = { enable: true };
-  public tooltip: Object = { enable: true };
-  public marker: Object = { visible: true, width: 10, height: 10 };
+  public tooltip: Object = {
+    enable: true,
+    // header: '<b>${point.x}</b>',
+  };
+  public marker: Object = { visible: true, width: 100, height: 10 };
+  public primaryXAxis: Object = {
+    valueType: 'DateTime',
+    crosshairTooltip: { enable: true },
+  };
+  public primaryYAxis: Object = {
+    majorTickLines: { color: 'transparent', width: 0 },
+    crosshairTooltip: { enable: true },
+    opposedPosition: false,
+  };
 
   public i: number = 0;
   public interval: any;
@@ -87,29 +99,9 @@ export class ChartComponent implements OnInit, OnDestroy {
   }
 
   getStockData(): void {
-    this.yahooservice
-      .getStockChart(this.code, ChartRange.TEN_YEARS)
-      .subscribe((data: any) => {
-        this.chartData.push(...data);
-        this.chartData = this.chartData.sort(
-          (objA: any, objB: any) => objA.Date.getTime() - objB.Date.getTime()
-        );
-      });
-    this.yahooservice
-      .getStockChart(this.code, ChartRange.ONE_MONTH)
-      .subscribe((data: any) => {
-        this.chartData.push(...data);
-        this.chartData = this.chartData.sort(
-          (objA: any, objB: any) => objA.Date.getTime() - objB.Date.getTime()
-        );
-      });
-    this.yahooservice
-      .getStockChart(this.code, ChartRange.FIVE_DAYS)
-      .subscribe((data: any) => {
-        this.chartData.push(...data);
-        this.chartData = this.chartData.sort(
-          (objA: any, objB: any) => objA.Date.getTime() - objB.Date.getTime()
-        );
-      });
+    this.yahooservice.getStockChart(this.code).subscribe((data: any) => {
+      this.chartData = data;
+      this.isLoading = false;
+    });
   }
 }

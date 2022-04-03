@@ -1,7 +1,11 @@
-<ejs-stockchart #chart id="chart-container" [periods]="periods" [title]="code" [enableSelector]="false"
-    [enablePeriodSelector]="true" [enableCustomRange]="true" [tooltip]='tooltip' [crosshair]='crosshair'>
+<ejs-stockchart *ngIf="!isLoading" class="mx-3" #chart id="chart-container" [periods]="periods" [title]="code"
+    [enableSelector]="false" [primaryXAxis]="primaryXAxis" [primaryYAxis]="primaryYAxis" [enablePeriodSelector]="true"
+    [enableCustomRange]="true" [tooltip]='tooltip' [crosshair]='crosshair'>
     <e-stockchart-series-collection>
         <e-stockchart-series [dataSource]='chartData' type='Candle' xName='Date' high='High' low='Low' open='Open'
             close='Close' volume="Volume" [name]="code"></e-stockchart-series>
     </e-stockchart-series-collection>
 </ejs-stockchart>
+<div class="mx-auto w-100">
+    <p class="h2 mx-auto" *ngIf="isLoading">Chargement du graphique...</p>
+</div>
