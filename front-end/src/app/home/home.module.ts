@@ -11,6 +11,30 @@ import { HistoryComponent } from './components/history/history.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SearchComponent } from './components/search/search.component';
 
+import { ChartComponent } from './components/dashboard/components/chart/chart.component';
+
+import {
+  ChartAllModule,
+  StockChartAllModule,
+  RangeNavigatorAllModule,
+} from '@syncfusion/ej2-angular-charts';
+import {
+  DateTimeService,
+  LegendService,
+  TooltipService,
+  CategoryService,
+  LineSeriesService,
+  TmaIndicatorService,
+  ColumnSeriesService,
+  RangeAreaSeriesService,
+} from '@syncfusion/ej2-angular-charts';
+import {
+  DataLabelService,
+  CandleSeriesService,
+} from '@syncfusion/ej2-angular-charts';
+
+import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
+
 schemas: [CUSTOM_ELEMENTS_SCHEMA];
 
 @NgModule({
@@ -20,7 +44,28 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     HistoryComponent,
     SettingsComponent,
     SearchComponent,
+    ChartComponent,
   ],
-  imports: [CommonModule, DashboardRoutingModule, MaterialModule],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    MaterialModule,
+    ChartAllModule,
+    StockChartAllModule,
+    ToolbarModule,
+    RangeNavigatorAllModule,
+  ],
+  providers: [
+    DateTimeService,
+    LegendService,
+    TooltipService,
+    DataLabelService,
+    CandleSeriesService,
+    CategoryService,
+    LineSeriesService,
+    TmaIndicatorService,
+    ColumnSeriesService,
+    RangeAreaSeriesService,
+  ],
 })
 export class DashboardModule {}
