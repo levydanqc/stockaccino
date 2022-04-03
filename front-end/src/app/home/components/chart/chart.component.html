@@ -1,4 +1,4 @@
-<ejs-stockchart *ngIf="!isLoading" class="mx-3" #chart id="chart-container" [periods]="periods" [title]="code"
+<ejs-stockchart *ngIf="!isLoading && chartExists" class="mx-3" #chart id="chart-container" [periods]="periods" [title]="code"
     [enableSelector]="false" [primaryXAxis]="primaryXAxis" [primaryYAxis]="primaryYAxis" [enablePeriodSelector]="true"
     [enableCustomRange]="true" [tooltip]='tooltip' [crosshair]='crosshair'>
     <e-stockchart-series-collection>
@@ -6,6 +6,9 @@
             close='Close' volume="Volume" [name]="code"></e-stockchart-series>
     </e-stockchart-series-collection>
 </ejs-stockchart>
+<div class="mx-auto w-100">
+    <p class="h2 mx-auto" *ngIf="!chartExists && !isLoading">Données indisponibles pour cette action.</p>
+</div>
 <div class="mx-auto w-100">
     <p class="h2 mx-auto" *ngIf="isLoading">Chargement du graphique...</p>
 </div>
