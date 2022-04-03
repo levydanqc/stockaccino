@@ -17,8 +17,8 @@ export class YahooService {
     });
 
     return response.pipe(
-      map((data) => {
-        return data;
+      map((data: any) => {
+        return data.ResultSet.Result;
       })
     );
   }
