@@ -8,7 +8,7 @@
                     <label for="email">Adresse courriel</label>
                     <input name="email" id="email" class="form-control" formControlName="email" [value]="value('email')"
                         [placeholder]="placeholder('email')" [attr.disabled]="isShow()? true : null">
-                    <mat-error *ngIf="this.form.get('email')!.invalid">{{getEmailError()}}</mat-error>
+                    <mat-error *ngIf="!isLoading && this.form.get('email')!.invalid">{{getEmailError()}}</mat-error>
                 </div>
                 <div class="mb-4">
                     <label for="prenom">Prénom</label>
