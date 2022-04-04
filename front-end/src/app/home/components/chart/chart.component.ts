@@ -25,7 +25,7 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild('chart', { static: true })
   public stock!: StockChartComponent | StockChartComponent;
   public isLoading: boolean = true;
-
+  public chartExists: boolean = false;
   public chartData!: Object[];
   public crosshair: Object = { enable: true };
   public tooltip: Object = { enable: true };
@@ -62,6 +62,9 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.getStockData();
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000)
   }
 
   ngOnDestroy() {
@@ -69,9 +72,12 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getStockData(): void {
+    this.chartExists = false;
+    this.isLoading = true;
     this.yahooservice.getStockChart(this.code).subscribe((data: any) => {
       this.chartData = data;
       this.isLoading = false;
+      this.chartExists = true;
     });
   }
 }
