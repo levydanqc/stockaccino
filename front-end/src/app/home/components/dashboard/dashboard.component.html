@@ -7,7 +7,7 @@
             <p>{{stock}}</p>
         </div>
     </div>
-        <button type="button" (click)="voirStock()" class="btn btn-dark btnPerso ms-4">Plus de détails</button>
+        <button type="button" (click)="voirStock()" class="btn-dark btnPerso ms-4">Plus de détails</button>
         <h1 class="float-start ps-2">{{stockObject['longName']}} ({{selectedStock}})</h1>
     <div class="DashBoardContent">
         <app-chart [code]="selectedStock"></app-chart>

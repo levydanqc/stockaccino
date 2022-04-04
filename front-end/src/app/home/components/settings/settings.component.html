@@ -1,6 +1,6 @@
 <div class="DashBoardContainer">
     <div class="DashBoardContent">
-        <button (click)="deconnexion()" class="btn btn-dark btnPerso float-end">Déconnexion</button>
+        <button (click)="deconnexion()" class="btn-dark btnPerso float-end">Déconnexion</button>
         <h2>Informations du compte: </h2>
         <div>
             <form (submit)="submitForm()" [formGroup]="form">
@@ -21,11 +21,11 @@
                     <input name="nom" id="nom" class="form-control" formControlName="nom" [value]="value('nom')"
                         [placeholder]="placeholder('nom')" [attr.disabled]="isShow()? true : null">
                 </div>
-                <button *ngIf="isShow()" type="button" (click)="switch('modify')" class="btn btn-dark">Modifier mon
+                <button *ngIf="isShow()" type="button" (click)="switch('modify')" class="btn-dark">Modifier mon
                     compte</button>
                 <div *ngIf="!isShow()">
-                    <button type="button" type="submit" class="btn btn-dark">Sauvegarder</button>
-                    <button type="button" (click)="switch('show')" class="btn btn-dark ms-2">Annuler</button>
+                    <button type="button" type="submit" class="btn-dark">Sauvegarder</button>
+                    <button type="button" (click)="switch('show')" class="btn-dark ms-2">Annuler</button>
                 </div>
             </form>
         </div>

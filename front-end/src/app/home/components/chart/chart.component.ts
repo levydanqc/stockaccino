@@ -64,7 +64,7 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
     this.getStockData();
     setTimeout(() => {
       this.isLoading = false;
-    }, 1000)
+    }, 2000)
   }
 
   ngOnDestroy() {
