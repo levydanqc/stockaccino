@@ -104,6 +104,8 @@ export class UserService {
       Nom: nom,
       Password: password,
       Stocks: [],
+      Amis: [],
+      Requetes: [],
     };
     this.http.post(this.apiUrl, user).subscribe((res) => {});
   }
