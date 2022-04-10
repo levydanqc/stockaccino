@@ -5,7 +5,7 @@ import { HistoryComponent } from './components/history/history.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SearchComponent } from './components/search/search.component';
-import { TrendingComponent } from './components/trending/trending.component';
+import { RecommendationComponent } from './components/recommendation/recommendation.component';
 
 const routes: Routes = [
   {
@@ -30,7 +30,7 @@ const routes: Routes = [
       },
       {
         path: 'trending',
-        component: TrendingComponent,
+        component: RecommendationComponent,
       },
     ],
   },
