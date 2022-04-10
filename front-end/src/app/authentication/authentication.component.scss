@@ -1,13 +1,31 @@
-@import "../../theme.scss";
+@import '../../theme.scss';
 
 $primary: map-get($theme, primary);
 $black: #232323;
 
 .authentication {
-  padding-top: 5%;
+  padding: 5% 0;
+  & .logo {
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width: 50%;
+    z-index: -10;
+  }
+  & .slogan {
+    position: absolute;
+    bottom: 10%;
+    z-index: 0;
+  }
+  & .mat-card {
+    position: absolute;
+    right: 5%;
+    top: 10%;
+    z-index: 10;
+  }
 }
 
-mat-card-title button {
+.mat-card-title button {
   text-decoration: none;
   color: $black;
   padding: 0.5rem 1.5rem;
@@ -15,7 +33,7 @@ mat-card-title button {
   font-size: larger;
 }
 
-::ng-deep mat-form-field {
+::ng-deep .mat-form-field {
   width: 100%;
   margin: 0.5rem 0;
 }
