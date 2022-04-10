@@ -23,6 +23,10 @@ export class YahooService {
     );
   }
 
+  public getTrending(): any {
+    return this.http.get(Constants.TRENDING_URL);
+  }
+
   public getSearchedStock(query: string): any {
     return this.http.get(Constants.SEARCH_STOCK_URL, {
       params: new HttpParams().append('input', query),

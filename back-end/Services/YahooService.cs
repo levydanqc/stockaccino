@@ -1,7 +1,4 @@
-﻿using Stockaccino.Models;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Stockaccino.Services;

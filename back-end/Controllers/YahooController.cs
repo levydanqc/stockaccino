@@ -16,9 +16,14 @@ public class YahooController : ControllerBase
         _yahooService = yahooService;
 
     [HttpGet("trending")]
-    public async Task<string> Get()
+    public async Task<IActionResult> Get()
     {
-        return await _yahooService.GetTrending();
+        string raw = await _yahooService.GetTrending();
+        JObject? jObject = JsonConvert.DeserializeObject<JObject>(raw);
+        if (jObject!["finance"]!["error"]!.HasValues)
+            return NoContent();
+
+        return Ok(jObject["finance"]!["result"]);
     }
 
     [HttpGet("autocomplete")]
