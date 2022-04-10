@@ -1,18 +1,21 @@
 <div class="DashBoardContainer">
     <div class="DashBoardContent">
-
-        <div class="floatRight">
-            <div class="legAchat"></div> <p>Achat</p>
-            <div class="legVente"></div> <p>Vente</p>
-        </div>
-
-        <ul class="breakFloat">
-            <div *ngFor="let transaction of transactions" class="transaction {{transaction.style}}">
-
-                <li>{{transaction.name}}</li>
-
-            </div>
+        <h1>Demandes d'amitié - ({{requetes?.length}})</h1>
+        <hr />
+        <ul>
+            <li class="d-flex flex-row" *ngFor="let requete of requetes">
+                <p class="p-2">{{requete.Prenom}} {{requete.Nom}} - ({{requete.Email}})</p>
+                <mat-icon (click)="accept(requete.Email, requete.Prenom, requete.Nom)" class="p-2 me-4 iconBtn" mat-list-icon>done</mat-icon>
+                <mat-icon (click)="refuse(requete.Email)" class="p-2 me-4 iconBtn" mat-list-icon>delete</mat-icon>
+            </li>
         </ul>
-
+        <h1><br>Amis - ({{amis?.length}})</h1>
+        <hr />
+        <ul>
+            <li class="d-flex flex-row" *ngFor="let ami of amis">
+                <p class="p-2">{{ami.Prenom}} {{ami.Nom}} - ({{ami.Email}})</p>
+                <mat-icon (click)="delete(ami.Email)" class="p-2 me-4 iconBtn" mat-list-icon>delete</mat-icon>
+            </li>
+        </ul>
     </div>
 </div>

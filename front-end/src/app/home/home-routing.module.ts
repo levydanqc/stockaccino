@@ -16,7 +16,7 @@ const routes: Routes = [
         component: DashboardComponent,
       },
       {
-        path: 'history',
+        path: 'social',
         component: HistoryComponent,
       },
       {

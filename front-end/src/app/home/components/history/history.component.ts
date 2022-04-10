@@ -1,21 +1,86 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from 'src/app/services/user.service';
+import { Friend } from 'src/app/classes/friend';
 
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss'],
 })
-export class HistoryComponent {
-  transactions = [
-    { id: 1, name: 'Achat de 3.5 parts de Tesla Inc.', style: 'buy' },
-    { id: 2, name: 'Vente de 0.5 parts de Google.', style: 'sell' },
-    { id: 3, name: 'Achat de 6 parts de Tesla Inc.', style: 'buy' },
-    { id: 4, name: 'Achat de 1.5 parts de Google.', style: 'buy' },
-    { id: 5, name: 'Achat de 15.3 parts de Nsim Tech.', style: 'buy' },
-    { id: 6, name: 'Vente de 4.5 parts de Nvidia.', style: 'sell' },
-    { id: 7, name: 'Vente de 3.5 parts de Tesla Inc.', style: 'sell' },
-    { id: 8, name: 'Achat de 2.5 parts de Meta.', style: 'buy' },
-  ];
+export class HistoryComponent implements OnInit {
+  amisString?: string[];
+  amis?: Array<Friend> = new Array<Friend>();
+  requetesString?: string[];
+  requetes?: Array<Friend> = new Array<Friend>();
+  hasAmis?: boolean;
+  hasRequetes?: boolean;
 
-  constructor() {}
+  constructor(
+    private cookieService: CookieService,
+    private _userService: UserService,
+    private router: Router,
+  ) {}
+
+  accept(email: string, prenom: string, nom: string) {
+    this.requetes = this.requetes?.filter(requete => { return requete.Email !== email });
+    let newlyAdded: Friend = {
+      Email: email,
+      Prenom: prenom,
+      Nom: nom,
+    };
+    this.amis?.push(newlyAdded);
+    // TODO: Call api pour delete la request des requetes
+    // TODO: Call api pour ajouter l'ami dans la liste d'amis
+  }
+
+  refuse(email: string) {
+    this.requetes = this.requetes?.filter(requete => { return requete.Email !== email });
+    //TODO: Call api pour delete la requete
+  }
+
+  delete(email: string) {
+    this.amis = this.amis?.filter(ami => { return ami.Email !== email });
+    //TODO: Call api pour delete l'ami
+  }
+
+  ngOnInit(): void {
+    this._userService
+      .getUserById(this.cookieService.get('id'))
+      .subscribe((data: any) => {
+        this.amisString = data.Amis;
+        if (this.amisString)
+          if (this.amisString.length > 0) {
+            this.amisString.forEach(ami => {
+              this._userService
+              .getUserByEmail(ami)
+              .subscribe((data: any) => {
+                let friend: Friend = {
+                  Email: ami,
+                  Prenom: data.Prenom,
+                  Nom: data.Nom,
+                };
+                this.amis?.push(friend);
+              });
+            });
+          }
+        this.requetesString = data.Requetes;
+        if (this.requetesString)
+          if (this.requetesString.length > 0) {
+            this.requetesString.forEach(requete => {
+              this._userService
+              .getUserByEmail(requete)
+              .subscribe((data: any) => {
+                let friend: Friend = {
+                  Email: requete,
+                  Prenom: data.Prenom,
+                  Nom: data.Nom,
+                }
+                this.requetes?.push(friend);
+              });
+            });
+          }
+      });
+  }
 }
