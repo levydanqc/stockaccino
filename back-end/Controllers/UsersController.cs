@@ -128,6 +128,8 @@ public class UsersController : ControllerBase
 
         if (sendingUser is null || receivingUser is null) return NotFound();
 
+        if (sendingUser.Email == receiverEmail) return Conflict();
+
         if (receivingUser.Requetes.Contains(sendingUser.Email) || receivingUser.Amis.Contains(sendingUser.Email)) return Conflict();
         
         List<string> requestList = receivingUser.Requetes.ToList();

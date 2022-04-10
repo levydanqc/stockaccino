@@ -1,5 +1,19 @@
 <div class="DashBoardContainer">
     <div class="DashBoardContent">
+        <div class="float-end">
+            <form class="d-flex flex-row" [formGroup]="form">
+                <div class="p-2">
+                    <label for="email">Adresse courriel</label>
+                    <input name="email" id="email" class="form-control" formControlName="email"
+                        placeholder="exemple@gmail.com">
+                    <mat-error *ngIf="this.form.get('email')!.invalid">{{getEmailError()}}</mat-error>
+                    <p>{{confirmation}}</p>
+                </div>
+                <div class="p-2 iconBox">
+                    <mat-icon (click)="add()" class="p-2 me-4 iconBtn float-end" mat-list-icon>person_add</mat-icon>
+                </div>
+            </form>
+        </div>
         <div class="d-flex flex-row">
             <h1 class="p-2">Demandes d'amitié - ({{requetes?.length}})</h1>
             <mat-icon (click)="showHide()" class="p-2 me-4 iconBtn" mat-list-icon>{{expandCode}}</mat-icon>
