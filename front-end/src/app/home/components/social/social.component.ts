@@ -4,11 +4,11 @@ import { UserService } from 'src/app/services/user.service';
 import { Friend } from 'src/app/classes/friend';
 
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.scss'],
+  selector: 'app-social',
+  templateUrl: './social.component.html',
+  styleUrls: ['./social.component.scss'],
 })
-export class HistoryComponent implements OnInit {
+export class SocialComponent implements OnInit {
   amisString?: string[];
   amis?: Array<Friend> = new Array<Friend>();
   requetesString?: string[];

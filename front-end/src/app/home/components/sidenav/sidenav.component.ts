@@ -33,8 +33,8 @@ export class SidenavComponent implements AfterViewInit, OnInit {
     this.router.events.subscribe((url: any) => {
       if (url.url === '/') {
         this.title = 'Tableau de bord';
-      } else if (url.url === '/history') {
-        this.title = 'Historique des transactions';
+      } else if (url.url === '/social') {
+        this.title = 'Page sociale';
       } else if (url.url === '/transactions') {
         this.title = 'Transactions';
       } else if (url.url === '/settings') {
