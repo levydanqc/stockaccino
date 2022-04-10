@@ -1,17 +1,22 @@
 <div class="DashBoardContainer">
     <div class="DashBoardContent">
-        <h1>Demandes d'amitié - ({{requetes?.length}})</h1>
-        <hr />
-        <ul>
+        <div class="d-flex flex-row">
+            <h1 class="p-2">Demandes d'amitié - ({{requetes?.length}})</h1>
+            <mat-icon (click)="showHide()" class="p-2 me-4 iconBtn" mat-list-icon>{{expandCode}}</mat-icon>
+        </div>
+        <ul *ngIf="expandCode === 'expand_less'">
+            <hr />
             <li class="d-flex flex-row" *ngFor="let requete of requetes">
                 <p class="p-2">{{requete.Prenom}} {{requete.Nom}} - ({{requete.Email}})</p>
                 <mat-icon (click)="accept(requete.Email, requete.Prenom, requete.Nom)" class="p-2 me-4 iconBtn" mat-list-icon>done</mat-icon>
-                <mat-icon (click)="refuse(requete.Email)" class="p-2 me-4 iconBtn" mat-list-icon>delete</mat-icon>
+                <mat-icon (click)="refuse(requete.Email)" class="p-2 me-4 iconBtn" mat-list-icon>close</mat-icon>
             </li>
         </ul>
-        <h1><br>Amis - ({{amis?.length}})</h1>
-        <hr />
+        <div class="d-flex flex-row">
+            <h1 class="p-2"><br>Amis - ({{amis?.length}})</h1>
+        </div>
         <ul>
+            <hr />
             <li class="d-flex flex-row" *ngFor="let ami of amis">
                 <p class="p-2">{{ami.Prenom}} {{ami.Nom}} - ({{ami.Email}})</p>
                 <mat-icon (click)="delete(ami.Email)" class="p-2 me-4 iconBtn" mat-list-icon>delete</mat-icon>

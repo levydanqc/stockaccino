@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from 'src/app/services/user.service';
 import { Friend } from 'src/app/classes/friend';
@@ -16,12 +15,17 @@ export class HistoryComponent implements OnInit {
   requetes?: Array<Friend> = new Array<Friend>();
   hasAmis?: boolean;
   hasRequetes?: boolean;
+  expandCode?: string = 'expand_less';
 
   constructor(
     private cookieService: CookieService,
     private _userService: UserService,
-    private router: Router,
   ) {}
+
+  showHide() {
+    if (this.expandCode === 'expand_less') this.expandCode = 'expand_more';
+    else if (this.expandCode === 'expand_more') this.expandCode = 'expand_less';
+  }
 
   accept(email: string, prenom: string, nom: string) {
     this.requetes = this.requetes?.filter(requete => { return requete.Email !== email });
