@@ -89,7 +89,7 @@ public class UsersController : ControllerBase
     {
         User? user = await _usersService.GetAsyncById(id);
 
-        if (user is null) return NotFound();
+        if (user is null) return NoContent();
 
         if (!user.Stocks.Contains(symbol))
         {
@@ -107,7 +107,7 @@ public class UsersController : ControllerBase
     {
         User? user = await _usersService.GetAsyncById(id);
 
-        if (user is null) return NotFound();
+        if (user is null) return NoContent();
 
         if (user.Stocks.Contains(symbol))
         {
@@ -126,11 +126,11 @@ public class UsersController : ControllerBase
         User? sendingUser = await _usersService.GetAsyncById(id);
         User? receivingUser = await _usersService.GetAsync(receiverEmail);
 
-        if (sendingUser is null || receivingUser is null) return NotFound();
+        if (sendingUser is null || receivingUser is null) return NoContent();
 
-        if (sendingUser.Email == receiverEmail) return Conflict();
+        if (sendingUser.Email == receiverEmail) return NoContent();
 
-        if (receivingUser.Requetes.Contains(sendingUser.Email) || receivingUser.Amis.Contains(sendingUser.Email)) return Conflict();
+        if (receivingUser.Requetes.Contains(sendingUser.Email) || receivingUser.Amis.Contains(sendingUser.Email)) return NoContent();
         
         List<string> requestList = receivingUser.Requetes.ToList();
         requestList.Add(sendingUser.Email);
@@ -147,10 +147,10 @@ public class UsersController : ControllerBase
         User? receivingUser = await _usersService.GetAsyncById(id);
         User? requestingUser = await _usersService.GetAsync(requestEmail);
 
-        if (requestingUser is null || receivingUser is null) return NotFound();
+        if (requestingUser is null || receivingUser is null) return NoContent();
 
 
-        if (receivingUser.Amis.Contains(requestEmail) || requestingUser.Amis.Contains(receivingUser.Email)) return Conflict();
+        if (receivingUser.Amis.Contains(requestEmail) || requestingUser.Amis.Contains(receivingUser.Email)) return NoContent();
 
         List<string> friendList = receivingUser.Amis.ToList();
         friendList.Add(requestEmail);
@@ -182,7 +182,7 @@ public class UsersController : ControllerBase
     {
         User? user = await _usersService.GetAsyncById(id);
 
-        if (user is null) return NotFound();
+        if (user is null) return NoContent();
 
         List<string> requestList = user.Requetes.ToList();
         requestList.Remove(requestEmail);
@@ -199,7 +199,7 @@ public class UsersController : ControllerBase
         User? user = await _usersService.GetAsyncById(id);
         User? removedFriend = await _usersService.GetAsync(email);
 
-        if (user is null || removedFriend is null) return NotFound();
+        if (user is null || removedFriend is null) return NoContent();
 
         List<string> amis = user.Amis.ToList();
         amis.Remove(email);
