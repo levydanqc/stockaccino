@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Diagnostics;
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Stockaccino.Services;
@@ -24,7 +25,13 @@ public class YahooService
 
     public async Task<string> GetTrending()
     {
-        return await _client.GetStringAsync(_baseUrl + _endPoints["trending"]);
+        try
+        {
+            return await _client.GetStringAsync(_baseUrl + _endPoints["trending"]);
+        } catch (Exception)
+        {
+            return ReloadApiKey();
+        }
     }
 
     internal async Task<string> GetAutocomplete(string input)
@@ -36,7 +43,14 @@ public class YahooService
             ["query"] = input,
         };
 
-        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["autocomplete"], query));
+        try
+        {
+            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["autocomplete"], query));
+        }
+        catch (Exception)
+        {
+            return ReloadApiKey();
+        }
     }
 
     public async Task<string> GetQuote(string symbol)
@@ -48,7 +62,14 @@ public class YahooService
             ["symbols"] = symbol,
         };
 
-        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
+        try
+        {
+            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
+        }
+        catch (Exception)
+        {
+            return ReloadApiKey();
+        }
     }
 
     public async Task<string> GetChart(string symbol, string range, string interval)
@@ -61,7 +82,19 @@ public class YahooService
             ["interval"] = interval,
         };
 
-        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["chart"] + symbol, query));
+        try
+        {
+            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["chart"] + symbol, query));
+        }
+        catch (Exception)
+        {
+            return ReloadApiKey();
+        }
     }
 
+    public string ReloadApiKey()
+    {
+        _client.GetAsync("https://api.danlevy.ca/webhook/reloadyahooapikey");
+        return "";
+    }
 }

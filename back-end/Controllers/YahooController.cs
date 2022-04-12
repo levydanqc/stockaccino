@@ -10,7 +10,7 @@ namespace Stockaccino.Controllers;
 [Route("[controller]")]
 public class YahooController : ControllerBase
 {
-    private readonly YahooService _yahooService;
+    private YahooService _yahooService;
 
     public YahooController(YahooService yahooService) =>
         _yahooService = yahooService;
@@ -19,6 +19,7 @@ public class YahooController : ControllerBase
     public async Task<IActionResult> Get()
     {
         string raw = await _yahooService.GetTrending();
+
         JObject? jObject = JsonConvert.DeserializeObject<JObject>(raw);
 
         if (jObject!["finance"]!["error"]!.HasValues)
@@ -101,11 +102,5 @@ public class YahooController : ControllerBase
         }
 
         return Ok(stocks.OrderBy(o => o.Date).ToList());
-    }
-
-    [HttpGet("Throw")]
-    public IActionResult Throw()
-    {
-        throw new Exception("Sample exception.");
     }
 }
