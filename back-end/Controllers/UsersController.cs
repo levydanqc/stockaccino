@@ -26,7 +26,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         return user;
@@ -39,7 +39,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         return user;
@@ -52,7 +52,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         return user;
@@ -73,7 +73,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         updatedUser.Id = user.Id;
@@ -222,7 +222,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         await _usersService.RemoveAsync(id);
