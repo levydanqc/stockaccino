@@ -20,10 +20,27 @@ public class YahooController : ControllerBase
     {
         string raw = await _yahooService.GetTrending();
         JObject? jObject = JsonConvert.DeserializeObject<JObject>(raw);
+
         if (jObject!["finance"]!["error"]!.HasValues)
             return NoContent();
 
-        return Ok(jObject["finance"]!["result"]);
+        List<Trending> trending = new List<Trending>();
+
+        for (int i = 0; i < ((JArray)jObject["finance"]!["result"]![0]!["quotes"]!).Count; i++)
+        {
+            string symbol = jObject!["finance"]!["result"]![0]!["quotes"]![i]!["symbol"]!.ToString();
+
+            #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+            JObject quote = JsonConvert.DeserializeObject<JObject>(await _yahooService.GetQuote(symbol));
+            #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+
+            trending.Add(new Trending(symbol,
+                Convert.ToDouble(quote!["quoteResponse"]!["result"]![0]!["regularMarketChangePercent"]!),
+                Convert.ToDouble(quote!["quoteResponse"]!["result"]![0]!["regularMarketChangePercent"]!)));
+        }
+
+        return Ok(trending.OrderBy(o => o.Change).ToList());
+
     }
 
     [HttpGet("autocomplete")]
@@ -84,5 +101,11 @@ public class YahooController : ControllerBase
         }
 
         return Ok(stocks.OrderBy(o => o.Date).ToList());
+    }
+
+    [HttpGet("Throw")]
+    public IActionResult Throw()
+    {
+        throw new Exception("Sample exception.");
     }
 }

@@ -15,5 +15,6 @@
 
   <ItemGroup>
     <None Remove="Newtonsoft.Json" />
+    <None Remove="PostSharp" />
   </ItemGroup>
 </Project>
