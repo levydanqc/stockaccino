@@ -26,7 +26,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         return user;
@@ -39,7 +39,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         return user;
@@ -52,7 +52,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         return user;
@@ -73,7 +73,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         updatedUser.Id = user.Id;
@@ -89,7 +89,7 @@ public class UsersController : ControllerBase
     {
         User? user = await _usersService.GetAsyncById(id);
 
-        if (user is null) return NotFound();
+        if (user is null) return NoContent();
 
         if (!user.Stocks.Contains(symbol))
         {
@@ -107,7 +107,7 @@ public class UsersController : ControllerBase
     {
         User? user = await _usersService.GetAsyncById(id);
 
-        if (user is null) return NotFound();
+        if (user is null) return NoContent();
 
         if (user.Stocks.Contains(symbol))
         {
@@ -120,6 +120,101 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
+    [HttpPut("sendRequest/{receiverEmail}")]
+    public async Task<IActionResult> SendRequest([FromBody] string id, string receiverEmail)
+    {
+        User? sendingUser = await _usersService.GetAsyncById(id);
+        User? receivingUser = await _usersService.GetAsync(receiverEmail);
+
+        if (sendingUser is null || receivingUser is null) return NoContent();
+
+        if (sendingUser.Email == receiverEmail) return NoContent();
+
+        if (receivingUser.Requetes.Contains(sendingUser.Email) || receivingUser.Amis.Contains(sendingUser.Email)) return NoContent();
+        
+        List<string> requestList = receivingUser.Requetes.ToList();
+        requestList.Add(sendingUser.Email);
+        receivingUser.Requetes = requestList.ToArray();
+
+        await _usersService.UpdateAsync(receivingUser.Id, receivingUser);
+
+        return NoContent();
+    }
+
+    [HttpPut("accept/{requestEmail}")]
+    public async Task<IActionResult> AcceptRequest([FromBody] string id, string requestEmail)
+    {
+        User? receivingUser = await _usersService.GetAsyncById(id);
+        User? requestingUser = await _usersService.GetAsync(requestEmail);
+
+        if (requestingUser is null || receivingUser is null) return NoContent();
+
+
+        if (receivingUser.Amis.Contains(requestEmail) || requestingUser.Amis.Contains(receivingUser.Email)) return NoContent();
+
+        List<string> friendList = receivingUser.Amis.ToList();
+        friendList.Add(requestEmail);
+        receivingUser.Amis = friendList.ToArray();
+
+        friendList = requestingUser.Amis.ToList();
+        friendList.Add(receivingUser.Email);
+        requestingUser.Amis = friendList.ToArray();
+
+        if (requestingUser.Requetes.Contains(receivingUser.Email))
+        {
+            List<string> requestList = requestingUser.Requetes.ToList();
+            requestList.Remove(receivingUser.Email);
+            requestingUser.Requetes = requestList.ToArray();
+        }
+
+        List<string> requestListReceiver = receivingUser.Requetes.ToList();
+        requestListReceiver.Remove(requestEmail);
+        receivingUser.Requetes = requestListReceiver.ToArray();
+
+        await _usersService.UpdateAsync(id, receivingUser);
+        await _usersService.UpdateAsync(requestingUser.Id, requestingUser);
+
+        return NoContent();
+    }
+
+    [HttpPut("refuse/{requestEmail}")]
+    public async Task<IActionResult> RefuseRequest([FromBody] string id, string requestEmail)
+    {
+        User? user = await _usersService.GetAsyncById(id);
+
+        if (user is null) return NoContent();
+
+        List<string> requestList = user.Requetes.ToList();
+        requestList.Remove(requestEmail);
+        user.Requetes = requestList.ToArray();
+
+        await _usersService.UpdateAsync(id, user);
+
+        return NoContent();
+    }
+
+    [HttpPut("removeFriend/{email}")]
+    public async Task<IActionResult> RemoveFriend([FromBody] string id, string email)
+    {
+        User? user = await _usersService.GetAsyncById(id);
+        User? removedFriend = await _usersService.GetAsync(email);
+
+        if (user is null || removedFriend is null) return NoContent();
+
+        List<string> amis = user.Amis.ToList();
+        amis.Remove(email);
+        user.Amis = amis.ToArray();
+
+        amis = removedFriend.Amis.ToList();
+        amis.Remove(user.Email);
+        removedFriend.Amis = amis.ToArray();
+
+        await _usersService.UpdateAsync(id, user);
+        await _usersService.UpdateAsync(removedFriend.Id, removedFriend);
+
+        return NoContent();
+    }
+
     [HttpDelete("{id:length(24)}")]
     public async Task<IActionResult> Delete(string id)
     {
@@ -127,7 +222,7 @@ public class UsersController : ControllerBase
 
         if (user is null)
         {
-            return NotFound();
+            return NoContent();
         }
 
         await _usersService.RemoveAsync(id);

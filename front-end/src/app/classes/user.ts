@@ -5,4 +5,6 @@ export interface User {
   Nom: string;
   Password: string;
   Stocks: string[];
+  Amis: string[];
+  Requetes: string[];
 }
