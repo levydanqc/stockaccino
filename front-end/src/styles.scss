@@ -3,6 +3,7 @@ $material-design-icons-font-directory-path: '~material-design-icons-iconfont/dis
 
 @import '~material-design-icons-iconfont/src/material-design-icons';
 @import './theme.scss';
+/* Importing ej2 stylesheet */
 @import '../node_modules/@syncfusion/ej2-base/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-popups/styles/material.css';

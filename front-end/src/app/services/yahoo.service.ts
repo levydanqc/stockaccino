@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Constants } from 'src/assets/constants';
 import { map, Observable } from 'rxjs';
+import { Trending } from '../classes/yahoo/trending';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,8 @@ export class YahooService {
     );
   }
 
-  public getTrending(): any {
-    return this.http.get(Constants.TRENDING_URL);
+  public getTrending(): Observable<Trending[]> {
+    return this.http.get<Trending[]>(Constants.TRENDING_URL);
   }
 
   public getSearchedStock(query: string): any {

@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 @NgModule({
   exports: [
@@ -28,6 +29,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatButtonModule,
     MatAutocompleteModule,
     NgxSpinnerModule,
+    IvyCarouselModule,
   ],
   imports: [NgxSpinnerModule],
 })

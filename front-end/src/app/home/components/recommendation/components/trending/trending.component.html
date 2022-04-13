@@ -1,1 +1,13 @@
-<p>trending works!</p>
+<carousel class="w-75 m-auto my-3">
+    <div *ngIf="loading">Chargement des données...</div>
+    <div *ngFor="let stock of trending" [ngIf]="!loading" class="carousel-cell">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{stock.Symbol}}</h3>
+                <p class="card-text" [ngClass]="stock.Change > 0 ? 'increase' : 'decrease'">{{stock.Change}}</p>
+                <p class="card-text" [ngClass]="stock.ChangePercent > 0 ? 'increase' : 'decrease'">
+                    {{stock.ChangePercent}}</p>
+            </div>
+        </div>
+    </div>
+</carousel>

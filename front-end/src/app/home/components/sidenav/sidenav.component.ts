@@ -41,6 +41,8 @@ export class SidenavComponent implements AfterViewInit, OnInit {
         this.title = 'Paramètres';
       } else if (url.url === '/search') {
         this.title = 'Recherche';
+      } else if (url.url === '/trending') {
+        this.title = 'Suggestions';
       }
     });
   }
