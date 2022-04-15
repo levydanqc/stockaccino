@@ -34,7 +34,7 @@ public class YahooController : ControllerBase
             JObject? quote = JsonConvert.DeserializeObject<JObject>(await _yahooService.GetQuote(symbol));
 
             trending.Add(new Trending(symbol,
-                Convert.ToDouble(quote!["quoteResponse"]!["result"]![0]!["regularMarketChangePercent"]!),
+                Convert.ToDouble(quote!["quoteResponse"]!["result"]![0]!["regularMarketChange"]!),
                 Convert.ToDouble(quote!["quoteResponse"]!["result"]![0]!["regularMarketChangePercent"]!)));
         }
 

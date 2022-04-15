@@ -1,3 +1,5 @@
+@import '../../../../theme.scss';
+
 .mat-nav-list {
   .chevron-button {
     transition: 300ms ease-in-out;
@@ -13,12 +15,7 @@
 .trending {
   height: 56px;
   padding: 0 16px; // To mimic the padding of other list-items
-  background-image: linear-gradient(
-    to right,
-    #4d2412,
-    #a15736 51%,
-    #4d2412 100%
-  );
+  background-image: linear-gradient(to right, $brown, $coffee 51%, $brown 100%);
   transition: background-position 0.5s;
   background-size: 200% auto;
   color: white;

@@ -118,7 +118,7 @@ public class YahooService
         //_client.GetAsync("https://api.danlevy.ca/webhook/reloadyahooapikey");
         var psi = new ProcessStartInfo();
         psi.FileName = "/bin/bash";
-        psi.Arguments = "/Users/danlevy/scripts/kill";
+        psi.Arguments = "/Users/danlevy/scripts/generateYahooApiKey";
         psi.RedirectStandardOutput = true;
         psi.UseShellExecute = false;
         psi.CreateNoWindow = true;

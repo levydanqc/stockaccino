@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-recommendation',
   templateUrl: './recommendation.component.html',
-  styleUrls: ['./recommendation.component.scss']
+  styleUrls: ['./recommendation.component.scss'],
 })
-export class RecommendationComponent implements OnInit {
+export class RecommendationComponent implements AfterViewInit {
+  loading: number = 2;
 
-  constructor() { }
+  constructor(private spinner: NgxSpinnerService) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.spinner.show();
   }
 
+  loaded() {
+    this.loading--;
+    if (this.loading == 0) this.spinner.hide();
+  }
 }

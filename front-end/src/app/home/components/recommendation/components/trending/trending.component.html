@@ -1,14 +1,13 @@
-<div *ngIf="loading" class="my-5">Chargement des données...</div>
-<carousel *ngIf="!loading" class="w-75 m-auto my-3" [loop]="true" [autoplay]="true" [autoplayInterval]="3000"
-    [pauseOnHover]="true" [counter]="true" [arrows]="true" arrowsTheme="dark" [arrowsOutside]="true" [images]="_images">
+<h2>Tendance</h2>
+
+<carousel class="w-75 m-auto my-5" [loop]="true" [autoplay]="true" [autoplayInterval]="3000" [pauseOnHover]="true"
+    [counter]="true" [arrows]="true" arrowsTheme="dark" [arrowsOutside]="true" [images]="trending">
 
     <div *ngFor="let stock of trending" class="carousel-cell">
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">{{stock.Symbol}}</h3>
-                <p class="card-text" [ngClass]="stock.Change > 0 ? 'increase' : 'decrease'">{{stock.Change}}</p>
-                <p class="card-text" [ngClass]="stock.ChangePercent > 0 ? 'increase' : 'decrease'">
-                    {{stock.ChangePercent}}</p>
+                <p class="card-text" [ngClass]="stock.Change > 0 ? 'increase' : 'decrease'">{{stock.Change}}$ <sub>({{stock.ChangePercent}}%)</sub></p>
             </div>
         </div>
     </div>
