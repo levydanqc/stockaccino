@@ -14,6 +14,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { DecimalPipe } from '@angular/common';
 
 @NgModule({
   exports: [
@@ -33,6 +34,7 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
     IvyCarouselModule,
     MatExpansionModule,
   ],
+  providers: [DecimalPipe],
   imports: [NgxSpinnerModule],
 })
 export class MaterialModule {}

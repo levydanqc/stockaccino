@@ -37,6 +37,7 @@ import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
 import { SuggestionComponent } from './components/recommendation/components/suggestion/suggestion.component';
 import { RecommendationComponent } from './components/recommendation/recommendation.component';
 import { TrendingComponent } from './components/recommendation/components/trending/trending.component';
+import { FloatPipe } from './components/recommendation/components/pipe/float.pipe';
 
 schemas: [CUSTOM_ELEMENTS_SCHEMA];
 
@@ -51,6 +52,7 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     SuggestionComponent,
     RecommendationComponent,
     TrendingComponent,
+    FloatPipe,
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,8 @@
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">{{stock.Symbol}}</h3>
-                <p class="card-text" [ngClass]="stock.Change > 0 ? 'increase' : 'decrease'">{{stock.Change}}$ <sub>({{stock.ChangePercent}}%)</sub></p>
+                <p class="card-text" [ngClass]="stock.Change > 0 ? 'increase' : 'decrease'">{{stock.Change | float}}$
+                    <em>({{stock.ChangePercent | float}}%)</em></p>
             </div>
         </div>
     </div>
