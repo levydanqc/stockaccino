@@ -16,7 +16,7 @@ public class YahooController : ControllerBase
         _yahooService = yahooService;
 
     [HttpGet("trending")]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> GetTrending()
     {
         string raw = await _yahooService.GetTrending();
 
@@ -31,9 +31,7 @@ public class YahooController : ControllerBase
         {
             string symbol = jObject!["finance"]!["result"]![0]!["quotes"]![i]!["symbol"]!.ToString();
 
-            #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            JObject quote = JsonConvert.DeserializeObject<JObject>(await _yahooService.GetQuote(symbol));
-            #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            JObject? quote = JsonConvert.DeserializeObject<JObject>(await _yahooService.GetQuote(symbol));
 
             trending.Add(new Trending(symbol,
                 Convert.ToDouble(quote!["quoteResponse"]!["result"]![0]!["regularMarketChangePercent"]!),
@@ -41,11 +39,43 @@ public class YahooController : ControllerBase
         }
 
         return Ok(trending.OrderBy(o => o.Change).ToList());
+    }
 
+    [HttpGet("suggestion")]
+    public async Task<IActionResult> GetSuggestion([FromQuery] string screener)
+    {
+        string raw = await _yahooService.GetScreeners(screener);
+
+        if (raw == "reached limit")
+            return StatusCode(StatusCodes.Status429TooManyRequests);
+
+        JObject? jObject = JsonConvert.DeserializeObject<JObject>(raw);
+
+        if (jObject!["finance"]!["error"]!.HasValues)
+            return NoContent();
+
+        Screener suggestion = new Screener(
+            jObject!["finance"]!["result"]![0]!["title"]!.ToString(),
+            jObject!["finance"]!["result"]![0]!["description"]!.ToString());
+
+        for (int i = 0; i < Convert.ToDouble(jObject["finance"]!["result"]![0]!["count"]!); i++)
+        {
+            JToken? name = jObject!["finance"]!["result"]![0]!["quotes"]![i]!["displayName"];
+            suggestion.Suggestions.Add(new Suggestion(
+                name != null ? name.ToString() : jObject!["finance"]!["result"]![0]!["quotes"]![i]!["shortName"]!.ToString(),
+                jObject!["finance"]!["result"]![0]!["quotes"]![i]!["symbol"]!.ToString(),
+                Convert.ToDouble(jObject!["finance"]!["result"]![0]!["quotes"]![i]!["regularMarketChange"]!),
+                Convert.ToDouble(jObject!["finance"]!["result"]![0]!["quotes"]![i]!["regularMarketChangePercent"]!),
+                Convert.ToDouble(jObject!["finance"]!["result"]![0]!["quotes"]![i]!["ask"]!)
+                ));
+        }
+
+
+        return Ok(suggestion);
     }
 
     [HttpGet("autocomplete")]
-    public async Task<string> Get(string input)
+    public async Task<string> GetAutocomplete(string input)
     {
         return await _yahooService.GetAutocomplete(input);
     }

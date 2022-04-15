@@ -46,16 +46,16 @@ export class UserService {
     );
   }
 
-  getUserByEmail(email: string) {
+  getUserByEmail(email: string): Observable<User> {
     return this.apiCall({
       endpoint: `${email}`,
       headers: null,
       body: null,
-      query: null
+      query: null,
     });
   }
 
-  getUserById(id: string) {
+  getUserById(id: string): Observable<User> {
     return this.apiCall({
       endpoint: `findById/${id}`,
       headers: null,
@@ -65,20 +65,34 @@ export class UserService {
   }
 
   watchStock(id: string, symbol: string) {
-    this.http.put(`${this.apiUrl}watch/${symbol}`, `\"${id}\"`, { headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })}).subscribe(res => {});
+    this.http
+      .put(`${this.apiUrl}watch/${symbol}`, `\"${id}\"`, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .subscribe((res) => {});
   }
 
   unwatchStock(id: string, symbol: string) {
-    this.http.put(`${this.apiUrl}unwatch/${symbol}`, `\"${id}\"`, { headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })}).subscribe(res => {});
+    this.http
+      .put(`${this.apiUrl}unwatch/${symbol}`, `\"${id}\"`, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      })
+      .subscribe((res) => {});
   }
 
-  updateUser(id: string, email?: string, nom?: string, prenom?: string, password?: string) {
+  updateUser(
+    id: string,
+    email?: string,
+    nom?: string,
+    prenom?: string,
+    password?: string
+  ) {
     let user!: User;
-    this.getUserById(id).subscribe(data => {
+    this.getUserById(id).subscribe((data) => {
       user = data;
       if (email) {
         user.Email = email;
@@ -93,8 +107,8 @@ export class UserService {
       if (password) {
         user.Password = password;
       }
-      this.http.put(this.apiUrl + id, user).subscribe(res => {});
-    })
+      this.http.put(this.apiUrl + id, user).subscribe((res) => {});
+    });
   }
 
   postUser(email: string, password: string, nom: string, prenom: string) {

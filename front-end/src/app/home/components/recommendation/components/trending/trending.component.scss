@@ -4,3 +4,12 @@
 .decrease {
   color: #f44336;
 }
+
+.carousel-cell {
+  display: flex;
+  align-items: center;
+
+  & .card {
+    width: 100%;
+  }
+}

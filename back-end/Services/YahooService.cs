@@ -14,7 +14,8 @@ public class YahooService
         {"trending", "v1/finance/trending/US"},
         {"autocomplete", "v6/finance/autocomplete"},
         {"quote", "v6/finance/quote"},
-        {"chart", "v8/finance/chart/" }
+        {"suggestion", "ws/screeners/v1/finance/screener/predefined/saved"},
+        {"chart", "v6/finance/recommendationsbysymbol" }
         };
 
     public YahooService(string apiKey)
@@ -28,7 +29,26 @@ public class YahooService
         try
         {
             return await _client.GetStringAsync(_baseUrl + _endPoints["trending"]);
-        } catch (Exception)
+        }
+        catch (Exception)
+        {
+            return ReloadApiKey();
+        }
+    }
+
+    public async Task<string> GetScreeners(string screener)
+    {
+        var query = new Dictionary<string, string?>
+        {
+            ["count"] = "25",
+            ["scrIds"] = screener,
+        };
+
+        try
+        {
+            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["suggestion"], query));
+        }
+        catch (Exception)
         {
             return ReloadApiKey();
         }
@@ -94,7 +114,17 @@ public class YahooService
 
     public string ReloadApiKey()
     {
-        _client.GetAsync("https://api.danlevy.ca/webhook/reloadyahooapikey");
-        return "";
+        Console.WriteLine("Limit Exceeded. Refreshing Api Key...");
+        //_client.GetAsync("https://api.danlevy.ca/webhook/reloadyahooapikey");
+        var psi = new ProcessStartInfo();
+        psi.FileName = "/bin/bash";
+        psi.Arguments = "/Users/danlevy/scripts/kill";
+        psi.RedirectStandardOutput = true;
+        psi.UseShellExecute = false;
+        psi.CreateNoWindow = true;
+
+        using var process = Process.Start(psi);
+
+        return "reached limit";
     }
 }
