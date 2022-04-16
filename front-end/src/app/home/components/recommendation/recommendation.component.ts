@@ -7,7 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./recommendation.component.scss'],
 })
 export class RecommendationComponent implements AfterViewInit {
-  loading: number = 2;
+  loading: number = 1;
 
   constructor(private spinner: NgxSpinnerService) {}
 

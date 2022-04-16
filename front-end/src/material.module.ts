@@ -15,7 +15,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { DecimalPipe } from '@angular/common';
-
 @NgModule({
   exports: [
     MatSidenavModule,
@@ -35,6 +34,6 @@ import { DecimalPipe } from '@angular/common';
     MatExpansionModule,
   ],
   providers: [DecimalPipe],
-  imports: [NgxSpinnerModule],
+  imports: [NgxSpinnerModule, MatIconModule],
 })
 export class MaterialModule {}

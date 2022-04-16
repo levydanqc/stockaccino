@@ -1,28 +1,23 @@
 <h2>Juste pour vous</h2>
 
 <div class="w-75 m-auto my-5">
-    <mat-accordion>
-        <mat-expansion-panel hideToggle>
+    <mat-accordion [togglePosition]="'after'">
+        <mat-expansion-panel *ngFor="let screener of screeners">
             <mat-expansion-panel-header>
-                <mat-panel-title>
-                    This is the expansion title
-                </mat-panel-title>
-                <mat-panel-description>
-                    This is a summary of the content
-                </mat-panel-description>
+                <mat-panel-title>{{screener.Title}}</mat-panel-title>
+                <mat-panel-description>{{screener.Description}}</mat-panel-description>
             </mat-expansion-panel-header>
-            <p>This is the primary content of the panel.</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    This is the expansion title
-                </mat-panel-title>
-                <mat-panel-description>
-                    This is a summary of the content
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>This is the primary content of the panel.</p>
+            <mat-selection-list #shoes [multiple]="false">
+                <mat-list-option *ngFor="let suggestion of screener.Suggestions" [value]="suggestion.Symbol">
+                    <div class="d-flex flex-row justify-content-between">
+                        <p class="flex-equal">{{suggestion.Name}} - <strong>{{suggestion.Symbol}}</strong></p>
+                        <small class="flex-equal mx-3 text-center">{{suggestion.Ask | float}}</small>
+                        <small class="flex-equal mx-2 text-end"
+                            [ngClass]="suggestion.Change > 0 ? 'increase' : 'decrease'">{{suggestion.Change | float}}$
+                            ({{suggestion.ChangePercent | float}}%)</small>
+                    </div>
+                </mat-list-option>
+            </mat-selection-list>
         </mat-expansion-panel>
     </mat-accordion>
 </div>

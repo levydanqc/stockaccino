@@ -1,4 +1,9 @@
 import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
+import {
+  Screener,
+  screenersCategories,
+} from 'src/app/classes/yahoo/suggestion';
+import { YahooService } from 'src/app/services/yahoo.service';
 
 @Component({
   selector: 'app-suggestion',
@@ -6,12 +11,18 @@ import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./suggestion.component.scss'],
 })
 export class SuggestionComponent implements AfterViewInit {
+  screeners: Screener[] = [];
   @Output()
   loaded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() {}
+  constructor(private yahooService: YahooService) {}
 
   ngAfterViewInit(): void {
-    this.loaded.emit(true);
+    screenersCategories.forEach((screener) => {
+      this.yahooService.getSuggestion(screener).subscribe((data: Screener) => {
+        this.screeners.push(data);
+        this.loaded.emit(true);
+      });
+    });
   }
 }

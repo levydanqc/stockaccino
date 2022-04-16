@@ -1,0 +1,7 @@
+.flex-equal {
+  flex: 1;
+}
+
+::ng-deep .mat-content {
+  flex-direction: column !important;
+}

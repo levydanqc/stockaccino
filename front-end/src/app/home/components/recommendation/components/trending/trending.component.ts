@@ -37,9 +37,9 @@ export class TrendingComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     console.log();
-    this.yahooService.getTrending().subscribe((data: Trending[]) => {
-      this.trending = data;
-      this.loaded.emit(true);
-    });
+    // this.yahooService.getTrending().subscribe((data: Trending[]) => {
+    //   this.trending = data;
+    //   this.loaded.emit(true);
+    // });
   }
 }

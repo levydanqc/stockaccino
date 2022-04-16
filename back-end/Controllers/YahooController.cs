@@ -62,12 +62,15 @@ public class YahooController : ControllerBase
         for (int i = 0; i < Convert.ToDouble(jObject["finance"]!["result"]![0]!["count"]!); i++)
         {
             JToken? name = jObject!["finance"]!["result"]![0]!["quotes"]![i]!["displayName"];
+            JToken? ask = jObject!["finance"]!["result"]![0]!["quotes"]![i]!["ask"];
             suggestion.Suggestions.Add(new Suggestion(
-                name != null ? name.ToString() : jObject!["finance"]!["result"]![0]!["quotes"]![i]!["shortName"]!.ToString(),
+                name != null ? name.ToString().Replace("&#39;s", "'") : jObject!["finance"]!["result"]![0]!["quotes"]![i]!["shortName"]!.ToString(),
                 jObject!["finance"]!["result"]![0]!["quotes"]![i]!["symbol"]!.ToString(),
                 Convert.ToDouble(jObject!["finance"]!["result"]![0]!["quotes"]![i]!["regularMarketChange"]!),
                 Convert.ToDouble(jObject!["finance"]!["result"]![0]!["quotes"]![i]!["regularMarketChangePercent"]!),
-                Convert.ToDouble(jObject!["finance"]!["result"]![0]!["quotes"]![i]!["ask"]!)
+                ask != null && ask.ToString() != "0" ?
+                Convert.ToDouble(ask) :
+                Convert.ToDouble(jObject!["finance"]!["result"]![0]!["quotes"]![i]!["regularMarketPrice"])
                 ));
         }
 

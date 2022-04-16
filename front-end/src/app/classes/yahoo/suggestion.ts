@@ -1,18 +1,18 @@
 export interface Screener {
-  title: string;
-  description: string;
-  suggestions: Suggestion[];
+  Title: string;
+  Description: string;
+  Suggestions: Suggestion[];
 }
 
 export interface Suggestion {
-  name: string;
-  symbol: string;
-  change: number;
-  changePercent: number;
-  ask: number;
+  Name: string;
+  Symbol: string;
+  Change: number;
+  ChangePercent: number;
+  Ask: number;
 }
 
-export const screeners: string[] = [
+export const screenersCategories: string[] = [
   'day_gainers',
   'day_losers',
   'growth_technology_stocks',
@@ -25,7 +25,7 @@ export const screeners: string[] = [
   'top_mutual_funds',
   'portfolio_anchors',
   'solid_large_growth_funds',
-  'solid_mid_cap_growth_funds',
+  'solid_midcap_growth_funds',
   'conservative_foreign_funds',
   'high_yield_bond',
 ];
