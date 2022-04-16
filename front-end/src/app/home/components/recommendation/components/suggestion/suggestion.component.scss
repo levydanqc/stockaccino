@@ -5,3 +5,17 @@
 ::ng-deep .mat-content {
   flex-direction: column !important;
 }
+
+::ng-deep .mat-list-item {
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+::ng-deep .mat-expansion-panel-header {
+  align-items: flex-start !important;
+}
+
+::ng-deep .ws-nowrap {
+  white-space: nowrap;
+}

@@ -18,14 +18,6 @@ import { YahooService } from 'src/app/services/yahoo.service';
 export class TrendingComponent implements AfterViewInit {
   trending: Trending[] = [];
   loading: boolean = true;
-  // Fake data only for enabling loop of carousel
-  _images: any[] = [
-    { path: '', width: 0, height: 0 },
-    { path: '', width: 0, height: 0 },
-    { path: '', width: 0, height: 0 },
-    { path: '', width: 0, height: 0 },
-    { path: '', width: 0, height: 0 },
-  ];
   @Output()
   loaded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -37,9 +29,9 @@ export class TrendingComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     console.log();
-    // this.yahooService.getTrending().subscribe((data: Trending[]) => {
-    //   this.trending = data;
-    //   this.loaded.emit(true);
-    // });
+    this.yahooService.getTrending().subscribe((data: Trending[]) => {
+      this.trending = data;
+      this.loaded.emit(true);
+    });
   }
 }

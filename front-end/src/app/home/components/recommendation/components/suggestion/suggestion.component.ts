@@ -12,6 +12,7 @@ import { YahooService } from 'src/app/services/yahoo.service';
 })
 export class SuggestionComponent implements AfterViewInit {
   screeners: Screener[] = [];
+  opened: Screener | undefined;
   @Output()
   loaded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -24,5 +25,9 @@ export class SuggestionComponent implements AfterViewInit {
         this.loaded.emit(true);
       });
     });
+  }
+
+  changed(opened: boolean, item: any) {
+    this.opened = opened ? item : undefined;
   }
 }
