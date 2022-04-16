@@ -17,9 +17,9 @@
         <span *ngIf="isExpanded">Dashboard</span>
       </mat-list-item>
 
-      <mat-list-item routerLink="history">
-        <mat-icon mat-list-icon>account_balance_wallet</mat-icon>
-        <span *ngIf="isExpanded">Wallet</span>
+      <mat-list-item [routerLink]="'social'">
+        <mat-icon mat-list-icon>groups</mat-icon>
+        <span *ngIf="isExpanded">Social</span>
       </mat-list-item>
 
       <mat-list-item routerLink="settings">

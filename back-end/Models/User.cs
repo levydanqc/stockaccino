@@ -18,4 +18,8 @@ public class User
     public string Password { get; set; } = null!;
 
     public string[] Stocks { get; set; } = null!;
+
+    public string[] Amis { get; set; } = null!;
+
+    public string[] Requetes { get; set; } = null!;
 }

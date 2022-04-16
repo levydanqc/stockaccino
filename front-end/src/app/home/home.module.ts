@@ -7,7 +7,7 @@ import { DashboardRoutingModule } from './home-routing.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
-import { HistoryComponent } from './components/history/history.component';
+import { SocialComponent } from './components/social/social.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SearchComponent } from './components/search/search.component';
 
@@ -45,7 +45,7 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
   declarations: [
     SidenavComponent,
     DashboardComponent,
-    HistoryComponent,
+    SocialComponent,
     SettingsComponent,
     SearchComponent,
     ChartComponent,

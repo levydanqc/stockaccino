@@ -84,13 +84,31 @@ export class UserService {
       .subscribe((res) => {});
   }
 
-  updateUser(
-    id: string,
-    email?: string,
-    nom?: string,
-    prenom?: string,
-    password?: string
-  ) {
+  refuseRequest(id: string, email: string) {
+    this.http.put(`${this.apiUrl}refuse/${email}`, `\"${id}\"`, { headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })}).subscribe(res => {});
+  }
+
+  acceptRequest(id: string, email: string) {
+    this.http.put(`${this.apiUrl}accept/${email}`, `\"${id}\"`, { headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })}).subscribe(res => {});
+  }
+
+  removeFriend(id: string, email: string) {
+    this.http.put(`${this.apiUrl}removeFriend/${email}`, `\"${id}\"`, { headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })}).subscribe(res => {});
+  }
+
+  addFriend(id: string, email: string) {
+    this.http.put(`${this.apiUrl}sendRequest/${email}`, `\"${id}\"`, { headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })}).subscribe(res => {});
+  }
+
+  updateUser(id: string, email?: string, nom?: string, prenom?: string, password?: string) {
     let user!: User;
     this.getUserById(id).subscribe((data) => {
       user = data;
@@ -118,6 +136,8 @@ export class UserService {
       Nom: nom,
       Password: password,
       Stocks: [],
+      Amis: [],
+      Requetes: [],
     };
     this.http.post(this.apiUrl, user).subscribe((res) => {});
   }
