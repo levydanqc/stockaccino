@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Trending } from 'src/app/classes/yahoo/trending';
@@ -21,14 +15,9 @@ export class TrendingComponent implements AfterViewInit {
   @Output()
   loaded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(
-    private yahooService: YahooService,
-    private _cookieService: CookieService,
-    private spinner: NgxSpinnerService
-  ) {}
+  constructor(private yahooService: YahooService) {}
 
   ngAfterViewInit(): void {
-    console.log();
     this.yahooService.getTrending().subscribe((data: Trending[]) => {
       this.trending = data;
       this.loaded.emit(true);
