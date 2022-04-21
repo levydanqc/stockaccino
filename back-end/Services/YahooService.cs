@@ -11,6 +11,7 @@ public class YahooService
 
     private readonly Dictionary<string, string> _endPoints =
         new Dictionary<string, string>() {
+        {"trending", "v1/finance/trending/US"},
         {"autocomplete", "v6/finance/autocomplete"},
         {"quote", "v6/finance/quote"},
         {"suggestion", "ws/screeners/v1/finance/screener/predefined/saved"},
@@ -25,14 +26,7 @@ public class YahooService
 
     public async Task<string> GetTrending()
     {
-        try
-        {
-            return await _client.GetStringAsync(_baseUrl + _endPoints["trending"]);
-        }
-        catch (Exception)
-        {
-            return ReloadApiKey();
-        }
+        return await _client.GetStringAsync(_baseUrl + _endPoints["trending"]);
     }
 
     public async Task<string> GetScreeners(string screener)
@@ -43,14 +37,7 @@ public class YahooService
             ["scrIds"] = screener,
         };
 
-        try
-        {
-            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["suggestion"], query));
-        }
-        catch (Exception)
-        {
-            return ReloadApiKey();
-        }
+        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["suggestion"], query));
     }
 
     internal async Task<string> GetAutocomplete(string input)
@@ -62,14 +49,7 @@ public class YahooService
             ["query"] = input,
         };
 
-        try
-        {
-            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["autocomplete"], query));
-        }
-        catch (Exception)
-        {
-            return ReloadApiKey();
-        }
+        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["autocomplete"], query));
     }
 
     public async Task<string> GetQuote(string symbol)
@@ -81,14 +61,8 @@ public class YahooService
             ["symbols"] = symbol,
         };
 
-        try
-        {
-            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
-        }
-        catch (Exception)
-        {
-            return ReloadApiKey();
-        }
+
+        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
     }
 
     public async Task<string> GetChart(string symbol, string range, string interval)
@@ -101,14 +75,7 @@ public class YahooService
             ["interval"] = interval,
         };
 
-        try
-        {
-            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["chart"] + symbol, query));
-        }
-        catch (Exception)
-        {
-            return ReloadApiKey();
-        }
+        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["chart"] + symbol, query));
     }
 
     public string ReloadApiKey()

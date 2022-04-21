@@ -22,7 +22,8 @@ export class SuggestionComponent implements AfterViewInit {
     screenersCategories.forEach((screener) => {
       this.yahooService.getSuggestion(screener).subscribe((data: Screener) => {
         this.screeners.push(data);
-        this.loaded.emit(true);
+        if (this.screeners.length == screenersCategories.length)
+          this.loaded.emit(true);
       });
     });
   }
