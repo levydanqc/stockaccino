@@ -16,6 +16,8 @@
                         <small class="flex-equal mx-2 text-end"
                             [ngClass]="suggestion.Change > 0 ? 'increase' : 'decrease'">{{suggestion.Change | float}}$
                             ({{suggestion.ChangePercent | float}}%)</small>
+                        <button (click)="voirStock(suggestion)" class="btn-dark btnPerso">Plus de
+                            détails</button>
                     </div>
                 </mat-list-item>
             </mat-list>

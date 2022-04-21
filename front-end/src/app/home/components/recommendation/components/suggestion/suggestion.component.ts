@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   Screener,
   screenersCategories,
+  Suggestion,
 } from 'src/app/classes/yahoo/suggestion';
 import { YahooService } from 'src/app/services/yahoo.service';
 
@@ -16,7 +18,7 @@ export class SuggestionComponent implements AfterViewInit {
   @Output()
   loaded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private yahooService: YahooService) {}
+  constructor(private yahooService: YahooService, private router: Router) {}
 
   ngAfterViewInit(): void {
     screenersCategories.forEach((screener) => {
@@ -30,5 +32,11 @@ export class SuggestionComponent implements AfterViewInit {
 
   changed(opened: boolean, item: any) {
     this.opened = opened ? item : undefined;
+  }
+
+  voirStock(stock: Suggestion) {
+    this.router.navigate(['/search'], {
+      queryParams: { searchedStock: stock.Symbol },
+    });
   }
 }

@@ -10,6 +10,7 @@
                 <p class="card-text" [ngClass]="stock.Change > 0 ? 'increase' : 'decrease'">{{stock.Change | float}}$
                     <em>({{stock.ChangePercent | float}}%)</em>
                 </p>
+                <button (click)="voirStock(stock)" class="btn-dark btnPerso">Plus de détails</button>
             </div>
         </div>
     </div>

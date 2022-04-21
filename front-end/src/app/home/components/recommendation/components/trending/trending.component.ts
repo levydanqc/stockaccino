@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Trending } from 'src/app/classes/yahoo/trending';
@@ -15,12 +16,18 @@ export class TrendingComponent implements AfterViewInit {
   @Output()
   loaded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private yahooService: YahooService) {}
+  constructor(private yahooService: YahooService, private router: Router) {}
 
   ngAfterViewInit(): void {
     this.yahooService.getTrending().subscribe((data: Trending[]) => {
       this.trending = data;
       this.loaded.emit(true);
+    });
+  }
+
+  voirStock(stock: Trending) {
+    this.router.navigate(['/search'], {
+      queryParams: { searchedStock: stock.Symbol },
     });
   }
 }
