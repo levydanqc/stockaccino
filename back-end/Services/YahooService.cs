@@ -15,7 +15,7 @@ public class YahooService
         {"autocomplete", "v6/finance/autocomplete"},
         {"quote", "v6/finance/quote"},
         {"suggestion", "ws/screeners/v1/finance/screener/predefined/saved"},
-        {"chart", "v6/finance/recommendationsbysymbol" }
+        {"chart", "v8/finance/chart/" }
         };
 
     public YahooService(string apiKey)
@@ -116,6 +116,8 @@ public class YahooService
     {
         Console.WriteLine("Limit Exceeded. Refreshing Api Key...");
         //_client.GetAsync("https://api.danlevy.ca/webhook/reloadyahooapikey");
+
+        /*
         var psi = new ProcessStartInfo();
         psi.FileName = "/bin/bash";
         psi.Arguments = "/Users/danlevy/scripts/generateYahooApiKey";
@@ -124,6 +126,7 @@ public class YahooService
         psi.CreateNoWindow = true;
 
         using var process = Process.Start(psi);
+        */
 
         return "reached limit";
     }

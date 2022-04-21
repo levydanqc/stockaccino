@@ -27,6 +27,8 @@ public class YahooController : ControllerBase
 
         List<Trending> trending = new List<Trending>();
 
+        //Thread.Sleep(5000);
+
         for (int i = 0; i < ((JArray)jObject["finance"]!["result"]![0]!["quotes"]!).Count; i++)
         {
             string symbol = jObject!["finance"]!["result"]![0]!["quotes"]![i]!["symbol"]!.ToString();

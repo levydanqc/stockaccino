@@ -1,5 +1,5 @@
-<div class="authentication" fxLayout="row" fxLayoutAlign="center start">
-    <mat-card [class.mat-elevation-z24]="true" class="px-0">
+<div class="authentication" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card [class.mat-elevation-z24]="true" class="px-5">
         <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
             <button mat-flat-button class="btnPerso" (click)="switchForm('login')"
                 [ngClass]="{'active': showLogin}">Connexion</button>
@@ -12,8 +12,9 @@
                 <app-login *ngIf="showLogin" fxLayout="column" [formGroup]="this.form" [pwd]="pwd"
                     [getEmailError]="getEmailError" [getPwdError]="getPwdError" (onSubmit)="onSubmit()">
                 </app-login>
-                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="this.form" [pwd]="pwd" (authSignIn)="authSignIn()" (authSubmit)="onSubmit()"
-                    [getEmailError]="getEmailError" [getPwdError]="getPwdError">
+                <app-signin *ngIf="showSignin" fxLayout="column" [formGroup]="this.form" [pwd]="pwd"
+                    (authSignIn)="authSignIn()" (authSubmit)="onSubmit()" [getEmailError]="getEmailError"
+                    [getPwdError]="getPwdError">
                 </app-signin>
                 <app-reset *ngIf="showReset" fxLayout="column" [formGroup]="this.form" [getEmailError]="getEmailError"
                     (formSubmit)="onSubmit()" (formReset)="onReset()">
@@ -27,4 +28,8 @@
             </mat-card-footer>
         </div>
     </mat-card>
+    <img src="assets/logo.svg" class="logo">
+    <div class="my-5 h1 text-center slogan" fxLayout="row" fxLayoutAlign="center center">
+        Stockaccino, la gestion des stocks aussi simple que de se faire un café...
+    </div>
 </div>
