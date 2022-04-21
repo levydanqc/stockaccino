@@ -11,7 +11,6 @@ public class YahooService
 
     private readonly Dictionary<string, string> _endPoints =
         new Dictionary<string, string>() {
-        {"trending", "v1/finance/trending/US"},
         {"autocomplete", "v6/finance/autocomplete"},
         {"quote", "v6/finance/quote"},
         {"suggestion", "ws/screeners/v1/finance/screener/predefined/saved"},
