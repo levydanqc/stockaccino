@@ -1,0 +1,10 @@
+@import '../../../../../../theme.scss';
+
+.carousel-cell {
+  display: flex;
+  align-items: center;
+
+  & .card {
+    width: 100%;
+  }
+}

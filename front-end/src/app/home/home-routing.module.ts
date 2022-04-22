@@ -5,6 +5,7 @@ import { SocialComponent } from './components/social/social.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SearchComponent } from './components/search/search.component';
+import { RecommendationComponent } from './components/recommendation/recommendation.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'search',
         component: SearchComponent,
+      },
+      {
+        path: 'trending',
+        component: RecommendationComponent,
       },
     ],
   },

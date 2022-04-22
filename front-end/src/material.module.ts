@@ -11,8 +11,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { DecimalPipe } from '@angular/common';
 @NgModule({
   exports: [
     MatSidenavModule,
@@ -28,7 +30,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatButtonModule,
     MatAutocompleteModule,
     NgxSpinnerModule,
+    IvyCarouselModule,
+    MatExpansionModule,
   ],
-  imports: [NgxSpinnerModule],
+  providers: [DecimalPipe],
+  imports: [NgxSpinnerModule, MatIconModule],
 })
 export class MaterialModule {}

@@ -41,6 +41,8 @@ export class SidenavComponent implements AfterViewInit, OnInit {
         this.title = 'Paramètres';
       } else if (url.url === '/search') {
         this.title = 'Recherche';
+      } else if (url.url === '/trending') {
+        this.title = 'Suggestions';
       }
     });
   }
@@ -61,10 +63,12 @@ export class SidenavComponent implements AfterViewInit, OnInit {
             return this.yahooService.getAutocomplete(value).pipe(
               finalize(() => {
                 this.isLoading = false;
+                this.spinner.hide();
               })
             );
           }
           this.isLoading = false;
+          this.spinner.hide();
           return [];
         })
       )

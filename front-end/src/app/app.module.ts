@@ -18,7 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
     HttpClientModule,
     HttpClientJsonpModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

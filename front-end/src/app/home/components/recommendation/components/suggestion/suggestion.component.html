@@ -1,0 +1,26 @@
+<h2>Juste pour vous</h2>
+
+<div class="w-75 m-auto my-5">
+    <mat-accordion [togglePosition]="'after'">
+        <mat-expansion-panel #screener *ngFor="let screener of screeners" (expandedChange)="changed($event, screener)">
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{screener.Title}}</mat-panel-title>
+                <mat-panel-description [ngClass]="{'ws-nowrap': opened !== screener}">{{screener.Description}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-list>
+                <mat-list-item *ngFor="let suggestion of screener.Suggestions">
+                    <div class="d-flex w-100 flex-row justify-content-between align-items-center">
+                        <p class="flex-equal m-0">{{suggestion.Name}} - <strong>{{suggestion.Symbol}}</strong></p>
+                        <small class="flex-equal mx-3 text-center">{{suggestion.Ask | float}}$</small>
+                        <small class="flex-equal mx-2 text-end"
+                            [ngClass]="suggestion.Change > 0 ? 'increase' : 'decrease'">{{suggestion.Change | float}}$
+                            ({{suggestion.ChangePercent | float}}%)</small>
+                        <button (click)="voirStock(suggestion)" class="btn-dark btnPerso">Plus de
+                            détails</button>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

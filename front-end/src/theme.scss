@@ -11,6 +11,8 @@ $grey: #f5f5f5;
 $lightgrey: lightgrey;
 $smokegrey: #989898;
 $cardgrey: #E8E8E8;
+$brown: #4d2412;
+$coffee: #a15736;
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
