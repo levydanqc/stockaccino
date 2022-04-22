@@ -1,7 +1,7 @@
 <div *ngIf="!hasStocks">
     <h1 class="mt-5 ms-5">Ajoutez des stocks à votre Watchlist pour les voir apparaître ici!</h1>
 </div>
-<div *ngIf="hasStocks">
+<div *ngIf="hasStocks && isLoaded">
     <div class="watchlistContainer">
         <div *ngFor="let stock of stocks" class="carte" (click)="selectStock(stock, undefined)" [ngClass]="{'selectedStock' : stock === selectedStock}">
             <p>{{stock}}</p>
