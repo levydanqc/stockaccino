@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   hasStocks?: boolean;
   selectedStock: string = '';
   stockObject?: any;
+  isLoaded: boolean = false;
 
   constructor(
     private cookieService: CookieService,
@@ -54,6 +55,7 @@ export class DashboardComponent implements OnInit {
               .getSearchedStock(this.stocks[0])
               .subscribe((data: any) => {
                 this.stockObject = data['quoteResponse']['result'][0];
+                this.isLoaded = true;
               });
             this.selectedStock = this.stocks[0];
           } else this.hasStocks = false;
