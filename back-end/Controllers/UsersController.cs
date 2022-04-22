@@ -1,6 +1,11 @@
 using Stockaccino.Models;
 using Stockaccino.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Stockaccino.Controllers;
 
@@ -9,9 +14,51 @@ namespace Stockaccino.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly UsersService _usersService;
+    private readonly IConfiguration _configuration;
 
-    public UsersController(UsersService usersService) =>
+    public UsersController(UsersService usersService, IConfiguration configuration)
+    {
         _usersService = usersService;
+        _configuration = configuration;
+    }
+
+    [HttpGet("login/{email}")]
+    public async Task<ActionResult<string>> Login(string email, [FromHeader] string password)
+    {
+        User? user = await _usersService.GetAsync(email, password);
+        if (user == null)
+            return NoContent();
+        return Ok(CreateToken(user));
+    }
+
+    [Authorize]
+    [HttpGet("userId")]
+    public async Task<ActionResult<string>> GetUserId()
+    {
+        return Ok("Tu es connecté, voici ton ID: (id imaginaire)");
+    }
+
+    private string CreateToken(User user)
+    {
+        List<Claim> claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Email, user.Email)
+        };
+
+        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+            _configuration.GetSection("Secret").Value));
+
+        var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.Now.AddDays(1),
+            signingCredentials: cred
+            );
+
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+        return jwt;
+    }
 
     [HttpGet]
     public async Task<List<User>> Get()
@@ -131,7 +178,7 @@ public class UsersController : ControllerBase
         if (sendingUser.Email == receiverEmail) return NoContent();
 
         if (receivingUser.Requetes.Contains(sendingUser.Email) || receivingUser.Amis.Contains(sendingUser.Email)) return NoContent();
-        
+
         List<string> requestList = receivingUser.Requetes.ToList();
         requestList.Add(sendingUser.Email);
         receivingUser.Requetes = requestList.ToArray();
