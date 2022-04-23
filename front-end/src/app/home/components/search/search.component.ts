@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchedStock =
-      this.Activatedroute.snapshot.queryParamMap.get('searchedStock') ||
+      this.Activatedroute.snapshot.queryParamMap.get('searchedStock')?.toUpperCase() ||
       undefined;
     if (this.searchedStock) {
       let stockSymbol: string = this.searchedStock;
@@ -39,12 +39,8 @@ export class SearchComponent implements OnInit {
           this.stock = this.quote['quoteResponse']['result'][0];
           this.isLoading = false;
         });
-      // this._yahooService.getStockChart(stockSymbol).subscribe((data: any) => {
-      //   this.chartData = data;
-      //   this.isLoading = false;
-      // });
       this._userService
-        .getUserById(this._cookieService.get('id'))
+        .getUserById()
         .subscribe((data: any) => {
           this.user = data;
           if (this.user?.Stocks.includes(stockSymbol)) {
@@ -57,7 +53,6 @@ export class SearchComponent implements OnInit {
   watch() {
     if (this.searchedStock)
       this._userService.watchStock(
-        this._cookieService.get('id'),
         this.searchedStock
       );
     this.isWatched = true;
@@ -66,7 +61,6 @@ export class SearchComponent implements OnInit {
   unwatch() {
     if (this.searchedStock)
       this._userService.unwatchStock(
-        this._cookieService.get('id'),
         this.searchedStock
       );
     this.isWatched = false;

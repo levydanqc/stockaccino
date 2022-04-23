@@ -31,18 +31,17 @@ export class LoginComponent implements OnInit {
   submit() {
     this.authSubmit.emit();
     if (this.form.valid) {
-      // TODO: https://github.com/levydanqc/stockaccino/issues/7
-      let user = this._userService
-        .verifyUser(this.email.value, this.password.value)
-        .subscribe(
-          (data) => {
-            this.cookieService.set('id', data.Id || "");
-            this.router.navigate(['/']);
-          },
-          (error) => {
-            this.invalid = true;
-          }
-        );
+        this._userService
+          .login(this.email.value, this.password.value)
+          .subscribe(
+            (data) => {
+              if (data) {
+                this.cookieService.set('token', data.Token || "");
+                this.router.navigate(['/']);
+              }
+              else { this.invalid = true; }
+            }
+          );
     }
   }
 

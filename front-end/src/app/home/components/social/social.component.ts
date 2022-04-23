@@ -45,13 +45,13 @@ export class SocialComponent implements OnInit {
     };
     this.amis?.push(newlyAdded);
     this.amisString?.push(email);
-    this._userService.acceptRequest(this.cookieService.get('id'), email);
+    this._userService.acceptRequest(email);
   }
 
   refuse(email: string) {
     this.requetes = this.requetes?.filter(requete => { return requete.Email !== email });
     this.requetesString = this.requetesString?.filter(requete => { return requete !== email });
-    this._userService.refuseRequest(this.cookieService.get('id'), email);
+    this._userService.refuseRequest(email);
   }
 
   add() {
@@ -72,7 +72,7 @@ export class SocialComponent implements OnInit {
               }, 3000);
             }
             else {
-              this._userService.addFriend(this.cookieService.get('id'), this.form.get('email')?.value);
+              this._userService.addFriend(this.form.get('email')?.value);
               this.form.reset();
               this.confirmation = "Demande d'amitié envoyée!";
               setTimeout(() => {
@@ -94,7 +94,7 @@ export class SocialComponent implements OnInit {
   delete(email: string) {
     this.amis = this.amis?.filter(ami => { return ami.Email !== email });
     this.amisString = this.amisString?.filter(ami => { return ami !== email });
-    this._userService.removeFriend(this.cookieService.get('id'), email);
+    this._userService.removeFriend(email);
   }
 
   ngOnInit(): void {
@@ -111,7 +111,7 @@ export class SocialComponent implements OnInit {
       });
     });
     this._userService
-      .getUserById(this.cookieService.get('id'))
+      .getUserById()
       .subscribe((data: any) => {
         this.userEmail = data.Email;
         this.amisString = data.Amis;
