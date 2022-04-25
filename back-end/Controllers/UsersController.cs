@@ -1,6 +1,11 @@
 using Stockaccino.Models;
 using Stockaccino.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Stockaccino.Controllers;
 
@@ -9,10 +14,56 @@ namespace Stockaccino.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly UsersService _usersService;
+    private readonly IConfiguration _configuration;
 
-    public UsersController(UsersService usersService) =>
+    public UsersController(UsersService usersService, IConfiguration configuration)
+    {
         _usersService = usersService;
+        _configuration = configuration;
+    }
 
+    [HttpPost("login")]
+    public async Task<ActionResult<TokenDto>> Login(UserDto pUser)
+    {
+        User? user = await _usersService.GetAsync(pUser.Email, pUser.Password);
+        if (user == null)
+            return NoContent();
+        return CreateToken(user);
+    }
+
+    [Authorize]
+    [HttpGet("userId")]
+    public ActionResult<string> GetUserId()
+    {
+        string id = User?.Identity?.Name!;
+        return Ok(id);
+    }
+
+    private TokenDto CreateToken(User user)
+    {
+        List<Claim> claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Email, user.Email!),
+            new Claim(ClaimTypes.Name, user.Id!)
+        };
+
+        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+            _configuration.GetSection("Secret").Value));
+
+        var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.Now.AddDays(1),
+            signingCredentials: cred
+            );
+
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+        TokenDto tokenDto = new TokenDto{ Token = jwt };
+        return tokenDto;
+    }
+
+    [Authorize]
     [HttpGet]
     public async Task<List<User>> Get()
     {
@@ -45,10 +96,11 @@ public class UsersController : ControllerBase
         return user;
     }
 
-    [HttpGet("findById/{id:length(24)}")]
-    public async Task<ActionResult<User>> GetById(string id)
+    [Authorize]
+    [HttpGet("findById")]
+    public async Task<ActionResult<User>> GetById()
     {
-        User? user = await _usersService.GetAsyncById(id);
+        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
 
         if (user is null)
         {
@@ -66,10 +118,11 @@ public class UsersController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
     }
 
-    [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, User updatedUser)
+    [Authorize]
+    [HttpPut("update")]
+    public async Task<IActionResult> Update(User updatedUser)
     {
-        User? user = await _usersService.GetAsyncById(id);
+        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
 
         if (user is null)
         {
@@ -78,16 +131,16 @@ public class UsersController : ControllerBase
 
         updatedUser.Id = user.Id;
 
-        await _usersService.UpdateAsync(id, updatedUser);
+        await _usersService.UpdateAsync(User?.Identity?.Name!, updatedUser);
 
         return NoContent();
     }
 
-
+    [Authorize]
     [HttpPut("watch/{symbol}")]
-    public async Task<IActionResult> WatchStock([FromBody] string id, string symbol)
+    public async Task<IActionResult> WatchStock(string symbol)
     {
-        User? user = await _usersService.GetAsyncById(id);
+        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
 
         if (user is null) return NoContent();
 
@@ -97,15 +150,16 @@ public class UsersController : ControllerBase
             watchlist.Add(symbol);
             user.Stocks = watchlist.ToArray();
         }
-        await _usersService.UpdateAsync(id, user);
+        await _usersService.UpdateAsync(User?.Identity?.Name!, user);
 
         return NoContent();
     }
 
+    [Authorize]
     [HttpPut("unwatch/{symbol}")]
-    public async Task<IActionResult> RemoveStock([FromBody] string id, string symbol)
+    public async Task<IActionResult> RemoveStock(string symbol)
     {
-        User? user = await _usersService.GetAsyncById(id);
+        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
 
         if (user is null) return NoContent();
 
@@ -115,15 +169,16 @@ public class UsersController : ControllerBase
             watchlist.Remove(symbol);
             user.Stocks = watchlist.ToArray();
         }
-        await _usersService.UpdateAsync(id, user);
+        await _usersService.UpdateAsync(User?.Identity?.Name!, user);
 
         return NoContent();
     }
 
+    [Authorize]
     [HttpPut("sendRequest/{receiverEmail}")]
-    public async Task<IActionResult> SendRequest([FromBody] string id, string receiverEmail)
+    public async Task<IActionResult> SendRequest(string receiverEmail)
     {
-        User? sendingUser = await _usersService.GetAsyncById(id);
+        User? sendingUser = await _usersService.GetAsyncById(User?.Identity?.Name!);
         User? receivingUser = await _usersService.GetAsync(receiverEmail);
 
         if (sendingUser is null || receivingUser is null) return NoContent();
@@ -131,20 +186,21 @@ public class UsersController : ControllerBase
         if (sendingUser.Email == receiverEmail) return NoContent();
 
         if (receivingUser.Requetes.Contains(sendingUser.Email) || receivingUser.Amis.Contains(sendingUser.Email)) return NoContent();
-        
+
         List<string> requestList = receivingUser.Requetes.ToList();
         requestList.Add(sendingUser.Email);
         receivingUser.Requetes = requestList.ToArray();
 
-        await _usersService.UpdateAsync(receivingUser.Id, receivingUser);
+        await _usersService.UpdateAsync(receivingUser.Id!, receivingUser);
 
         return NoContent();
     }
 
+    [Authorize]
     [HttpPut("accept/{requestEmail}")]
-    public async Task<IActionResult> AcceptRequest([FromBody] string id, string requestEmail)
+    public async Task<IActionResult> AcceptRequest(string requestEmail)
     {
-        User? receivingUser = await _usersService.GetAsyncById(id);
+        User? receivingUser = await _usersService.GetAsyncById(User?.Identity?.Name!);
         User? requestingUser = await _usersService.GetAsync(requestEmail);
 
         if (requestingUser is null || receivingUser is null) return NoContent();
@@ -171,16 +227,17 @@ public class UsersController : ControllerBase
         requestListReceiver.Remove(requestEmail);
         receivingUser.Requetes = requestListReceiver.ToArray();
 
-        await _usersService.UpdateAsync(id, receivingUser);
-        await _usersService.UpdateAsync(requestingUser.Id, requestingUser);
+        await _usersService.UpdateAsync(User?.Identity?.Name!, receivingUser);
+        await _usersService.UpdateAsync(requestingUser.Id!, requestingUser);
 
         return NoContent();
     }
 
+    [Authorize]
     [HttpPut("refuse/{requestEmail}")]
-    public async Task<IActionResult> RefuseRequest([FromBody] string id, string requestEmail)
+    public async Task<IActionResult> RefuseRequest(string requestEmail)
     {
-        User? user = await _usersService.GetAsyncById(id);
+        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
 
         if (user is null) return NoContent();
 
@@ -188,15 +245,16 @@ public class UsersController : ControllerBase
         requestList.Remove(requestEmail);
         user.Requetes = requestList.ToArray();
 
-        await _usersService.UpdateAsync(id, user);
+        await _usersService.UpdateAsync(User?.Identity?.Name!, user);
 
         return NoContent();
     }
 
+    [Authorize]
     [HttpPut("removeFriend/{email}")]
-    public async Task<IActionResult> RemoveFriend([FromBody] string id, string email)
+    public async Task<IActionResult> RemoveFriend(string email)
     {
-        User? user = await _usersService.GetAsyncById(id);
+        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
         User? removedFriend = await _usersService.GetAsync(email);
 
         if (user is null || removedFriend is null) return NoContent();
@@ -209,23 +267,24 @@ public class UsersController : ControllerBase
         amis.Remove(user.Email);
         removedFriend.Amis = amis.ToArray();
 
-        await _usersService.UpdateAsync(id, user);
-        await _usersService.UpdateAsync(removedFriend.Id, removedFriend);
+        await _usersService.UpdateAsync(User?.Identity?.Name!, user);
+        await _usersService.UpdateAsync(removedFriend.Id!, removedFriend);
 
         return NoContent();
     }
 
-    [HttpDelete("{id:length(24)}")]
-    public async Task<IActionResult> Delete(string id)
+    [Authorize]
+    [HttpDelete("delete")]
+    public async Task<IActionResult> Delete()
     {
-        User? user = await _usersService.GetAsync(id);
+        User? user = await _usersService.GetAsync(User?.Identity?.Name!);
 
         if (user is null)
         {
             return NoContent();
         }
 
-        await _usersService.RemoveAsync(id);
+        await _usersService.RemoveAsync(User?.Identity?.Name!);
 
         return NoContent();
     }

@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this._userService
-      .getUserById(this.cookieService.get('id'))
+      .getUserById()
       .subscribe((data: any) => {
         this.stocks = data.Stocks;
         if (this.stocks)

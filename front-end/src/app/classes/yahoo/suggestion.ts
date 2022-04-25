@@ -22,7 +22,7 @@ export const screenersCategories: string[] = [
   'undervalued_large_caps',
   'aggressive_small_caps',
   'small_cap_gainers',
-  'top_mutual_funds',
+  // 'top_mutual_funds',
   'portfolio_anchors',
   'solid_large_growth_funds',
   'solid_midcap_growth_funds',

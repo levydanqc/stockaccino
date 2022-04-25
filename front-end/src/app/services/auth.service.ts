@@ -8,7 +8,6 @@ export class AuthService {
   constructor(private cookieService: CookieService) {}
 
   isLoggedIn() {
-    // TODO: https://github.com/levydanqc/stockaccino/issues/7
-    return this.cookieService.check('id');
+    return this.cookieService.check('token');
   }
 }

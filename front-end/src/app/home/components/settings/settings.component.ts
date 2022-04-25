@@ -26,7 +26,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this._userService
-      .getUserById(this.cookieService.get('id'))
+      .getUserById()
       .subscribe((data) => {
         this.isLoading = false;
         this.form.get('email')?.setValue(data.Email);
@@ -55,14 +55,13 @@ export class SettingsComponent implements OnInit {
   }
 
   deconnexion() {
-    this.cookieService.delete('id');
+    this.cookieService.delete('token');
     location.reload();
   }
 
   submitForm() {
     if (this.form.valid) {
       this._userService.updateUser(
-        this.cookieService.get('id'),
         this.form.get('email')?.value,
         this.form.get('nom')?.value,
         this.form.get('prenom')?.value
