@@ -70,7 +70,6 @@ public class UsersController : ControllerBase
         return await _usersService.GetAsync();
     }
 
-    [Authorize]
     [HttpGet("{email}")]
     public async Task<ActionResult<User>> Get(string email)
     {

@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
-import { CookieService } from 'ngx-cookie-service';
 import { EditorType } from '../../authentication.component';
 
 @Component({
@@ -26,6 +25,7 @@ export class SigninComponent implements OnInit {
   confirmPwd: FormControl = new FormControl('');
   error?: string;
   hide: boolean = true;
+  estUtilise: boolean = true;
   @Output()
   authSubmit = new EventEmitter<string>();
   @Output()
@@ -33,8 +33,7 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private controlContainer: ControlContainer,
-    private _userService: UserService,
-    private cookieService: CookieService
+    private _userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -44,14 +43,13 @@ export class SigninComponent implements OnInit {
     this.form.addControl('pwd', this.pwd);
     this.form.addControl('confirmPwd', this.confirmPwd);
     this.email = this.form.get('email') as FormControl;
-    this.cookieService.delete('estUtilise');
   }
 
   submit(event: string) {
     this.authSubmit.emit();
     if (this.form.valid) {
       if (event == 'signin') {
-        if (this.cookieService.get('estUtilise') === 'true') {
+        if (this.estUtilise) {
           this.error = 'Cette adresse courriel est déjà utilisée.';
         } else {
           this._userService.postUser(
@@ -60,8 +58,6 @@ export class SigninComponent implements OnInit {
             this.nom.value,
             this.prenom.value,
           );
-
-          this.cookieService.delete('estUtilise');
           this.authSignIn.emit();
         }
       }
@@ -69,7 +65,10 @@ export class SigninComponent implements OnInit {
   }
 
   verifyEmail() {
-    this._userService.verifyEmail(this.email.value);
+    this._userService.verifyEmail(this.email.value).subscribe((data: any) => {
+      if (data) this.estUtilise = true;
+      else this.estUtilise = false;
+    });
   }
 
   matchPwd() {

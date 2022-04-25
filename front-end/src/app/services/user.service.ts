@@ -35,20 +35,13 @@ export class UserService {
     });
   }
 
-  verifyEmail(email: string) {
-    this.apiCall({
+  verifyEmail(email: string): any {
+    return this.apiCall({
       endpoint: email,
       headers: null,
       body: null,
       query: null,
-    }).subscribe(
-      (data) => {
-        this.cookieService.set('estUtilise', 'true');
-      },
-      (error) => {
-        this.cookieService.set('estUtilise', 'false');
-      }
-    );
+    });
   }
 
   getUserByEmail(email: string): Observable<User> {
