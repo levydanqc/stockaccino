@@ -59,7 +59,7 @@ public class UsersController : ControllerBase
             );
 
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-        TokenDto tokenDto = new TokenDto{ Token = jwt };
+        TokenDto tokenDto = new TokenDto { Token = jwt };
         return tokenDto;
     }
 
@@ -132,6 +132,22 @@ public class UsersController : ControllerBase
         updatedUser.Id = user.Id;
 
         await _usersService.UpdateAsync(User?.Identity?.Name!, updatedUser);
+
+        if (updatedUser.Email != user.Email)
+        {
+            foreach (string ami in user.Amis)
+            {
+                User? uAmi = await _usersService.GetAsync(ami);
+                if (uAmi!.Amis.Contains(user.Email))
+                {
+                    List<string> amis = uAmi.Amis.ToList();
+                    amis.Remove(user.Email);
+                    amis.Add(updatedUser.Email);
+                    uAmi.Amis = amis.ToArray();
+                    await _usersService.UpdateAsync(uAmi.Id!, uAmi);
+                }
+            }
+        }
 
         return NoContent();
     }
@@ -277,11 +293,23 @@ public class UsersController : ControllerBase
     [HttpDelete("delete")]
     public async Task<IActionResult> Delete()
     {
-        User? user = await _usersService.GetAsync(User?.Identity?.Name!);
+        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
 
         if (user is null)
         {
             return NoContent();
+        }
+
+        foreach (string ami in user.Amis)
+        {
+            User? uAmi = await _usersService.GetAsync(ami);
+            if (uAmi!.Amis.Contains(user.Email))
+            {
+                List<string> amis = uAmi.Amis.ToList();
+                amis.Remove(user.Email);
+                uAmi.Amis = amis.ToArray();
+                await _usersService.UpdateAsync(uAmi.Id!, uAmi);
+            }
         }
 
         await _usersService.RemoveAsync(User?.Identity?.Name!);
