@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 export type EditorType = 'login' | 'signin' | 'reset';
 
@@ -20,7 +21,10 @@ export class AuthenticationComponent {
     Validators.minLength(6),
   ]);
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   get showLogin() {
     return this.editor == 'login';
@@ -40,6 +44,7 @@ export class AuthenticationComponent {
     this.switchForm("login");
     this.form.reset();
     this.router.navigate([this.router.url]);
+    this.toastr.success('Votre compte est créé!', "Succès");
   }
 
   onReset() {
