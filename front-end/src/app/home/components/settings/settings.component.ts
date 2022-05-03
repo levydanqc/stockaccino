@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 export type Mode = 'show' | 'modify';
 
@@ -21,7 +22,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private cookieService: CookieService,
-    private _userService: UserService
+    private _userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class SettingsComponent implements OnInit {
 
   deconnexion() {
     this.cookieService.delete('token');
+    this.toastr.success('Vous avez été déconnecté.', "Succès");
     location.reload();
   }
 
@@ -67,6 +70,7 @@ export class SettingsComponent implements OnInit {
         this.form.get('prenom')?.value
       );
       this.switch('show');
+      this.toastr.success('Modifications enregistrées.', "Succès");
     }
   }
 

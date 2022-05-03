@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { UserService } from 'src/app/services/user.service';
 import { Friend } from 'src/app/classes/friend';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/classes/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-social',
@@ -26,8 +26,8 @@ export class SocialComponent implements OnInit {
   });
 
   constructor(
-    private cookieService: CookieService,
     private _userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   showHide() {
@@ -46,12 +46,14 @@ export class SocialComponent implements OnInit {
     this.amis?.push(newlyAdded);
     this.amisString?.push(email);
     this._userService.acceptRequest(email);
+    this.toastr.success('Compte a été ajouté à vos amitiés.', "Succès");
   }
 
   refuse(email: string) {
     this.requetes = this.requetes?.filter(requete => { return requete.Email !== email });
     this.requetesString = this.requetesString?.filter(requete => { return requete !== email });
     this._userService.refuseRequest(email);
+    this.toastr.success('Ce compte a été supprimé de vos requêtes d\'amitié.', "Succès");
   }
 
   add() {
@@ -59,33 +61,21 @@ export class SocialComponent implements OnInit {
       if (this.form.valid) {
         if (this.emailList.includes(this.form.get('email')?.value)) {
           if (this.form.get('email')?.value === this.userEmail) {
-            this.confirmation = "Vous ne pouvez pas vous envoyer une requête.";
-            setTimeout(() => {
-              this.confirmation = '';
-            }, 3000);
+            this.toastr.error(`Vous ne pouvez pas vous envoyer une requête.`, 'Erreur');
           }
           else {
             if (this.amisString?.includes(this.form.get('email')?.value) || this.requetesString?.includes(this.form.get('email')?.value)) {
-              this.confirmation = "Ce compte est déjà dans vos listes!";
-              setTimeout(() => {
-                this.confirmation = '';
-              }, 3000);
+              this.toastr.error('Ce compte est déjà dans vos listes.', 'Erreur');
             }
             else {
               this._userService.addFriend(this.form.get('email')?.value);
               this.form.reset();
-              this.confirmation = "Demande d'amitié envoyée!";
-              setTimeout(() => {
-                this.confirmation = '';
-              }, 3000);
+              this.toastr.success('Demande d\'amitié envoyée.', 'Succès');
             }
           }
         }
         else {
-          this.confirmation = "Compte inexistant.";
-          setTimeout(() => {
-            this.confirmation = '';
-          }, 3000);
+          this.toastr.error('Ce compte n\'existe pas.', 'Erreur');
         }
       }
     }
@@ -95,7 +85,8 @@ export class SocialComponent implements OnInit {
     this.amis = this.amis?.filter(ami => { return ami.Email !== email });
     this.amisString = this.amisString?.filter(ami => { return ami !== email });
     this._userService.removeFriend(email);
-  }
+    this.toastr.success('Le compte a été retiré de vos amitiés.', "Succès");
+  } 
 
   ngOnInit(): void {
     this.fetchData();

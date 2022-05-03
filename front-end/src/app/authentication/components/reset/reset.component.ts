@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/classes/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -37,7 +38,8 @@ export class ResetComponent implements OnInit {
 
   constructor(
     private controlContainer: ControlContainer,
-    private _userService: UserService
+    private _userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -89,6 +91,7 @@ export class ResetComponent implements OnInit {
           this.pwd.value
         );
       });
+    this.toastr.success('Votre mot de passe a été modifié.', "Succès");
     this.formReset.emit();
   }
 

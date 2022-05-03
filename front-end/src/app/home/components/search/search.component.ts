@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/classes/user';
 import { UserService } from 'src/app/services/user.service';
 import { YahooService } from 'src/app/services/yahoo.service';
@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
       private Activatedroute: ActivatedRoute,
       private _yahooService: YahooService,
       private _userService: UserService,
-      private _cookieService: CookieService,
+      private toastr: ToastrService
     ) {}
 
   ngOnInit(): void {
@@ -56,6 +56,7 @@ export class SearchComponent implements OnInit {
         this.searchedStock
       );
     this.isWatched = true;
+    this.toastr.success('Stock ajouté à votre watchlist.', "Succès");
   }
 
   unwatch() {
@@ -64,5 +65,6 @@ export class SearchComponent implements OnInit {
         this.searchedStock
       );
     this.isWatched = false;
+    this.toastr.success('Stock retiré de votre watchlist.', "Succès");
   }
 }
