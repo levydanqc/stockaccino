@@ -89,7 +89,9 @@ export class SocialComponent implements OnInit {
   } 
 
   ngOnInit(): void {
-    this.fetchData();
+    setTimeout(() => {
+      this.fetchData();
+    }, 3000);
   }
 
   fetchData() {
