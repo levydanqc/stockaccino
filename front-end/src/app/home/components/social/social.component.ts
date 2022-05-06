@@ -108,37 +108,35 @@ export class SocialComponent implements OnInit {
       .subscribe((data: any) => {
         this.userEmail = data.Email;
         this.amisString = data.Amis;
-        if (this.amisString)
-          if (this.amisString.length > 0) {
-            this.amisString.forEach(ami => {
-              this._userService
-              .getUserByEmail(ami)
-              .subscribe((data: any) => {
-                let friend: Friend = {
-                  Email: ami,
-                  Prenom: data.Prenom,
-                  Nom: data.Nom,
-                };
-                this.amis?.push(friend);
-              });
+        if (this.amisString && this.amisString.length > 0) {
+          this.amisString.forEach(ami => {
+            this._userService
+            .getUserByEmail(ami)
+            .subscribe((data: any) => {
+              let friend: Friend = {
+                Email: ami,
+                Prenom: data.Prenom,
+                Nom: data.Nom,
+              };
+              this.amis?.push(friend);
             });
-          }
+          });
+        }
         this.requetesString = data.Requetes;
-        if (this.requetesString)
-          if (this.requetesString.length > 0) {
-            this.requetesString.forEach(requete => {
-              this._userService
-              .getUserByEmail(requete)
-              .subscribe((data: any) => {
-                let friend: Friend = {
-                  Email: requete,
-                  Prenom: data.Prenom,
-                  Nom: data.Nom,
-                }
-                this.requetes?.push(friend);
-              });
+        if (this.requetesString && this.requetesString.length > 0) {
+          this.requetesString.forEach(requete => {
+            this._userService
+            .getUserByEmail(requete)
+            .subscribe((data: any) => {
+              let friend: Friend = {
+                Email: requete,
+                Prenom: data.Prenom,
+                Nom: data.Nom,
+              }
+              this.requetes?.push(friend);
             });
-          }
+          });
+        }
       });
   }
 
