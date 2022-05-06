@@ -10,6 +10,7 @@
             <div *ngIf="stock">
                 <button *ngIf="isWatched" (click)="unwatch()" type="button" class="float-end btn-dark btnBid">Retirer de ma watchlist</button>
                 <button *ngIf="!isWatched" (click)="watch()" type="button" class="float-end btn-dark btnBid">Ajouter à ma watchlist</button>
+                <button (click)="openModal('recommendstockmodalid')" type="button" class="float-end btn-dark btnBid mx-3">Recommander ce stock</button>
                 <h1>{{stock['longName']}} ({{stock['symbol']}})</h1>
                 <h3 class="float-end me-5">Nom d'échange complet: {{stock['fullExchangeName']}}</h3>
                 <h2>Demande actuelle (bid): {{stock['bid']}} {{stock['currency']}}</h2>
@@ -30,3 +31,18 @@
         </div>
     </div>
 </div>
+
+<jw-modal id="recommendstockmodalid">
+    <mat-icon (click)="closeModal('recommendstockmodalid')" class="p-2 me-4 iconBtn float-end" mat-list-icon>close</mat-icon>
+    <h1>Recommandez ce stock à vos amis!</h1>
+    <hr />
+    <div *ngIf="amisLoaded" class="friendsWithin">
+        <p *ngIf="amis!.length === 0">Veuillez ajouter des amis pour pouvoir recommander un stock!</p>
+        <ul *ngIf="amis!.length > 0">
+            <li *ngFor="let ami of amis; let i = index" [attr.data-index]="i">
+                <mat-icon (click)="sendTo(i);" class="p-2 me-4 float-end {{status![i]}}" mat-list-icon></mat-icon>
+                <p>{{ami}}</p>
+            </li>
+        </ul>
+    </div>
+</jw-modal>

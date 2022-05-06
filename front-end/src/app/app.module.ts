@@ -7,6 +7,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ModalModule } from './_modal'
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -20,6 +21,7 @@ import { CookieService } from 'ngx-cookie-service';
     HttpClientJsonpModule,
     ReactiveFormsModule,
     FormsModule,
+    ModalModule,
     ToastrModule.forRoot()
   ],
   providers: [CookieService],

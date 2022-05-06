@@ -38,6 +38,7 @@ import { SuggestionComponent } from './components/recommendation/components/sugg
 import { RecommendationComponent } from './components/recommendation/recommendation.component';
 import { TrendingComponent } from './components/recommendation/components/trending/trending.component';
 import { FloatPipe } from './components/recommendation/components/pipe/float.pipe';
+import { ModalModule } from '../_modal';
 
 schemas: [CUSTOM_ELEMENTS_SCHEMA];
 
@@ -62,6 +63,7 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     StockChartAllModule,
     ToolbarModule,
     RangeNavigatorAllModule,
+    ModalModule
   ],
   providers: [
     DateTimeService,
