@@ -39,6 +39,7 @@ import { RecommendationComponent } from './components/recommendation/recommendat
 import { TrendingComponent } from './components/recommendation/components/trending/trending.component';
 import { FloatPipe } from './components/recommendation/components/pipe/float.pipe';
 import { ModalModule } from '../_modal';
+import { NotificationMenuComponent } from './components/notification-menu/notification-menu.component';
 
 schemas: [CUSTOM_ELEMENTS_SCHEMA];
 
@@ -54,6 +55,7 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     RecommendationComponent,
     TrendingComponent,
     FloatPipe,
+    NotificationMenuComponent,
   ],
   imports: [
     CommonModule,

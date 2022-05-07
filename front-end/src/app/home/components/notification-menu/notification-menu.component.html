@@ -1,0 +1,14 @@
+<nav class="nav-bar">
+    <div class="notification-wrapper">
+        <!-- You can put an icon from Material Design icon or Fontawesome -->
+        <div class="notification-btn" (click)="openNotification(!show)">
+            <span class="mdi mdi-bell"></span>
+        </div>
+        <div *ngIf="showNotification" class="notification-content" (clickOutside)="openNotification(false)">
+            <div class="notification-header">
+                <span class="mdi mdi-settings"></span>
+                <span class="label">Notifications</span>
+            </div>
+        </div>
+    </div>
+</nav>
