@@ -15,6 +15,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { DecimalPipe } from '@angular/common';
+import { NgClickOutsideModule } from 'ng-click-outside2';
+
 @NgModule({
   exports: [
     MatSidenavModule,
@@ -34,6 +36,6 @@ import { DecimalPipe } from '@angular/common';
     MatExpansionModule,
   ],
   providers: [DecimalPipe],
-  imports: [NgxSpinnerModule, MatIconModule],
+  imports: [NgxSpinnerModule, MatIconModule, NgClickOutsideModule],
 })
 export class MaterialModule {}
