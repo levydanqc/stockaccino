@@ -65,6 +65,11 @@ public class YahooService
         return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
     }
 
+    public async Task<string> GetQuote(string[] symbols)
+    {
+        return await GetQuote(string.Join(",", symbols));
+    }
+
     public async Task<string> GetChart(string symbol, string range, string interval)
     {
         var query = new Dictionary<string, string?>

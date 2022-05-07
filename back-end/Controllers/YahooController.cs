@@ -29,25 +29,25 @@ public class YahooController : ControllerBase
 
         Trending[] trendings = new Trending[nbResultat];
 
-        string[][] symbols = new string[(nbResultat/10)+1][];
+        string[][] symbols = new string[(nbResultat / 10) + (nbResultat % 10 == 0 ? 0 : 1)][];
 
         for (int i = 0; i < symbols.Length; i++)
         {
-            symbols[i] = new string[10];
+            symbols[i] = i == symbols.Length - 1 ? new string[nbResultat % 10] : new string[10];
             for (int j = 0; j < symbols[i].Length; j++)
             {
-                symbols[i][j] = jObject!["finance"]!["result"]![0]!["quotes"]![i]!["symbol"]!.ToString();
+                symbols[i][j] = ((JArray)jObject["finance"]!["result"]![0]!["quotes"]!)[i * 10 + j]["symbol"]!.ToString();
+            }
+            JObject? quote = JsonConvert.DeserializeObject<JObject>(await _yahooService.GetQuote(symbols[i]));
+            for (int j = 0; j < symbols[i].Length; j++)
+            {
+                trendings[i * 10 + j] = new Trending(symbols[i][j],
+                Convert.ToDouble(quote!["quoteResponse"]!["result"]![j]!["regularMarketPrice"]!),
+                Convert.ToDouble(quote!["quoteResponse"]!["result"]![j]!["regularMarketChangePercent"]!));
             }
         }
 
-        JObject? quote = JsonConvert.DeserializeObject<JObject>(await _yahooService.GetQuote(symbol));
-
-        if (quote!["quoteResponse"]!["result"]!.HasValues)
-            trending.Add(new Trending(symbol,
-                Convert.ToDouble(quote!["quoteResponse"]!["result"]![0]!["regularMarketChange"]!),
-                Convert.ToDouble(quote!["quoteResponse"]!["result"]![0]!["regularMarketChangePercent"]!)));
-
-        return Ok(trending.OrderBy(o => o.Change).ToList());
+        return Ok(trendings.OrderBy(o => o.Change).ToList());
     }
 
     [HttpGet("suggestion")]
