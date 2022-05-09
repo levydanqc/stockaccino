@@ -1,8 +1,4 @@
-.nav-bar {
-  background-color: royalblue;
-  width: 100%;
-  height: 35px;
-}
+@import '../../../../theme.scss';
 
 .notification-wrapper {
   position: relative;
@@ -12,15 +8,12 @@
 }
 
 .notification-wrapper .notification-btn {
-  color: #ffffff;
+  color: #000000;
   cursor: pointer;
 }
 
 .notification-wrapper .notification-btn:hover {
-  color: royalblue;
-  padding: 1px;
-  background-color: #ffffff;
-  border-radius: 500px;
+  color: $coffee;
 }
 
 .notification-wrapper .notification-content {
