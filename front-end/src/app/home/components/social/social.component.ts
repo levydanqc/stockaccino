@@ -86,10 +86,13 @@ export class SocialComponent implements OnInit {
     this.amisString = this.amisString?.filter(ami => { return ami !== email });
     this._userService.removeFriend(email);
     this.toastr.success('Le compte a été retiré de vos amitiés.', "Succès");
-  } 
+  }
 
   ngOnInit(): void {
     this.fetchData();
+    setInterval(() => {
+      this.fetchData();
+    }, 3000);
   }
 
   fetchData() {
@@ -97,6 +100,7 @@ export class SocialComponent implements OnInit {
     .getUsers()
     .subscribe((data: any) => {
       let users: Array<User> = data;
+      this.emailList = [];
       users.forEach(user => {
         this.emailList.push(user.Email);
       });
@@ -106,37 +110,37 @@ export class SocialComponent implements OnInit {
       .subscribe((data: any) => {
         this.userEmail = data.Email;
         this.amisString = data.Amis;
-        if (this.amisString)
-          if (this.amisString.length > 0) {
-            this.amisString.forEach(ami => {
-              this._userService
-              .getUserByEmail(ami)
-              .subscribe((data: any) => {
-                let friend: Friend = {
-                  Email: ami,
-                  Prenom: data.Prenom,
-                  Nom: data.Nom,
-                };
-                this.amis?.push(friend);
-              });
+        if (this.amisString && this.amisString.length > 0) {
+          this.amis = [];
+          this.amisString.forEach(ami => {
+            this._userService
+            .getUserByEmail(ami)
+            .subscribe((data: any) => {
+              let friend: Friend = {
+                Email: ami,
+                Prenom: data.Prenom,
+                Nom: data.Nom,
+              };
+              this.amis?.push(friend);
             });
-          }
+          });
+        }
         this.requetesString = data.Requetes;
-        if (this.requetesString)
-          if (this.requetesString.length > 0) {
-            this.requetesString.forEach(requete => {
-              this._userService
-              .getUserByEmail(requete)
-              .subscribe((data: any) => {
-                let friend: Friend = {
-                  Email: requete,
-                  Prenom: data.Prenom,
-                  Nom: data.Nom,
-                }
-                this.requetes?.push(friend);
-              });
+        if (this.requetesString && this.requetesString.length > 0) {
+          this.requetes = [];
+          this.requetesString.forEach(requete => {
+            this._userService
+            .getUserByEmail(requete)
+            .subscribe((data: any) => {
+              let friend: Friend = {
+                Email: requete,
+                Prenom: data.Prenom,
+                Nom: data.Nom,
+              }
+              this.requetes?.push(friend);
             });
-          }
+          });
+        }
       });
   }
 
