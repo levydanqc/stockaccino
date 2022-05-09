@@ -10,6 +10,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SocialComponent } from './components/social/social.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SearchComponent } from './components/search/search.component';
+import { NotificationMenuComponent } from './components/notification-menu/notification-menu.component';
 
 import { ChartComponent } from './components/chart/chart.component';
 
@@ -39,7 +40,8 @@ import { RecommendationComponent } from './components/recommendation/recommendat
 import { TrendingComponent } from './components/recommendation/components/trending/trending.component';
 import { FloatPipe } from './components/recommendation/components/pipe/float.pipe';
 import { ModalModule } from '../_modal';
-import { NotificationMenuComponent } from './components/notification-menu/notification-menu.component';
+
+import { NgClickOutsideModule } from 'ng-click-outside2';
 
 schemas: [CUSTOM_ELEMENTS_SCHEMA];
 
@@ -65,7 +67,8 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA];
     StockChartAllModule,
     ToolbarModule,
     RangeNavigatorAllModule,
-    ModalModule
+    ModalModule,
+    NgClickOutsideModule,
   ],
   providers: [
     DateTimeService,

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationMenuComponent {
   show: boolean = false;
+  icon: string = 'notifications_none';
+
   constructor() {}
 
   openNotification(state: boolean) {
