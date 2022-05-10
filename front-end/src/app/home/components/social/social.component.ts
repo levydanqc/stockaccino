@@ -87,6 +87,10 @@ export class SocialComponent implements OnInit {
               );
             } else {
               this._userService.addFriend(this.form.get('email')?.value);
+              this._userService.notify(this.form.get('email')?.value, {
+                Message: `${this.userEmail} veux être votre ami.`,
+                Read: false,
+              });
               this.form.reset();
               this.toastr.success("Demande d'amitié envoyée.", 'Succès');
             }
