@@ -83,7 +83,7 @@ export class SearchComponent implements OnInit {
 
   sendTo(i: number) {
     if (this.status![i] === 'send') {
-      const notif = `${this.user?.Prenom} ${this.user?.Nom} vous recommande de jetez un coup d'oeil à ${this.searchedStock}.`;
+      const notif = `${this.user?.Prenom} ${this.user?.Nom} vous recommande de jetez un coup d'oeil à ${this.searchedStock}`;
       this._userService.notify(this.amisString![i], {
         Message: notif,
         Read: false,

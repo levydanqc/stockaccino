@@ -57,9 +57,7 @@ export class NotificationMenuComponent implements OnInit {
     if (notification.Message.includes('recommande')) {
       this.router.navigate(['/search'], {
         queryParams: {
-          searchedStock: notification.Message.split(' ')
-            .pop()
-            ?.replace('.', ''),
+          searchedStock: notification.Message.split(' ').pop(),
         },
       });
     } else if (notification.Message.includes('ami')) {
