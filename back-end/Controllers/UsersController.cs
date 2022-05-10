@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Stockaccino.Controllers;
@@ -290,7 +289,7 @@ public class UsersController : ControllerBase
     }
 
     [Authorize]
-    [HttpPut("notification/notify/{email}")]
+    [HttpPost("notification/notify/{email}")]
     public async Task<IActionResult> Notify(string email, Notification notification)
     {
         User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);

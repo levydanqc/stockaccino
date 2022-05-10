@@ -56,7 +56,7 @@ export class SigninComponent implements OnInit {
             this.email.value,
             this.pwd.value,
             this.nom.value,
-            this.prenom.value,
+            this.prenom.value
           );
           this.authSignIn.emit();
         }
