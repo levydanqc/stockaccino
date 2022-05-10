@@ -6,13 +6,14 @@ $primary: mat-palette($mat-indigo);
 $accent: mat-palette($mat-yellow);
 $warn: mat-palette($mat-red);
 
-$white: #ebeeff;
+$white: #fafafa;
 $grey: #f5f5f5;
 $lightgrey: lightgrey;
 $smokegrey: #989898;
 $cardgrey: #E8E8E8;
 $brown: #4d2412;
 $coffee: #a15736;
+$cream: #efd8b6;
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
