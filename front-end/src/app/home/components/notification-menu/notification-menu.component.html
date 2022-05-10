@@ -24,7 +24,7 @@
                 <div class="notification-item lh-1 position-relative d-flex justify-content-between align-items-center px-1 py-2 my-3"
                     *ngFor="let notification of notifications" role="button"
                     (click)="updateNotification(notification, true)">
-                    <span>{{ notification.Message }}</span>
+                    <span (click)="getLink(notification)">{{ notification.Message }}</span>
                     <span *ngIf="!notification.Read"
                         class="top-50 end-0 p-2 mx-3 bg-danger border border-light rounded-circle">
                         <span class="visually-hidden">Non lues</span>

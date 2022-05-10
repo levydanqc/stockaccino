@@ -297,7 +297,8 @@ public class UsersController : ControllerBase
 
         if (user is null || target is null) return NoContent();
 
-        if (!user.Amis.Contains(email) || !target.Amis.Contains(user.Email)) return Unauthorized();
+        if (!user.Amis.Contains(email) && !notification.Message.Contains("ami"))
+            return Unauthorized();
 
         if (target.Notifications.Contains(notification)) return Ok();
 
