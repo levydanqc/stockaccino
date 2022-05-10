@@ -21,10 +21,8 @@ main {
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
   min-height: 100%;
-  background: #efd8b6;
+  background: $cream;
 }
 
 button:hover {
@@ -33,4 +31,13 @@ button:hover {
 
 .spacer {
   flex: 1 1 auto;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }

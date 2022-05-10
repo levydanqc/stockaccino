@@ -1,40 +1,28 @@
 @import '../../../../theme.scss';
 
-.notification-wrapper {
-  position: relative;
-  padding: 8px 15px;
-  float: right;
-  border-radius: 5px;
-}
-
-.notification-wrapper .notification-btn {
-  color: #000000;
+.notification-btn {
   cursor: pointer;
 }
 
-.notification-wrapper .notification-btn:hover {
+.notification-btn:hover {
   color: $coffee;
+  background-color: $lightgrey;
 }
 
-.notification-wrapper .notification-content {
-  position: absolute;
-  top: 40px;
-  right: 5px;
-  width: 350px;
-  height: 200px;
-  background-color: whitesmoke;
+.notification-content {
+  background-color: $grey;
   z-index: 300;
+  width: 25vw;
 }
 
-.notification-wrapper .notification-header {
-  padding: 10px;
-  color: #ffffff;
-  background-color: royalblue;
+.label {
+  color: $brown;
 }
 
-.notification-wrapper .notification-header .label {
-  display: inline-block;
-  width: 90%;
-  text-align: center;
-  font-weight: 500;
+.notification-item:hover {
+  background-color: $lightgrey;
+}
+
+.opened {
+  background-color: $cream;
 }

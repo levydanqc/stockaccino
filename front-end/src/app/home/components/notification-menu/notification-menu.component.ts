@@ -8,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
 export class NotificationMenuComponent {
   show: boolean = false;
   icon: string = 'notifications_none';
+  notifications = [
+    { message: "You've received a new message", read: false },
+    { message: "You've received a new message", read: false },
+    { message: "You've received a new message", read: false },
+  ];
 
   constructor() {}
 
-  openNotification(state: boolean) {
+  toggleNotification(state: boolean) {
+    console.log(state);
     this.show = state;
   }
 }

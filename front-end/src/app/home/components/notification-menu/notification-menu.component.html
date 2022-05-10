@@ -1,12 +1,22 @@
-<div class="notification-wrapper">
-    <!-- You can put an icon from Material Design icon or Fontawesome -->
-    <div class="notification-btn" (click)="openNotification(!show)" (mouseover)="icon = 'notifications'"
-        (mouseout)="icon = 'notifications_none'">
+<div class="notification-wrapper position-relative px-1 py-2 float-end">
+    <div class="notification-btn rounded-pill d-flex p-3" (click)="toggleNotification(!show)"
+        (mouseover)="icon = 'notifications'" (mouseout)="icon = 'notifications_none'" [ngClass]="{'opened': show}">
         <mat-icon mat-list-icon>{{ icon }}</mat-icon>
     </div>
-    <div *ngIf="show" class="notification-content" (clickOutside)="openNotification(false)">
-        <div class="notification-header">
-            <span class="label">Notifications</span>
+    <div *ngIf="show" class="notification-content shadow-lg end-0 position-absolute rounded-3 border border-2"
+        (clickOutside)="toggleNotification(false)" [exclude]="'.notification-wrapper'">
+        <div class="p-1">
+            <span class="label text-center fw-bolder fs-3">Notifications</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="p-1">
+            <div class="notification-item d-flex justify-content-between px-1 py-2 my-3 fs-5"
+                *ngFor="let notification of notifications">
+                <span>{{ notification.message }}</span>
+                <span ngIf="notification.read">
+                    class="translate-middle p-2 bg-danger border border-light rounded-circle">
+                    <span class="visually-hidden">Non lue</span>
+                </span>
+            </div>
         </div>
     </div>
-</div>
