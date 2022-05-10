@@ -11,4 +11,23 @@ public class Notification
         this.Message = message;
         this.Read = read;
     }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj is Notification))
+        {
+            return false;
+        }
+        return (this.Message == ((Notification)obj).Message)
+            && (this.Read == ((Notification)obj).Read);
+    }
+
+    public override int GetHashCode()
+    {
+        return Message.GetHashCode() ^ Read.GetHashCode();
+    }
 }

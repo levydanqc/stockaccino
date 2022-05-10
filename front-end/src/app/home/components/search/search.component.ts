@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/classes/users/user';
+import { Notification } from 'src/app/classes/users/notification';
 import { UserService } from 'src/app/services/user.service';
 import { YahooService } from 'src/app/services/yahoo.service';
 import { ModalService } from 'src/app/_modal';
@@ -25,17 +26,18 @@ export class SearchComponent implements OnInit {
   amisLoaded: boolean = false;
 
   constructor(
-      private Activatedroute: ActivatedRoute,
-      private _yahooService: YahooService,
-      private _userService: UserService,
-      private toastr: ToastrService,
-      private modalService: ModalService
+    private Activatedroute: ActivatedRoute,
+    private _yahooService: YahooService,
+    private _userService: UserService,
+    private toastr: ToastrService,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
     this.searchedStock =
-      this.Activatedroute.snapshot.queryParamMap.get('searchedStock')?.toUpperCase() ||
-      undefined;
+      this.Activatedroute.snapshot.queryParamMap
+        .get('searchedStock')
+        ?.toUpperCase() || undefined;
     if (this.searchedStock) {
       let stockSymbol: string = this.searchedStock;
       this._yahooService
@@ -45,59 +47,53 @@ export class SearchComponent implements OnInit {
           this.stock = this.quote['quoteResponse']['result'][0];
           this.isLoading = false;
         });
-      this._userService
-        .getUserById()
-        .subscribe((data: any) => {
-          this.user = data;
-          if (this.user?.Stocks.includes(stockSymbol)) {
-            this.isWatched = true;
-          } else this.isWatched = false;
-        });
-    }
-    this._userService
-      .getUserById()
-      .subscribe((data: any) => {
-        this.amisString = data.Amis;
-        if (this.amisString)
-          if (this.amisString.length > 0) {
-            this.amisString.forEach(ami => {
-              this._userService
-              .getUserByEmail(ami)
-              .subscribe((data: any) => {
-                this.amis?.push(data.Prenom + " " + data.Nom);
-                this.status?.push('send');
-              });
-            });
-          }
-        this.amisLoaded = true;
+      this._userService.getUserById().subscribe((data: any) => {
+        this.user = data;
+        if (this.user?.Stocks.includes(stockSymbol)) {
+          this.isWatched = true;
+        } else this.isWatched = false;
       });
+    }
+    this._userService.getUserById().subscribe((data: any) => {
+      this.amisString = data.Amis;
+      if (this.amisString)
+        if (this.amisString.length > 0) {
+          this.amisString.forEach((ami) => {
+            this._userService.getUserByEmail(ami).subscribe((data: any) => {
+              this.amis?.push(data.Prenom + ' ' + data.Nom);
+              this.status?.push('send');
+            });
+          });
+        }
+      this.amisLoaded = true;
+    });
   }
 
   watch() {
-    if (this.searchedStock)
-      this._userService.watchStock(
-        this.searchedStock
-      );
+    if (this.searchedStock) this._userService.watchStock(this.searchedStock);
     this.isWatched = true;
-    this.toastr.success('Stock ajouté à votre watchlist.', "Succès");
+    this.toastr.success('Stock ajouté à votre watchlist.', 'Succès');
   }
 
   unwatch() {
-    if (this.searchedStock)
-      this._userService.unwatchStock(
-        this.searchedStock
-      );
+    if (this.searchedStock) this._userService.unwatchStock(this.searchedStock);
     this.isWatched = false;
-    this.toastr.success('Stock retiré de votre watchlist.', "Succès");
+    this.toastr.success('Stock retiré de votre watchlist.', 'Succès');
   }
 
   sendTo(i: number) {
     if (this.status![i] === 'send') {
-      let notif: string = `${this.user?.Prenom} ${this.user?.Nom} vous recommande de jetez un coup d'oeil à ${this.searchedStock}.`;
-      console.log(`Envoi de la notification suivante à ${this.amisString![i]}:`, notif);
-      // TODO: Send notification
+      const notif = `${this.user?.Prenom} ${this.user?.Nom} vous recommande de jetez un coup d'oeil à ${this.searchedStock}.`;
+      this._userService.notify(this.amisString![i], {
+        Message: notif,
+        Read: false,
+      });
 
       this.status![i] = 'done';
+      this.toastr.success(
+        `Stock recommandé à ${this.amisString![i]}.`,
+        'Succès'
+      );
     }
   }
 
@@ -106,6 +102,6 @@ export class SearchComponent implements OnInit {
   }
 
   closeModal(id: string) {
-      this.modalService.close(id);
+    this.modalService.close(id);
   }
 }

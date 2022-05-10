@@ -19,10 +19,12 @@
   color: $brown;
 }
 
-.notification-item:hover {
-  background-color: $lightgrey;
+.notification-item {
+  white-space: normal;
+  &:hover {
+    background-color: $lightgrey;
+  }
 }
-
 .opened {
   background-color: $cream;
 }
