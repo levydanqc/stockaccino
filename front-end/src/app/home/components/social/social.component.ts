@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { Friend } from 'src/app/classes/friend';
+import { Friend } from 'src/app/classes/users/friendfriend';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/classes/user';
+import { User } from 'src/app/classes/users/user';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

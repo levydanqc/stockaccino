@@ -1,3 +1,5 @@
+import { Notification } from './notification';
+
 export interface User {
   Id?: string;
   Email: string;
@@ -7,4 +9,5 @@ export interface User {
   Stocks: string[];
   Amis: string[];
   Requetes: string[];
+  Notifications: Notification[];
 }

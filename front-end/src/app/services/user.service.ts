@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { User } from '../classes/user';
-import { UserDto } from '../classes/userDto';
+import { User } from '../classes/users/user';
+import { UserDto } from '../classes/users/userDto';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Constants } from '../../assets/constants';
-import { outputAst } from '@angular/compiler';
-import { TokenDto } from '../classes/tokenDTO';
+import { TokenDto } from '../classes/users/tokenDTO';
 
 interface Parameters {
   endpoint: string;
@@ -28,7 +27,7 @@ export class UserService {
     return this.apiCall({
       endpoint: '',
       headers: new HttpHeaders({
-        'Authorization': 'bearer ' + this.cookieService.get("token"),
+        Authorization: 'bearer ' + this.cookieService.get('token'),
       }),
       body: null,
       query: null,
@@ -57,7 +56,7 @@ export class UserService {
     return this.apiCall({
       endpoint: 'findById',
       headers: new HttpHeaders({
-        'Authorization': 'bearer ' + this.cookieService.get("token")
+        Authorization: 'bearer ' + this.cookieService.get('token'),
       }),
       body: null,
       query: null,
@@ -69,7 +68,7 @@ export class UserService {
       .put(`${this.apiUrl}watch/${symbol}`, null, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          'Authorization': 'bearer ' + this.cookieService.get("token")
+          Authorization: 'bearer ' + this.cookieService.get('token'),
         }),
       })
       .subscribe((res) => {});
@@ -80,38 +79,54 @@ export class UserService {
       .put(`${this.apiUrl}unwatch/${symbol}`, null, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          'Authorization': 'bearer ' + this.cookieService.get("token")
+          Authorization: 'bearer ' + this.cookieService.get('token'),
         }),
       })
       .subscribe((res) => {});
   }
 
   refuseRequest(email: string) {
-    this.http.put(`${this.apiUrl}refuse/${email}`, null, { headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + this.cookieService.get("token")
-    })}).subscribe(res => {});
+    this.http
+      .put(`${this.apiUrl}refuse/${email}`, null, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'bearer ' + this.cookieService.get('token'),
+        }),
+      })
+      .subscribe((res) => {});
   }
 
   acceptRequest(email: string) {
-    this.http.put(`${this.apiUrl}accept/${email}`, null, { headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + this.cookieService.get("token")
-    })}).subscribe(res => {});
+    this.http
+      .put(`${this.apiUrl}accept/${email}`, null, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'bearer ' + this.cookieService.get('token'),
+        }),
+      })
+      .subscribe((res) => {});
   }
 
   removeFriend(email: string) {
-    this.http.put(`${this.apiUrl}removeFriend/${email}`, null, { headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + this.cookieService.get("token")
-    })}).subscribe(res => {});
+    this.http
+      .put(`${this.apiUrl}removeFriend/${email}`, null, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'bearer ' + this.cookieService.get('token'),
+        }),
+      })
+      .subscribe((res) => {});
   }
 
   addFriend(email: string) {
-    this.http.put(`${this.apiUrl}sendRequest/${email}`, null, { headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + this.cookieService.get("token")
-    })}).subscribe(res => {});
+    this.http
+      .put(`${this.apiUrl}sendRequest/${email}`, null, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'bearer ' + this.cookieService.get('token'),
+        }),
+      })
+      .subscribe((res) => {});
   }
 
   updateUser(email?: string, nom?: string, prenom?: string, password?: string) {
@@ -133,10 +148,12 @@ export class UserService {
       }
       const httpOptions = {
         headers: new HttpHeaders({
-          'Authorization': 'bearer ' + this.cookieService.get("token"),
-        })
+          Authorization: 'bearer ' + this.cookieService.get('token'),
+        }),
       };
-      this.http.put(this.apiUrl + "update", user, httpOptions).subscribe((res) => {});
+      this.http
+        .put(this.apiUrl + 'update', user, httpOptions)
+        .subscribe((res) => {});
     });
   }
 
@@ -149,6 +166,7 @@ export class UserService {
       Stocks: [],
       Amis: [],
       Requetes: [],
+      Notifications: [],
     };
     this.http.post(this.apiUrl, user).subscribe((res) => {});
   }
@@ -176,8 +194,8 @@ export class UserService {
   login(email: string, password: string): Observable<TokenDto> {
     let user: UserDto = {
       Email: email,
-      Password: password
+      Password: password,
     };
-    return this.http.post<TokenDto>(this.apiUrl + "login", user);
+    return this.http.post<TokenDto>(this.apiUrl + 'login', user);
   }
 }
