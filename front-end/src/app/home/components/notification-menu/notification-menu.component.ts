@@ -17,7 +17,6 @@ export class NotificationMenuComponent {
   constructor() {}
 
   toggleNotification(state: boolean) {
-    console.log(state);
     this.show = state;
   }
 }
