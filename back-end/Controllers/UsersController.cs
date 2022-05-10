@@ -1,4 +1,4 @@
-using Stockaccino.Models;
+﻿using Stockaccino.Models;
 using Stockaccino.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -287,6 +287,40 @@ public class UsersController : ControllerBase
         await _usersService.UpdateAsync(removedFriend.Id!, removedFriend);
 
         return NoContent();
+    }
+
+    [Authorize]
+    [HttpPut("notification/notify/{email}")]
+    public async Task<IActionResult> Notify(string email, Notification notification)
+    {
+        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
+        User? target = await _usersService.GetAsync(email);
+
+        if (user is null || target is null) return NoContent();
+
+        if (!user.Amis.Contains(email) || !target.Amis.Contains(user.Email)) return Unauthorized();
+
+        target.Notifications.Add(notification);
+
+        await _usersService.UpdateAsync(target.Id!, target);
+
+        return Ok();
+    }
+
+
+    [Authorize]
+    [HttpPut("notification/update")]
+    public async Task<IActionResult> UpdateNotification(Notification notification)
+    {
+        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
+
+        if (user is null) return NoContent();
+
+        user.Notifications.ForEach(x => { if (x.Message == notification.Message) x.Read = notification.Read; });
+
+        await _usersService.UpdateAsync(user.Id!, user);
+
+        return Ok();
     }
 
     [Authorize]

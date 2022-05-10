@@ -10,11 +10,11 @@
         </div>
         <mat-divider></mat-divider>
         <div class="p-1">
-            <div class="notification-item d-flex justify-content-between px-1 py-2 my-3 fs-5"
-                *ngFor="let notification of notifications">
+            <div class="notification-item position-relative d-flex justify-content-between align-items-center px-1 py-2 my-3 fs-5"
+                *ngFor="let notification of notifications" role="button" (click)="notification.read = true">
                 <span>{{ notification.message }}</span>
-                <span ngIf="notification.read">
-                    class="translate-middle p-2 bg-danger border border-light rounded-circle">
+                <span *ngIf="!notification.read"
+                    class="top-50 end-0 p-2 mx-3 bg-danger border border-light rounded-circle">
                     <span class="visually-hidden">Non lue</span>
                 </span>
             </div>
