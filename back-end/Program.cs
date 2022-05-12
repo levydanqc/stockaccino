@@ -63,7 +63,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors(options => options.AllowAnyOrigin()
+app.UseCors(options => options
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowAnyOrigin()
