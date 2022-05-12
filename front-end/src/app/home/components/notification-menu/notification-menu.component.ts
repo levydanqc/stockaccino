@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Notification } from 'src/app/classes/users/notification';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,7 +14,7 @@ export class NotificationMenuComponent implements OnInit {
   notifications!: Notification[];
   unread: number = 0;
 
-  constructor(private _userService: UserService) {}
+  constructor(private _userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchNotifications();
@@ -49,5 +50,19 @@ export class NotificationMenuComponent implements OnInit {
       });
     }
     this.unread = nb;
+  }
+
+  getLink(notification: Notification) {
+    this.updateNotification(notification, true);
+    if (notification.Message.includes('recommande')) {
+      this.router.navigate(['/search'], {
+        queryParams: {
+          searchedStock: notification.Message.split(' ').pop(),
+        },
+      });
+    } else if (notification.Message.includes('ami')) {
+      this.router.navigate(['/social']);
+    }
+    return null;
   }
 }
