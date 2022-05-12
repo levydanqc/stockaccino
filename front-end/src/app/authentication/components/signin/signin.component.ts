@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { EditorType } from '../../authentication.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signin',
@@ -33,7 +34,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private controlContainer: ControlContainer,
-    private _userService: UserService
+    private _userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +65,7 @@ export class SigninComponent implements OnInit {
               that.authSignIn.emit();
             },
             error() {
-              that.error = 'Le serveur rencontre une erreur au moment de traiter votre demande.';
+              that.toastr.error('Le serveur rencontre une erreur au moment de traiter votre demande.');
             }
           });
         }
