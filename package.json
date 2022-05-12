@@ -1,0 +1,24 @@
+{
+  "name": "stockaccino",
+  "version": "1.0.0",
+  "description": "Stockaccino, la gestion des stocks aussi simple que de se faire un café...",
+  "main": " ",
+  "scripts": {
+    "postinstall": "cd front-end ; npm i --legacy-peer-deps",
+    "start": "concurrently \"cd front-end ; ng serve\" \"cd back-end ; dotnet run\"",
+    "test": "concurrently \"cd front-end ; ng test\" \"cd back-end ; dotnet test\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levydanqc/stockaccino.git"
+  },
+  "author": "Dan Levy, Olivier Poitras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/levydanqc/stockaccino/issues"
+  },
+  "homepage": "https://github.com/levydanqc/stockaccino#readme",
+  "devDependencies": {
+    "concurrently": "^7.1.0"
+  }
+}
