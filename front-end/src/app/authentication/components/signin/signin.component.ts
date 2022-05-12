@@ -65,10 +65,12 @@ export class SigninComponent implements OnInit {
   }
 
   verifyEmail() {
-    this._userService.verifyEmail(this.email.value).subscribe((data: any) => {
-      if (data) this.estUtilise = true;
-      else this.estUtilise = false;
-    });
+    if (this.email.value != '' && !this.email.hasError) {
+      this._userService.verifyEmail(this.email.value).subscribe((data: any) => {
+        if (data) this.estUtilise = true;
+        else this.estUtilise = false;
+      });
+    }
   }
 
   matchPwd() {
