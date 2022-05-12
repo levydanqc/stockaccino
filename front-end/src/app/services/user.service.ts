@@ -183,8 +183,12 @@ export class UserService {
 
   verifyUser(email: string, password: string): Observable<User> {
     return this.apiCall({
-      endpoint: `verify/${email}`,
-      headers: new HttpHeaders({ password: password }),
+      endpoint: `verify`,
+      headers: 
+        new HttpHeaders({
+           password: password,
+           email: email
+          }),
       body: null,
       query: null,
     });
