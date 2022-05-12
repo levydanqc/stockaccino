@@ -77,6 +77,14 @@ export class SidenavComponent implements AfterViewInit, OnInit {
       });
   }
 
+  redirect(symbol: string) {
+    this.router.navigate(['/search'], {
+      queryParams: {
+        searchedStock: symbol,
+      },
+    });
+  }
+
   noResult() {
     return (
       !this.isLoading &&
