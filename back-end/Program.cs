@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Stockaccino.Models;
@@ -63,9 +63,10 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors(options => options.AllowAnyOrigin()
+app.UseCors(options => options
     .AllowAnyHeader()
     .AllowAnyMethod()
+    .AllowAnyOrigin()
 );
 
 

@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/classes/user';
+import { User } from 'src/app/classes/users/user';
 import { UserService } from 'src/app/services/user.service';
 
 export type EditorType = 'request' | 'confirm' | 'reset';

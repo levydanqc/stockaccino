@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/classes/user';
+import { User } from 'src/app/classes/users/user';
 import { UserService } from 'src/app/services/user.service';
 import { YahooService } from 'src/app/services/yahoo.service';
 import { ModalService } from 'src/app/_modal';

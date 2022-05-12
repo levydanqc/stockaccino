@@ -1,0 +1,39 @@
+<div class="notification-wrapper position-relative px-1 py-2 float-end">
+    <div class="notification-btn position-relative rounded-pill d-flex p-3" (click)="toggleNotification(!show)"
+        (mouseover)="icon = 'notifications'" (mouseout)="icon = 'notifications_none'" [ngClass]="{'opened': show}">
+        <mat-icon mat-list-icon>
+            {{ icon }}
+        </mat-icon>
+        <span *ngIf="this.unread"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ this.unread }}
+            <span class="visually-hidden">unread messages</span>
+        </span>
+    </div>
+    <div *ngIf="show" class="notification-content shadow-lg end-0 position-absolute rounded-3 border border-2"
+        (clickOutside)="toggleNotification(false)" [exclude]="'.notification-wrapper'">
+        <div class="p-1">
+            <span class="label text-center fw-bolder fs-3">
+                Notifications
+            </span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="px-2 py-1 fs-5">
+            <div *ngIf="notifications.length > 0; then withNotifications else noNotification"></div>
+            <ng-template #withNotifications>
+                <div class="notification-item position-relative d-flex justify-content-between align-items-center px-1 py-2 my-3"
+                    *ngFor="let notification of notifications" role="button"
+                    (click)="updateNotification(notification, true)">
+                    <span>{{ notification.Message }}</span>
+                    <span *ngIf="!notification.Read"
+                        class="top-50 end-0 p-2 mx-3 bg-danger border border-light rounded-circle">
+                        <span class="visually-hidden">Non lues</span>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template #noNotification>
+                Aucune notification
+            </ng-template>
+        </div>
+    </div>
+</div>

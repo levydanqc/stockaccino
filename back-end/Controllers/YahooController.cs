@@ -33,7 +33,7 @@ public class YahooController : ControllerBase
 
         for (int i = 0; i < symbols.Length; i++)
         {
-            symbols[i] = i == symbols.Length - 1 ? new string[nbResultat % 10] : new string[10];
+            symbols[i] = i == symbols.Length - 1 ? new string[nbResultat - (10 * i)] : new string[10];
             for (int j = 0; j < symbols[i].Length; j++)
             {
                 symbols[i][j] = ((JArray)jObject["finance"]!["result"]![0]!["quotes"]!)[i * 10 + j]["symbol"]!.ToString();

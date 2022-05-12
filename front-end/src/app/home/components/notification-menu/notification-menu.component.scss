@@ -1,0 +1,28 @@
+@import '../../../../theme.scss';
+
+.notification-btn {
+  cursor: pointer;
+}
+
+.notification-btn:hover {
+  color: $coffee;
+  background-color: $lightgrey;
+}
+
+.notification-content {
+  background-color: $grey;
+  z-index: 300;
+  width: 25vw;
+}
+
+.label {
+  color: $brown;
+}
+
+.notification-item:hover {
+  background-color: $lightgrey;
+}
+
+.opened {
+  background-color: $cream;
+}
