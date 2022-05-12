@@ -156,7 +156,7 @@ export class UserService {
     });
   }
 
-  postUser(email: string, password: string, nom: string, prenom: string) {
+  postUser(email: string, password: string, nom: string, prenom: string): Observable<any> {
     let user: User = {
       Email: email,
       Prenom: prenom,
@@ -167,7 +167,8 @@ export class UserService {
       Requetes: [],
       Notifications: [],
     };
-    this.http.post(Constants.USER_URL, user).subscribe((res) => {});
+
+    return this.http.post(Constants.USER_URL, user);
   }
 
   apiCall(params: Parameters): Observable<any> {
