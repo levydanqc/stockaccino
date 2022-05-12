@@ -148,7 +148,7 @@ public class UsersController : ControllerBase
             }
         }
 
-        return NoContent();
+        return Ok();
     }
 
     [Authorize]
@@ -167,7 +167,7 @@ public class UsersController : ControllerBase
         }
         await _usersService.UpdateAsync(User?.Identity?.Name!, user);
 
-        return NoContent();
+        return Ok();
     }
 
     [Authorize]
@@ -186,7 +186,7 @@ public class UsersController : ControllerBase
         }
         await _usersService.UpdateAsync(User?.Identity?.Name!, user);
 
-        return NoContent();
+        return Ok();
     }
 
     [Authorize]
@@ -208,7 +208,7 @@ public class UsersController : ControllerBase
 
         await _usersService.UpdateAsync(receivingUser.Id!, receivingUser);
 
-        return NoContent();
+        return Ok();
     }
 
     [Authorize]
@@ -245,7 +245,7 @@ public class UsersController : ControllerBase
         await _usersService.UpdateAsync(User?.Identity?.Name!, receivingUser);
         await _usersService.UpdateAsync(requestingUser.Id!, requestingUser);
 
-        return NoContent();
+        return Ok();
     }
 
     [Authorize]
@@ -262,7 +262,7 @@ public class UsersController : ControllerBase
 
         await _usersService.UpdateAsync(User?.Identity?.Name!, user);
 
-        return NoContent();
+        return Ok();
     }
 
     [Authorize]
@@ -285,7 +285,7 @@ public class UsersController : ControllerBase
         await _usersService.UpdateAsync(User?.Identity?.Name!, user);
         await _usersService.UpdateAsync(removedFriend.Id!, removedFriend);
 
-        return NoContent();
+        return Ok();
     }
 
     [Authorize]
@@ -350,6 +350,6 @@ public class UsersController : ControllerBase
 
         await _usersService.RemoveAsync(User?.Identity?.Name!);
 
-        return NoContent();
+        return Ok();
     }
 }
