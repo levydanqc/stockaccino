@@ -299,6 +299,8 @@ public class UsersController : ControllerBase
 
         if (!user.Amis.Contains(email) || !target.Amis.Contains(user.Email)) return Unauthorized();
 
+        if (target.Notifications.Contains(notification)) return Ok();
+        
         target.Notifications.Add(notification);
 
         await _usersService.UpdateAsync(target.Id!, target);
