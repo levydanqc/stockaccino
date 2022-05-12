@@ -9,6 +9,7 @@ const routes: Routes = [
       import('./authentication/authentication.module').then(
         (m) => m.AuthenticationModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: '',

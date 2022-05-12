@@ -24,9 +24,14 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (this.authService.isLoggedIn()) {
+      console.log(state.url);
+      if (state.url === '/account') return this.router.parseUrl('/');
+
       return true;
     }
-    this.router.navigate(['/account/login']);
-    return false;
+    
+    if (state.url === '/account') return true;
+    
+    return this.router.parseUrl('/account');
   }
 }
