@@ -52,20 +52,27 @@ export class SigninComponent implements OnInit {
         if (this.estUtilise) {
           this.error = 'Cette adresse courriel est déjà utilisée.';
         } else {
+          const that = this;
           this._userService.postUser(
             this.email.value,
             this.pwd.value,
             this.nom.value,
             this.prenom.value
-          );
-          this.authSignIn.emit();
+          ).subscribe({
+            next() {
+              that.authSignIn.emit();
+            },
+            error() {
+              that.error = 'Le serveur rencontre une erreur au moment de traiter votre demande.';
+            }
+          });
         }
       }
     }
   }
 
   verifyEmail() {
-    if (this.email.value != '' && !this.email.hasError) {
+    if (this.email.value != '' && !this.email.hasError('email')) {
       this._userService.verifyEmail(this.email.value).subscribe((data: any) => {
         if (data) this.estUtilise = true;
         else this.estUtilise = false;
