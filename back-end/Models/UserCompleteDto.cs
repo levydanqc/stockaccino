@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Stockaccino.Models;
 
-public class User
+public class UserCompleteDto
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
@@ -15,9 +15,7 @@ public class User
 
     public string Nom { get; set; } = null!;
 
-    public byte[] PasswordHash { get; set; } = null!;
-
-    public byte[] PasswordSalt { get; set; } = null!;
+    public string? Password { get; set; }
 
     public string[] Stocks { get; set; } = null!;
 
