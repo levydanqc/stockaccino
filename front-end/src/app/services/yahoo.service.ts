@@ -9,6 +9,8 @@ import { Screener } from '../classes/yahoo/suggestion';
   providedIn: 'root',
 })
 export class YahooService {
+  reloaded = false;
+
   constructor(private http: HttpClient) {}
 
   public getAutocomplete(query: string): any {
@@ -45,5 +47,10 @@ export class YahooService {
     return this.http.get(Constants.STOCK_CHART_URL, {
       params: new HttpParams().append('symbol', symbol),
     });
+  }
+
+  public reloadApiKey() {
+    if (!this.reloaded) this.http.get(Constants.WEBHOOK_URL).subscribe();
+    this.reloaded = true;
   }
 }

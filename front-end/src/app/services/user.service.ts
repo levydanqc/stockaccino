@@ -170,7 +170,12 @@ export class UserService {
     }
   }
 
-  postUser(email: string, password: string, nom: string, prenom: string): Observable<any> {
+  postUser(
+    email: string,
+    password: string,
+    nom: string,
+    prenom: string
+  ): Observable<any> {
     let user: User = {
       Email: email,
       Prenom: prenom,
