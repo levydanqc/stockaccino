@@ -7,16 +7,15 @@
         <mat-error *ngIf="this.form.get('email')?.invalid">{{getEmailError()}}</mat-error>
     </mat-form-field>
     <mat-card-actions>
-        <button fxFill mat-raised-button color="primary" (click)="submit('request')">Envoyer le
-            courriel</button>
+        <button fxFill mat-raised-button color="primary" (click)="submit('request')">Étape suivante</button>
     </mat-card-actions>
 </div>
 <div *ngIf="showConfirm()">
     <form #myForm="ngForm">
         <mat-form-field appearance="outline">
-            <mat-label>Entrez le code reçu à l'adresse courriel.</mat-label>
+            <mat-label>Entrez le code indiqué pour prouver que vous êtes un humain.</mat-label>
             <input matInput placeholder="000000" name="codeForm" id="codeForm" [formControl]="this.codeForm" required>
-            <mat-hint>Entrez le code reçu par courriel.</mat-hint>
+            <mat-hint>Entrez le code indiqué.</mat-hint>
             <mat-error *ngIf="this.form.get('code')?.invalid">{{getCodeError()}}</mat-error>
         </mat-form-field>
         <mat-card-actions>

@@ -5,7 +5,7 @@ export interface User {
   Email: string;
   Prenom: string;
   Nom: string;
-  Password: string;
+  Password?: string;
   Stocks: string[];
   Amis: string[];
   Requetes: string[];

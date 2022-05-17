@@ -85,7 +85,7 @@ export class ResetComponent implements OnInit {
       .getUserByEmail(this.email.value)
       .subscribe((data: User) => {
         this._userService.updateUser(
-          undefined,
+          data.Email,
           undefined,
           undefined,
           this.pwd.value
