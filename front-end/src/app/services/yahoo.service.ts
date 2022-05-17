@@ -50,7 +50,8 @@ export class YahooService {
 
   public reloadApiKey() {
     const now = Math.floor(Date.now() / 1000);
-    if (Number.parseInt(this.cookies.get('last_reload')) + 15 < now) {
+    const last = this.cookies.get('last_reload');
+    if (!last || Number.parseInt(last) + 15 < now) {
       this.cookies.set(
         'last_reload',
         Math.floor(Date.now() / 1000).toString(),
