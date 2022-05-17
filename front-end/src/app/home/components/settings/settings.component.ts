@@ -27,14 +27,12 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._userService
-      .getUserById()
-      .subscribe((data) => {
-        this.isLoading = false;
-        this.form.get('email')?.setValue(data.Email);
-        this.form.get('prenom')?.setValue(data.Prenom);
-        this.form.get('nom')?.setValue(data.Nom);
-      });
+    this._userService.getUserById().subscribe((data) => {
+      this.isLoading = false;
+      this.form.get('email')?.setValue(data.Email);
+      this.form.get('prenom')?.setValue(data.Prenom);
+      this.form.get('nom')?.setValue(data.Nom);
+    });
   }
 
   isShow() {
@@ -58,7 +56,8 @@ export class SettingsComponent implements OnInit {
 
   deconnexion() {
     this.cookieService.delete('token');
-    this.toastr.success('Vous avez été déconnecté.', "Succès");
+    this.cookieService.delete('last_reload');
+    this.toastr.success('Vous avez été déconnecté.', 'Succès');
     location.reload();
   }
 
@@ -70,7 +69,7 @@ export class SettingsComponent implements OnInit {
         this.form.get('prenom')?.value
       );
       this.switch('show');
-      this.toastr.success('Modifications enregistrées.', "Succès");
+      this.toastr.success('Modifications enregistrées.', 'Succès');
     }
   }
 

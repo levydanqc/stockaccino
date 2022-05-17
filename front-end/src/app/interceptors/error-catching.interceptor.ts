@@ -27,7 +27,10 @@ export class ErrorCatchingInterceptor implements HttpInterceptor {
         if (error.status === 429) {
           this.yahooService.reloadApiKey();
           this.toast
-            .error('Merci de rafraichir la page.', "Erreur d'API")
+            .error(
+              'Attendez quelques secondes et rafraichissez la page.',
+              "Erreur d'API"
+            )
             .onTap.pipe(take(1))
             .subscribe(() => window.location.reload());
         }

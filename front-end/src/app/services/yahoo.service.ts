@@ -4,14 +4,13 @@ import { Constants } from 'src/assets/constants';
 import { map, Observable } from 'rxjs';
 import { Trending } from '../classes/yahoo/trending';
 import { Screener } from '../classes/yahoo/suggestion';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class YahooService {
-  reloaded = false;
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookies: CookieService) {}
 
   public getAutocomplete(query: string): any {
     const queryParams = new HttpParams().append('input', query);
@@ -50,7 +49,14 @@ export class YahooService {
   }
 
   public reloadApiKey() {
-    if (!this.reloaded) this.http.get(Constants.WEBHOOK_URL).subscribe();
-    this.reloaded = true;
+    const now = Math.floor(Date.now() / 1000);
+    if (Number.parseInt(this.cookies.get('last_reload')) + 15 < now) {
+      this.cookies.set(
+        'last_reload',
+        Math.floor(Date.now() / 1000).toString(),
+        1
+      );
+      this.http.get(Constants.WEBHOOK_URL).subscribe();
+    }
   }
 }
