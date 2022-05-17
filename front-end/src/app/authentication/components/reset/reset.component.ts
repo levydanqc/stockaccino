@@ -65,7 +65,6 @@ export class ResetComponent implements OnInit {
     else if (event === 'confirm') {
       if (this.form.get('code')?.valid) this.confirm();
     } else if (event === 'request') {
-      console.log(this.form.get('email'));
       if (this.form.get('email')?.valid) this.request();
     }
   }

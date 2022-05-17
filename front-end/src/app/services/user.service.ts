@@ -136,7 +136,6 @@ export class UserService {
         user.Email = email;
       }
       if (nom) {
-        console.log(user);
         user.Nom = nom;
       }
       if (prenom) {
@@ -156,7 +155,12 @@ export class UserService {
     });
   }
 
-  postUser(email: string, password: string, nom: string, prenom: string): Observable<any> {
+  postUser(
+    email: string,
+    password: string,
+    nom: string,
+    prenom: string
+  ): Observable<any> {
     let user: User = {
       Email: email,
       Prenom: prenom,
@@ -185,11 +189,10 @@ export class UserService {
   verifyUser(email: string, password: string): Observable<User> {
     return this.apiCall({
       endpoint: `verify`,
-      headers: 
-        new HttpHeaders({
-           password: password,
-           email: email
-          }),
+      headers: new HttpHeaders({
+        password: password,
+        email: email,
+      }),
       body: null,
       query: null,
     });
