@@ -13,6 +13,9 @@ export class RecommendationComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
   }
 
   loaded() {

@@ -23,7 +23,9 @@ import { ErrorCatchingInterceptor } from './interceptors/error-catching.intercep
     ReactiveFormsModule,
     FormsModule,
     ModalModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+    }),
   ],
   providers: [
     CookieService,
