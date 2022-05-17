@@ -26,7 +26,14 @@ public class YahooService
 
     public async Task<string> GetTrending()
     {
-        return await _client.GetStringAsync(_baseUrl + _endPoints["trending"]);
+        try
+        {
+            return await _client.GetStringAsync(_baseUrl + _endPoints["trending"]);
+        }
+        catch
+        {
+            throw new Exception();
+        }
     }
 
     public async Task<string> GetScreeners(string screener)
@@ -37,7 +44,14 @@ public class YahooService
             ["scrIds"] = screener,
         };
 
-        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["suggestion"], query));
+        try
+        {
+            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["suggestion"], query));
+        }
+        catch
+        {
+            throw new Exception();
+        }
     }
 
     internal async Task<string> GetAutocomplete(string input)
@@ -48,8 +62,14 @@ public class YahooService
             ["lang"] = "fr",
             ["query"] = input,
         };
-
-        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["autocomplete"], query));
+        try
+        {
+            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["autocomplete"], query));
+        }
+        catch
+        {
+            throw new Exception();
+        }
     }
 
     public async Task<string> GetQuote(string symbol)
@@ -62,12 +82,26 @@ public class YahooService
         };
 
 
-        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
+        try
+        {
+            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["quote"], query));
+        }
+        catch
+        {
+            throw new Exception();
+        }
     }
 
     public async Task<string> GetQuote(string[] symbols)
     {
-        return await GetQuote(string.Join(",", symbols));
+        try
+        {
+            return await GetQuote(string.Join(",", symbols));
+        }
+        catch
+        {
+            throw new Exception();
+        }
     }
 
     public async Task<string> GetChart(string symbol, string range, string interval)
@@ -80,25 +114,13 @@ public class YahooService
             ["interval"] = interval,
         };
 
-        return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["chart"] + symbol, query));
-    }
-
-    public string ReloadApiKey()
-    {
-        Console.WriteLine("Limit Exceeded. Refreshing Api Key...");
-        //_client.GetAsync("https://api.danlevy.ca/webhook/reloadyahooapikey");
-
-        /*
-        var psi = new ProcessStartInfo();
-        psi.FileName = "/bin/bash";
-        psi.Arguments = "/Users/danlevy/scripts/generateYahooApiKey";
-        psi.RedirectStandardOutput = true;
-        psi.UseShellExecute = false;
-        psi.CreateNoWindow = true;
-
-        using var process = Process.Start(psi);
-        */
-
-        return "reached limit";
+        try
+        {
+            return await _client.GetStringAsync(QueryHelpers.AddQueryString(_baseUrl + _endPoints["chart"] + symbol, query));
+        }
+        catch
+        {
+            throw new Exception();
+        }
     }
 }
