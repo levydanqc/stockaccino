@@ -5,6 +5,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Cryptography;
 
 namespace Stockaccino.Controllers;
 
@@ -24,10 +25,22 @@ public class UsersController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<TokenDto>> Login(UserDto pUser)
     {
-        User? user = await _usersService.GetAsync(pUser.Email, pUser.Password);
+        User? user = await _usersService.GetAsync(pUser.Email);
         if (user == null)
             return NoContent();
+        else if (!VerifyPasswordHash(pUser.Password, user.PasswordHash, user.PasswordSalt))
+            return NoContent();
+
         return CreateToken(user);
+    }
+
+    private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+    {
+        using (var hmac = new HMACSHA512(passwordSalt))
+        {
+            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            return computedHash.SequenceEqual(passwordHash);
+        }
     }
 
     [Authorize]
@@ -70,67 +83,131 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{email}")]
-    public async Task<ActionResult<User>> Get(string email)
+    public async Task<ActionResult<UserCompleteDto>> Get(string email)
     {
         User? user = await _usersService.GetAsync(email);
-
         if (user is null)
-        {
             return NoContent();
-        }
 
-        return user;
-    }
-
-    [HttpGet("verify")]
-    public async Task<ActionResult<User>> Get([FromHeader] string email, [FromHeader] string password)
-    {
-        User? user = await _usersService.GetAsync(email, password);
-
-        if (user is null)
+        UserCompleteDto userCompleteDto = new UserCompleteDto
         {
-            return NoContent();
-        }
+            Id = user.Id,
+            Email = user.Email,
+            Nom = user.Nom,
+            Prenom = user.Prenom,
+            Stocks = user.Stocks,
+            Amis = user.Amis,
+            Requetes = user.Requetes,
+            Notifications = user.Notifications
+        };
 
-        return user;
+        return userCompleteDto;
     }
 
     [Authorize]
     [HttpGet("findById")]
-    public async Task<ActionResult<User>> GetById()
+    public async Task<ActionResult<UserCompleteDto>> GetById()
     {
         User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
-
         if (user is null)
-        {
             return NoContent();
-        }
 
-        return user;
+        UserCompleteDto userCompleteDto = new UserCompleteDto
+        {
+            Id = user.Id,
+            Email = user.Email,
+            Nom = user.Nom,
+            Prenom = user.Prenom,
+            Stocks = user.Stocks,
+            Amis = user.Amis,
+            Requetes = user.Requetes,
+            Notifications = user.Notifications
+        };
+
+        return userCompleteDto;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(User newUser)
+    public async Task<IActionResult> Post(UserCompleteDto pNewUser)
     {
+        CreatePasswordHash(pNewUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
+        User newUser = new User
+        {
+            Email = pNewUser.Email,
+            Prenom = pNewUser.Prenom,
+            Nom = pNewUser.Nom,
+            PasswordHash = passwordHash,
+            PasswordSalt = passwordSalt,
+            Stocks = pNewUser.Stocks,
+            Amis = pNewUser.Amis,
+            Requetes = pNewUser.Requetes,
+            Notifications = pNewUser.Notifications,
+        };
+
         await _usersService.CreateAsync(newUser);
 
         return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
     }
 
-    [Authorize]
-    [HttpPut("update")]
-    public async Task<IActionResult> Update(User updatedUser)
+    private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
     {
-        User? user = await _usersService.GetAsyncById(User?.Identity?.Name!);
+        using (var hmac = new HMACSHA512())
+        {
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+        }
+    }
+
+    [HttpPut("update")]
+    public async Task<IActionResult> Update(UserCompleteDto updatedUser)
+    {
+        User? user = await _usersService.GetAsyncById(updatedUser.Id!);
 
         if (user is null)
         {
             return NoContent();
         }
 
-        updatedUser.Id = user.Id;
+        User newUser;
 
-        await _usersService.UpdateAsync(User?.Identity?.Name!, updatedUser);
+        if (updatedUser.Password != null)
+        {
+            CreatePasswordHash(updatedUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            newUser = new User
+            {
+                Id = user.Id,
+                Email = updatedUser.Email,
+                Prenom = updatedUser.Prenom,
+                Nom = updatedUser.Nom,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Stocks = user.Stocks,
+                Amis = user.Amis,
+                Requetes = user.Requetes,
+                Notifications = user.Notifications,
+            };
+        }
+        else
+        {
+            newUser = new User
+            {
+                Id = user.Id,
+                Email = updatedUser.Email,
+                Prenom = updatedUser.Prenom,
+                Nom = updatedUser.Nom,
+                PasswordHash = user.PasswordHash,
+                PasswordSalt = user.PasswordSalt,
+                Stocks = user.Stocks,
+                Amis = user.Amis,
+                Requetes = user.Requetes,
+                Notifications = user.Notifications,
+            };
+        }
+
+        
+
+        await _usersService.UpdateAsync(newUser.Id!, newUser);
 
         if (updatedUser.Email != user.Email)
         {
