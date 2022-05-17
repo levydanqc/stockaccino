@@ -129,30 +129,45 @@ export class UserService {
   }
 
   updateUser(email?: string, nom?: string, prenom?: string, password?: string) {
-    let user!: User;
-    this.getUserById().subscribe((data) => {
-      user = data;
-      if (email) {
-        user.Email = email;
-      }
-      if (nom) {
-        user.Nom = nom;
-      }
-      if (prenom) {
-        user.Prenom = prenom;
-      }
-      if (password) {
+    let user: User;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.cookieService.get('token'),
+      }),
+    };
+    if (password) {
+      this.getUserByEmail(email!).subscribe((data) => {
+        user = data;
         user.Password = password;
-      }
-      const httpOptions = {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.cookieService.get('token'),
-        }),
-      };
-      this.http
-        .put(Constants.USER_URL + 'update', user, httpOptions)
-        .subscribe((res) => {});
-    });
+
+        this.http
+          .put(Constants.USER_URL + 'update', user!, httpOptions)
+          .subscribe();
+      });
+    }
+    else {
+      this.getUserById().subscribe((data) => {
+        user = data;
+  
+        if (email) {
+          user.Email = email;
+        }
+  
+        if (nom) {
+          user.Nom = nom;
+        }
+  
+        if (prenom) {
+          user.Prenom = prenom;
+        }
+        
+        user.Password = undefined; 
+
+        this.http
+          .put(Constants.USER_URL + 'update', user!, httpOptions)
+          .subscribe();
+      });
+    }
   }
 
   postUser(
@@ -183,18 +198,6 @@ export class UserService {
     return this.http.get<any>(url, {
       headers: params.headers!,
       params: params.body!,
-    });
-  }
-
-  verifyUser(email: string, password: string): Observable<User> {
-    return this.apiCall({
-      endpoint: `verify`,
-      headers: new HttpHeaders({
-        password: password,
-        email: email,
-      }),
-      body: null,
-      query: null,
     });
   }
 
