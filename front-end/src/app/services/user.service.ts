@@ -130,18 +130,18 @@ export class UserService {
 
   updateUser(email?: string, nom?: string, prenom?: string, password?: string) {
     let user: User;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.cookieService.get('token'),
+      }),
+    };
     if (password) {
       this.getUserByEmail(email!).subscribe((data) => {
         user = data;
         user.Password = password;
 
-        const httpOptions = {
-          headers: new HttpHeaders({
-            Authorization: 'Bearer ' + this.cookieService.get('token'),
-          }),
-        };
         this.http
-          .put(Constants.USER_URL + 'update', user, httpOptions)
+          .put(Constants.USER_URL + 'update', user!, httpOptions)
           .subscribe();
       });
     }
@@ -161,15 +161,10 @@ export class UserService {
           user.Prenom = prenom;
         }
         
-        user.Password = undefined;
-  
-        const httpOptions = {
-          headers: new HttpHeaders({
-            Authorization: 'Bearer ' + this.cookieService.get('token'),
-          }),
-        };
+        user.Password = undefined; 
+
         this.http
-          .put(Constants.USER_URL + 'update', user, httpOptions)
+          .put(Constants.USER_URL + 'update', user!, httpOptions)
           .subscribe();
       });
     }
